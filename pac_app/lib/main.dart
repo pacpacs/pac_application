@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'fixed/appBar.dart';
 import 'fixed/bottomNavigator.dart';
+import 'pages/searchResultPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
@@ -38,9 +39,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              RaisedButton(
+                child: Text('Search Result', style:TextStyle(fontSize: 20)),
+                color:Colors.cyan,
+                onPressed: (){
+                  Navigator.push(context, 
+                    MaterialPageRoute<void>(builder: (BuildContext context) {
+                      return searchResultPage();
+                    }
+                   )
+                  );
+                }
+              )
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigator());
+        bottomNavigationBar: BottomNavigator()
+        );
   }
 }

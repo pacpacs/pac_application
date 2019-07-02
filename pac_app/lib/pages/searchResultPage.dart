@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:pac_app/fixed/appbar.dart';
+import 'package:pac_app/fixed/bottomNavigator.dart';
+
 class searchResultPage extends StatefulWidget {
+  searchResultPage({Key key, this.title}) : super(key: key);
+  final String title;
   @override
   _searchResultPageState createState() => _searchResultPageState();
 }
@@ -9,10 +14,7 @@ class _searchResultPageState extends State<searchResultPage> {
    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-          title: new Text('Search Result'),
-          centerTitle: true,
-          ),
+        appBar: appBar.getAppBar(context, ''),
         body:
           new Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -20,7 +22,7 @@ class _searchResultPageState extends State<searchResultPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               new Container(
-                margin: const EdgeInsets.only(right: 30, left:30, top: 10, bottom: 10),
+                margin: const EdgeInsets.only(right: 30, left:30, top: 15, bottom: 15),
                 child: TextField( //검색 창
                  style: TextStyle(
                    fontSize:12.0,
@@ -80,7 +82,8 @@ class _searchResultPageState extends State<searchResultPage> {
               Divider(),
               //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는 버튼
             ]
-          )
+          ),
+        bottomNavigationBar: BottomNavigator(),
       );
   }
   ListTile _makeTile()=>ListTile(
