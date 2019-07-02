@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/pages/homePage.dart';
 
 import 'fixed/appBar.dart';
 import 'fixed/bottomNavigator.dart';
@@ -10,12 +11,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
+
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/',
+        routes: {
+          //TODO: route사용이 안된다 되는 방법을 확인해보자
+          '/': (context) => MyHomePage(),
+//          '/login': (context) => Login(),
+//          '/register': (context) => Register(),
+        });
   }
 }
 
@@ -28,31 +35,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar.getAppBar(context, ''),
         body: Center(
-
-          child: Column(
-
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: Text('Search Result', style:TextStyle(fontSize: 20)),
-                color:Colors.cyan,
-                onPressed: (){
-                  Navigator.push(context, 
-                    MaterialPageRoute<void>(builder: (BuildContext context) {
-                      return searchResultPage();
-                    }
-                   )
-                  );
-                }
-              )
-            ],
-          ),
+          child: homePage()
         ),
         bottomNavigationBar: BottomNavigator()
         );
