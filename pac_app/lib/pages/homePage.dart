@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import 'package:parallax_image/parallax_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pac_app/pages/searchResultPage.dart';
 
 /**
  * P&C의 메인을 구성하는 homePage
@@ -97,8 +98,12 @@ class homePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            enabled: false,
-            onTap: () => {}, //TODO: Ingredient_popup창 뜨게 하기,
+            enabled: true,
+            onTap: () => {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>searchResultPage()
+              ))
+            }, //TODO: Ingredient_popup창 뜨게 하기,
             controller: editingController,
             decoration: InputDecoration(
                 labelText: "  Ingredient Search",

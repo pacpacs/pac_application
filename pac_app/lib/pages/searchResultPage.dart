@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pac_app/fixed/appbar.dart';
 import 'package:pac_app/fixed/bottomNavigator.dart';
+import 'package:pac_app/fixed/customListItem.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
@@ -11,6 +12,25 @@ class searchResultPage extends StatefulWidget {
 }
 
 class _searchResultPageState extends State<searchResultPage> {
+
+  //TODO : 검색결과 받아와서 resultRecipes 업데이트하기
+
+  static customListItem temp = new customListItem(NetworkImage('https://i.imgur.com/zgoeSHx.jpg'),'SmallGoat','pretty cute');
+  static customListItem temp1 = new customListItem(NetworkImage('https://i.imgur.com/03BMohH.jpg'),'Small Donkey','much wow');
+  
+  List<customListItem> resultRecipes=[temp1, temp];
+  
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
    @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +68,7 @@ class _searchResultPageState extends State<searchResultPage> {
                 spacing: 8.0,
                 runSpacing: 4.0,
                 children: <Widget>[
-                  //to-do:ship generator
+                  //to-do:chip generator
                   Chip(
                     avatar: CircleAvatar(
                       backgroundColor: Colors.cyan.shade300,
@@ -63,32 +83,33 @@ class _searchResultPageState extends State<searchResultPage> {
                       ),
                       label: Text('BlueLabel'),
                   ),
-                  Chip(
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.red.shade300,
-                      child: Text('R'),
-                      ),
-                      label: Text('RedLabel'),
-                  ),
-                  Chip(
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.yellow.shade300,
-                      child: Text('Y'),
-                      ),
-                      label: Text('YellowLabel'),
-                  ),
                 ],
               ),
+
               Divider(),
+
               //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는 버튼
+              Expanded(
+                child: new ListView.builder(
+                itemCount: resultRecipes.length,
+                itemBuilder: (BuildContext cnxt, int index) {
+                  final item = resultRecipes[index];
+
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: item.itemPreview
+                      ),
+                      title: Text(item.itemTitle),
+                      subtitle: Text(item.itemDescription),
+                  );
+                },
+              ),
+              )
+              
             ]
           ),
         bottomNavigationBar: BottomNavigator(),
       );
   }
-  ListTile _makeTile()=>ListTile(
-    leading: CircleAvatar(backgroundColor: Colors.teal,),
-    title: Text('title'),
-    subtitle: Text('subtitle'),
-  ); 
+   
 }
