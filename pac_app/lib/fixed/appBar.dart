@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/pages/loginPage.dart';
 
 // ignore: camel_case_types
 class appBar {
@@ -15,10 +14,7 @@ class appBar {
           disabledTextColor: Colors.black,
           splashColor: Colors.blueAccent,
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => loginPage())); //TODO: goto Login Page
+            Navigator.pushNamed(context, '/login');
           },
           child: Text(
             "Login",

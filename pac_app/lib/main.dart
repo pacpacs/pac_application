@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
+import 'package:pac_app/pages/loginPage.dart';
+import 'package:pac_app/pages/registerPage.dart';
 
 import 'fixed/appBar.dart';
 import 'fixed/bottomNavigator.dart';
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
         routes: {
           //TODO: route사용이 안된다 되는 방법을 확인해보자
           '/': (context) => MyHomePage(),
-//          '/login': (context) => Login(),
-//          '/register': (context) => Register(),
+          '/login': (context) => loginPage(),
+          '/register': (context) => registerPage(),
         });
   }
 }
