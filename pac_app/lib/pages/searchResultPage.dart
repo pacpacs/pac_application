@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pac_app/fixed/appbar.dart';
 import 'package:pac_app/fixed/bottomNavigator.dart';
 import 'package:pac_app/fixed/customListItem.dart';
+import 'package:pac_app/fixed/ingredientChip.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
@@ -68,21 +69,10 @@ class _searchResultPageState extends State<searchResultPage> {
                 spacing: 8.0,
                 runSpacing: 4.0,
                 children: <Widget>[
-                  //to-do:chip generator
-                  Chip(
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.cyan.shade300,
-                      child: Text('C'),
-                      ),
-                      label: Text('CyanLabel'),
-                  ),
-                  Chip(
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.blue.shade300,
-                      child: Text('B'),
-                      ),
-                      label: Text('BlueLabel'),
-                  ),
+                  ingredientChip.generateIngredientChip(1, '부챗살'),
+                  ingredientChip.generateIngredientChip(2, '상추'),
+                  ingredientChip.generateIngredientChip(3, '큐민'),
+                  ingredientChip.generateIngredientChip(0, '디폴트'),
                 ],
               ),
 
