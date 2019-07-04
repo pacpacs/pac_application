@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'fixed/appBar.dart';
 import 'fixed/bottomNavigator.dart';
-
+import 'pages/ingredients/ingredients.dart' as ingredient;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -34,13 +34,18 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: appBar.getAppBar(context, ''),
         body: Center(
 
-          child: Column(
-
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            ],
+          child: RaisedButton(
+            child: Text("재료 선택"),
+              onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+                      return new ingredient.Choice();
+                    }
+                  )
+                );
+              },
           ),
         ),
-        bottomNavigationBar: BottomNavigator());
+        bottomNavigationBar: BottomNavigator()
+    );
   }
 }
