@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/fixed/card/cardForm.dart';
 
 class recipeShowPage extends StatefulWidget {
   @override
@@ -34,10 +35,7 @@ class _recipeShowPageState extends State<recipeShowPage> {
             ],
           ),
         ),
-        Container(padding: const EdgeInsets.all(0.0),
-          color: Colors.red,
-          width: 80.0,
-          height: 80.0,)
+        Container(child: cardForm(new Card()))
       ],
     );
   }
