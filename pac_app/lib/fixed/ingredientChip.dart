@@ -9,6 +9,10 @@ class ingredientChip {
                 backgroundColor: Colors.red.shade800,
               ),
               label: Text(name),
+              onDeleted: () {
+                print(name);
+                //TODO : 칩 삭제 하려면 여길 참고. https://api.flutter.dev/flutter/material/Chip/onDeleted.html
+              },
             );
             break;
           case 2://채소
@@ -17,6 +21,9 @@ class ingredientChip {
                 backgroundColor: Colors.green.shade900,
               ),
               label: Text(name),
+              onDeleted: () {
+                print(name);
+              },
             );
             break;
           case 3://밥,빵,면
@@ -25,6 +32,9 @@ class ingredientChip {
                 backgroundColor: Colors.brown,
               ),
               label: Text(name),
+              onDeleted: () {
+                print(name);
+              },
             );
             break;
           case 4://향신료
@@ -33,6 +43,9 @@ class ingredientChip {
                 backgroundColor: Colors.deepOrangeAccent.shade100,
               ),
               label: Text(name),
+              onDeleted: () {
+                print(name);
+              },
             );
             break;
           default: return new Chip(
