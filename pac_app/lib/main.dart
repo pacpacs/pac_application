@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
+import 'package:pac_app/pages/recipeShowPage.dart';
 
 import 'fixed/appBar.dart';
 
@@ -54,9 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'CommunityPage',
       ),
       homePage(_changeView),
-      Text(
-        'My RecipePage',
-      ),
+      recipeShowPage(),
       Text('Select Ingredient Page')
       //or you can add more widget
     ];
