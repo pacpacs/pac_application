@@ -4,6 +4,8 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 
+import '../style/textStyle.dart';
+
 class loginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,15 +22,9 @@ class loginPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text('Login ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 30,
-                            fontStyle: FontStyle.italic)),
+                        style: textStyle.headLineText),
                     Text('for Pick & Cook',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic)),
+                        style: textStyle.subHeadLineText),
                   ],
                 )),
             Padding(
@@ -65,17 +61,19 @@ class loginPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width:225, //TODO: 비율로바꿔야할듯...
+                    width: 225, //TODO: 비율로바꿔야할듯...
                     child: RaisedButton(
                         //TODO: 버튼에 애니메이션 입히기
                         padding: const EdgeInsets.all(8.0),
                         textColor: Colors.black,
                         color: Colors.white,
                         shape: new RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                             side: BorderSide(color: Colors.black, width: 0.8)),
                         onPressed: () {
-                          Navigator.pop(context); // TODO: 로그인 validation 및 status
+                          Navigator.pop(
+                              context); // TODO: 로그인 validation 및 status
                         },
                         child: new Text('Login')),
                   )
@@ -84,8 +82,7 @@ class loginPage extends StatelessWidget {
               text: 'Sign in with Pick & Cook',
               icon: Icons.add_box,
               onPressed: () {
-//                Navigator.push(context,
-//                    MaterialPageRoute(builder: (context) => Register()));
+                Navigator.pushNamed(context, '/register');
               },
               backgroundColor: Colors.blueGrey[700],
             ),
