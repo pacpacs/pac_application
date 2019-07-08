@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pac_app/fixed/appbar.dart';
 import 'package:pac_app/fixed/bottomNavigator.dart';
 import 'package:pac_app/fixed/customListItem.dart';
-import 'package:pac_app/fixed/ingredientChip.dart';
+import 'package:pac_app/fixed/ingredientChips/ingredientChip.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
@@ -65,15 +65,12 @@ class _searchResultPageState extends State<searchResultPage> {
                 ),
               ),
     
+              //wrap을 열고닫을 수 있게.. "더보기"버튼.
               Wrap(
                 spacing: 8.0,
                 runSpacing: 4.0,
-                children: <Widget>[
-                  ingredientChip.generateIngredientChip(1, '부챗살'),
-                  ingredientChip.generateIngredientChip(2, '상추'),
-                  ingredientChip.generateIngredientChip(3, '큐민'),
-                  ingredientChip.generateIngredientChip(0, '디폴트'),
-                ],
+                children: 
+                  ingredientChip.generateChipList(),
               ),
 
               Divider(),
