@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'fixed/appBar.dart';
 import 'fixed/bottomNavigator.dart';
-import 'pages/ingredients/ingredients.dart' as ingredient;
+import 'pages/selectIngredientPage.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text("재료 선택"),
               onPressed: (){
                   Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      return new ingredient.Choice();
+                      return new selectIngredientPage();
                     }
                   )
                 );
