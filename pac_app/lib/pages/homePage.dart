@@ -74,15 +74,20 @@ List<T> map<T>(List list, Function handler) {
   return result;
 }
 
-class homePage extends StatelessWidget {
+class homePage extends StatefulWidget {
+  Function(int) stateChange;
+
+  homePage(this.stateChange);
+
+  @override
+  _homePageState createState() => _homePageState();
+}
+
+class _homePageState extends State<homePage> {
   TextEditingController editingController = TextEditingController();
 
-  /**
-   * homePage의 body를 구성하는 Column
-   *
-   * @ param  BuildContext context : 현재 context
-   * @ return Column
-   */
+
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -97,8 +102,8 @@ class homePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            enabled: false,
-            onTap: () => {}, //TODO: Ingredient_popup창 뜨게 하기,
+//            enabled: false,
+            onTap: () => {widget.stateChange(3)}, //TODO: Ingredient_popup창 뜨게 하기,
             controller: editingController,
             decoration: InputDecoration(
                 labelText: "  Ingredient Search",
@@ -125,3 +130,4 @@ class homePage extends StatelessWidget {
     );
   }
 }
+
