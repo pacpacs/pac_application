@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 
 import '../style/textStyle.dart';
+import 'registerPage.dart';
 
 class loginPage extends StatelessWidget {
   @override
@@ -82,7 +83,10 @@ class loginPage extends StatelessWidget {
               text: 'Sign in with Pick & Cook',
               icon: Icons.add_box,
               onPressed: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => registerPage()),
+                );
               },
               backgroundColor: Colors.blueGrey[700],
             ),
