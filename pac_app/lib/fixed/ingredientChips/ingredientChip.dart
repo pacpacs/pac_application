@@ -10,7 +10,7 @@ class ingredientChip {
   
   static void makeDummyList(){
     for(int i = 0; i < 20; i++){
-      AAA.add(dummy_ingr('A',1));
+     // AAA.add(dummy_ingr('A',1));
     }
   }
 
