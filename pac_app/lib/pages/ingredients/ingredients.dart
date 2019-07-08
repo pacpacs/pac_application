@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import './vegetable.dart' as vg;
-import './seasoning.dart' as ss;
-import './etc.dart' as etc;
-import './fruit.dart' as fruit;
-import './grain.dart' as gr;
-import './meat.dart' as meat;
-import './oil.dart' as oil;
 import '../../fixed/appBar.dart';
 import '../../fixed/bottomNavigator.dart';
+import 'ingredientsList.dart';
+import 'ingredientProduct.dart';
 
-class Choice extends StatefulWidget {
+class Ingredients extends StatefulWidget {
   @override
-  _ChoiceState createState() => new _ChoiceState();
+  _IngredientsState createState() => new _IngredientsState();
 }
 
-class _ChoiceState extends State<Choice> {
+class _IngredientsState extends State<Ingredients> {
+
+  var _productList;
+
+  MakeChipList(var productList){
+    setState(() {
+      _productList = productList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -25,73 +29,34 @@ class _ChoiceState extends State<Choice> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Container(
-              margin: const EdgeInsets.only(
-                  right: 30, left: 30, top: 10, bottom: 10),
-              child: TextField(
-                //검색 창
+              margin: const EdgeInsets.only(right: 30, left:30, top: 15, bottom: 15),
+              child: TextField( //검색 창
                 style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize:12.0,
                     height: 0.5,
                     color: const Color(0xFF000000),
-                    fontFamily: "Roboto"),
+                    fontFamily: "Roboto"
+                ),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                            const Radius.circular(50.0))),
-                    hintText: 'gone'),
-                onChanged: (String a) {
+                        borderRadius:const BorderRadius.all(
+                            const Radius.circular(50.0)
+                        )
+                    ),
+                    hintText: 'gone'
+                ),
+                onChanged: (String a){
                   print('changed to ' + a);
                 },
               ),
             ),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              children: <Widget>[
-                Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.cyan.shade300,
-                    child: Text('C'),
-                  ),
-                  label: Text('CyanLabel'),
-                ),
-                Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.blue.shade300,
-                    child: Text('B'),
-                  ),
-                  label: Text('BlueLabel'),
-                ),
-                Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.red.shade300,
-                    child: Text('R'),
-                  ),
-                  label: Text('RedLabel'),
-                ),
-                Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.yellow.shade300,
-                    child: Text('Y'),
-                  ),
-                  label: Text('YellowLabel'),
-                ),
-              ],
-            ),
             new Container(
-                decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-            ))
+              //To-Do : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
+                child: IngredientsList(makeChip : _productList)
+            )
           ]),
       bottomNavigationBar: BottomNavigator(),
     );
   }
 
-  ListTile _makeTile() => ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.teal,
-        ),
-        title: Text('title'),
-        subtitle: Text('subtitle'),
-      );
 }
