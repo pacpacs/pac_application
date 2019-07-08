@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../fixed/appBar.dart';
 import '../../fixed/bottomNavigator.dart';
 import 'ingredientsList.dart';
-import 'ingredientProduct.dart';
-
+import 'ingredient.dart';
+import '../../fixed/ingredientChips.dart';
 class Ingredients extends StatefulWidget {
   @override
   _IngredientsState createState() => new _IngredientsState();
@@ -11,11 +11,13 @@ class Ingredients extends StatefulWidget {
 
 class _IngredientsState extends State<Ingredients> {
 
-  var _productList;
+  List<Product> _productList;
 
-  MakeChipList(var productList){
+  List<ingredientChip> _chips
+  MakeChipList(List<Product> productList){
     setState(() {
       _productList = productList;
+      _chips= ingredients.getIngredientChip(_productList)
     });
   }
 
@@ -50,9 +52,18 @@ class _IngredientsState extends State<Ingredients> {
                 },
               ),
             ),
+            Wrap(
+              spacing: 4.0,
+              runSpacing: 0.0,
+              children:_chips
+              //ingredientChip.generateIngredientChip(1, "")
+            ),
             new Container(
-              //To-Do : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
-                child: IngredientsList(makeChip : _productList)
+              //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
+                child: new IngredientsList(
+                  makeChip : MakeChipList,
+                  product : [new Product("name", Colors.red, true),],
+                )
             )
           ]),
       bottomNavigationBar: BottomNavigator(),
@@ -60,3 +71,4 @@ class _IngredientsState extends State<Ingredients> {
   }
 
 }
+
