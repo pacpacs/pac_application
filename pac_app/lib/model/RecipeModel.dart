@@ -21,6 +21,16 @@ class RecipeModel {
       this.createdDate});
 }
 
+//TODO: DB에서 받아오게 하기
 class RecipeModelList {
   List<RecipeModel> recipeModelList;
+
+  RecipeModelList({this.recipeModelList});
+
+  checkRecipeModelList(){
+    this.recipeModelList.sort((a,b){
+      return a.orderNum.compareTo(b.orderNum);
+    });
+  }
 }
+
