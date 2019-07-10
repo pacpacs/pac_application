@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 
-class cardForm extends StatelessWidget {
-  Widget item;
+import 'CardElement.dart';
 
-  cardForm(this.item);
+class CardForm extends StatelessWidget {
+  final CardElement item;
+  CardForm(this.item);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: new Container(
-            padding: new EdgeInsets.all(32.0),
-            child: new Column(
-              children: <Widget>[
-                new Text('Hello World'),
-                new Text('How are you?')
-              ],
-            )));
+        child: new Stack(
+      children: <Widget>[
+        new Container(child: item),
+        new Positioned(
+            left: -10,
+            top: 50,
+            child: new IconButton(
+              iconSize: 40,
+              icon: Icon(Icons.arrow_left),
+              onPressed: () {},
+            )),
+        new Positioned(
+            right: -10,
+            top: 50,
+            child: new IconButton(
+              iconSize: 40,
+              icon: Icon(Icons.arrow_right),
+              onPressed: () {},
+            )),
+      ],
+    ));
   }
 }

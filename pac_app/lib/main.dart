@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'CommunityPage',
       ),
       homePage(_changeView),
-      recipeShowPage(),
+      RecipeShowPage(),
       Text('Select Ingredient Page')
       //or you can add more widget
     ];
