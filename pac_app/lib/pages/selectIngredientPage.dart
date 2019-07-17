@@ -5,17 +5,33 @@ import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
 import '../fixed/ingredientInfo/ingredientItem.dart';
 import '../fixed/ingredientChips/ingredientChip.dart';
-class  selectIngredientPage extends StatefulWidget {
+
+class selectIngredientPage extends StatefulWidget {
   @override
   _selectIngredientPageState createState() => new _selectIngredientPageState();
 }
 
-class _selectIngredientPageState extends State< selectIngredientPage > {
-
+class _selectIngredientPageState extends State<selectIngredientPage>
+    with SingleTickerProviderStateMixin {
   List<Ingredient> _ingredient;
-
+  TabController _tabController;
   //List<Chip> _chips;
-  MakeChipList(List<Ingredient> ingredient){
+
+  void initState() {
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  MakeChipList(List<Ingredient> ingredient) {
     setState(() {
       _ingredient = ingredient;
       //_chips= ingredients.getIngredientChip(_productList)
@@ -31,48 +47,66 @@ class _selectIngredientPageState extends State< selectIngredientPage > {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(right: 30, left:30, top: 15, bottom: 15),
-              child: TextField( //검색 창
+            Flexible(
+              flex: 1,
+              child: TextField(
+                //검색 창
                 style: TextStyle(
-                    fontSize:12.0,
+                    fontSize: 12.0,
                     height: 0.5,
                     color: const Color(0xFF000000),
-                    fontFamily: "Roboto"
-                ),
+                    fontFamily: "Roboto"),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius:const BorderRadius.all(
-                            const Radius.circular(50.0)
-                        )
-                    ),
-                    hintText: 'gone'
-                ),
-                onChanged: (String a){
+                        borderRadius: const BorderRadius.all(
+                            const Radius.circular(50.0))),
+                    hintText: 'gone'),
+                onChanged: (String a) {
                   print('changed to ' + a);
                 },
               ),
             ),
-            Wrap(
-              spacing: 4.0,
-              runSpacing: 0.0,
-              //children:_chips
-              children: ingredientChip.generateChipList()
-            ),
-            new Container(
-              //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
-                child: new IngredientsList(
-                  makeChipList : MakeChipList,
-                  ingredient : [
+            Flexible(
+                flex: 1,
+                //children:_chips
+                child: ingredientChip.generateChipList()),
+            Flexible(
+              flex: 5,
+              child: new Column(
+              children: [
+              TabBar(
+                controller: _tabController,
+                tabs: [
+                  Tab(text: "First"),
+                  Tab(text: "Second"),
+                ],
+              ),
+              Expanded(
+                  child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  new Text("data")
+                  /*new Container(
+                    //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
+                    child: new IngredientsList(
+                  makeChipList: MakeChipList,
+                  ingredient: [
                     new Ingredient("새우", 1, false),
-                    new Ingredient("식빵", 3, false)
+                    new Ingredient("식빵", 3, false),
+                    new Ingredient("대파", 2, false),
+                    new Ingredient("치즈", 5, false),
+                    new Ingredient("우유", 5, false),
+                    new Ingredient("돼지고기", 1, false),
+                    new Ingredient("간장", 4, false),
+                    new Ingredient("소금", 4, false),
+                    new Ingredient("양파", 2, false),
                   ],
-                )
-            )
+                ))*/
+                ],
+              ))
+            ])),
           ]),
       bottomNavigationBar: BottomNavigator(),
     );
   }
-
 }
-

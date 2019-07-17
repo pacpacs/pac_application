@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'ingredientItem.dart';
 import 'ingredient.dart';
 import '../ingredientChips/ingredientChip.dart';
+import '../../main.dart';
 
 class IngredientsList extends StatefulWidget {
-  Function(List<Ingredient>) makeChipList;
   List<Ingredient> ingredient;
-  IngredientsList({this.ingredient, this.makeChipList});
+  IngredientsList({this.ingredient});
   @override
   _IngredientsListState createState() {
     return new _IngredientsListState();
@@ -33,14 +33,16 @@ class _IngredientsListState extends State<IngredientsList> {
               new Expanded(child: new ListView(
                 padding: new EdgeInsets.symmetric(vertical: 8.0),
                 children: widget.ingredient.map((Ingredient ingredient) {
-                  return new IngredientItem(ingredient);
+                  return IngredientItem(ingredient);
                 }).toList(),
               )),
-              new RaisedButton(onPressed: () {
-                /*for (Product p in widget.product) {
-                  if (p.isCheck) {
-                  }
-                }*/
+              new RaisedButton(              
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute<Null>(builder: (BuildContext context) {
+                      return MyHomePage();
+                    }
+                  )
+                );
               },
                 child: new Text('Save'),
               )

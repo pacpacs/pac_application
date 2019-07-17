@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ingredient.dart';
 import 'ingredientsList.dart';
+import '../../bloc/ingredient_bloc.dart';
 class IngredientItem extends StatefulWidget{
   final Ingredient ingredient;
   IngredientItem(Ingredient ingredient):
@@ -50,6 +51,7 @@ class IngredientItemState extends State<IngredientItem> {
               setState(() {
                 widget.ingredient.isCheck = value;
                 //TODO : check 변화를 ITEM List에 넘겨줘야 한다.
+                IngredientBloc().controller.add(widget.ingredient.name);
               });
             })
           ],
