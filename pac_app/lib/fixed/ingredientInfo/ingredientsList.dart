@@ -5,7 +5,7 @@ import '../ingredientChips/ingredientChip.dart';
 import '../../main.dart';
 
 class IngredientsList extends StatefulWidget {
-  List<Ingredient> ingredient;
+  List <Ingredient> ingredient;
   IngredientsList({this.ingredient});
   @override
   _IngredientsListState createState() {
@@ -13,17 +13,15 @@ class IngredientsList extends StatefulWidget {
   }
 }
 
+
 class _IngredientsListState extends State<IngredientsList> {
 
   Map<String, int> checkedList;
   Map<String ,int> uncheckedList;
 
-  BringCheckState(){
-
-  }
-
   @override
   Widget build(BuildContext context) {
+
     return Expanded(
         child : new Container(
           padding: new EdgeInsets.all(8.0),
@@ -32,7 +30,7 @@ class _IngredientsListState extends State<IngredientsList> {
             children: <Widget>[
               new Expanded(child: new ListView(
                 padding: new EdgeInsets.symmetric(vertical: 8.0),
-                children: widget.ingredient.map((Ingredient ingredient) {
+                children: widget.ingredient.where((ingredient)=>ingredient.categoryCode == [1,2]).map((Ingredient ingredient) {
                   return IngredientItem(ingredient);
                 }).toList(),
               )),
@@ -51,4 +49,5 @@ class _IngredientsListState extends State<IngredientsList> {
         )
     );
   }
+
 }

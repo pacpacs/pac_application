@@ -3,7 +3,6 @@ import '../fixed/appBar.dart';
 import '../fixed/bottomNavigator.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
-import '../fixed/ingredientInfo/ingredientItem.dart';
 import '../fixed/ingredientChips/ingredientChip.dart';
 
 class selectIngredientPage extends StatefulWidget {
@@ -11,25 +10,8 @@ class selectIngredientPage extends StatefulWidget {
   _selectIngredientPageState createState() => new _selectIngredientPageState();
 }
 
-class _selectIngredientPageState extends State<selectIngredientPage>
-    with SingleTickerProviderStateMixin {
+class _selectIngredientPageState extends State<selectIngredientPage> {
   List<Ingredient> _ingredient;
-  TabController _tabController;
-  //List<Chip> _chips;
-
-  void initState() {
-    _tabController = TabController(
-      length: 2,
-      vsync: this,
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   MakeChipList(List<Ingredient> ingredient) {
     setState(() {
@@ -48,7 +30,7 @@ class _selectIngredientPageState extends State<selectIngredientPage>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Flexible(
-              flex: 1,
+              flex: 0,
               child: TextField(
                 //검색 창
                 style: TextStyle(
@@ -66,45 +48,23 @@ class _selectIngredientPageState extends State<selectIngredientPage>
                 },
               ),
             ),
-            Flexible(
-                flex: 1,
-                //children:_chips
-                child: ingredientChip.generateChipList()),
-            Flexible(
-              flex: 5,
-              child: new Column(
-              children: [
-              TabBar(
-                controller: _tabController,
-                tabs: [
-                  Tab(text: "First"),
-                  Tab(text: "Second"),
+            //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
+            Container(
+              child: IngredientsList(
+                ingredient: [
+                  new Ingredient("새우", 1, false),
+                  new Ingredient("식빵", 3, false),
+                  new Ingredient("식빵", 3, false),
+                  new Ingredient("대파", 2, false),
+                  new Ingredient("치즈", 5, false),
+                  new Ingredient("우유", 5, false),
+                  new Ingredient("돼지고기", 1, false),
+                  new Ingredient("간장", 4, false),
+                  new Ingredient("소금", 4, false),
+                  new Ingredient("양파", 2, false),
                 ],
               ),
-              Expanded(
-                  child: TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  new Text("data")
-                  /*new Container(
-                    //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
-                    child: new IngredientsList(
-                  makeChipList: MakeChipList,
-                  ingredient: [
-                    new Ingredient("새우", 1, false),
-                    new Ingredient("식빵", 3, false),
-                    new Ingredient("대파", 2, false),
-                    new Ingredient("치즈", 5, false),
-                    new Ingredient("우유", 5, false),
-                    new Ingredient("돼지고기", 1, false),
-                    new Ingredient("간장", 4, false),
-                    new Ingredient("소금", 4, false),
-                    new Ingredient("양파", 2, false),
-                  ],
-                ))*/
-                ],
-              ))
-            ])),
+            ),
           ]),
       bottomNavigationBar: BottomNavigator(),
     );
