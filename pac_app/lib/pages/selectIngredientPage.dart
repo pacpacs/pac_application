@@ -54,7 +54,7 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
                 ingredient: [
                   new Ingredient("새우", 1, false),
                   new Ingredient("식빵", 3, false),
-                  new Ingredient("식빵", 3, false),
+                  new Ingredient("국수", 3, false),
                   new Ingredient("대파", 2, false),
                   new Ingredient("치즈", 5, false),
                   new Ingredient("우유", 5, false),

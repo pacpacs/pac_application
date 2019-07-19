@@ -33,29 +33,36 @@ class _IngredientsListState extends State<IngredientsList> {
                 children: <Widget>[
                   //TODO : 공통되게 사용하는 색깔 fixed 따로 빼야하지 않을까?
                     new FloatingActionButton(
+                        heroTag: "btn1",
                         backgroundColor: Colors.red.shade800,
                         onPressed: (){},
                         child: new Text("육류")),
                     new FloatingActionButton(
+                        heroTag: "btn2",
                         backgroundColor: Colors.green.shade900,
                         onPressed: (){},
                         child: new Text("채소")),
                     new FloatingActionButton(
+                        heroTag: "btn3",
                         backgroundColor: Colors.brown,
                         onPressed: (){},
                         child: new Text("곡물")),
                     new FloatingActionButton(
+                        heroTag: "btn4",
                         backgroundColor: Colors.deepOrangeAccent[100],
                         onPressed: (){},
                         child: new Text("양념")),                        
                     new FloatingActionButton(
+                        heroTag: "btn5",
                         backgroundColor: Colors.black,
                         onPressed: (){},
                         child: new Text("기타")),
               ],),
-              new Expanded(child: new ListView(
-                padding: new EdgeInsets.symmetric(vertical: 8.0),
-                children: widget.ingredient.where((ingredient)=>ingredient.categoryCode != 1).map((Ingredient ingredient) {
+              new Expanded(child: new GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 4,
+                //padding: new EdgeInsets.symmetric(vertical: 8.0),
+                children: widget.ingredient.where((ingredient)=>ingredient.categoryCode != 0).map((Ingredient ingredient) {
                   return IngredientItem(ingredient);
                 }).toList(),
               )),
