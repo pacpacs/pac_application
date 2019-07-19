@@ -1,84 +1,66 @@
 import 'package:flutter/material.dart';
-import 'dummy_ingr.dart';
 
-//TODO:리스트 아니고 맵이어야함
+import '../ingredientInfo/ingredient.dart';
 
-List<dummy_ingr> AAA = [];
-List<Chip> BBB=[];
+//TODO:리스트 아니고 맵이어야함.
 
-class ingredientChip {
+List<Ingredient> AAA = [];
+List<Chip> BBB = [];
+
+class IngredientChip {
   
-  static void makeDummyList(){
-    for(int i = 0; i < 20; i++){
-      AAA.add(dummy_ingr('A',1));
+  int chipCategoryCode;
+  String ingredientName;
+  IngredientChip(this.chipCategoryCode, this.ingredientName);
+
+  Color _setHeadColor(int code) {
+    switch (code) {
+      case 1: //육류
+        return Colors.red.shade800;
+        break;
+      case 2: //채소
+        return Colors.green.shade900;
+        break;
+      case 3: //밥빵면류
+        return Colors.brown;
+        break;
+      case 4: //향신료
+        return Colors.deepOrangeAccent.shade100;
+        break;
+      default:
+        return Colors.black;
+    }
+  }
+  //여기서 chipCategoryCode가 null이라서 미쳐버림
+  //IngredientChip._setHeadColor(chipCategoryCode);
+
+
+  static void makeDummyList() {
+    for (int i = 0; i < 15; i++) {
+      AAA.add(Ingredient('A', 1, true));
     }
   }
 
+//더미 대신 재료선택 StreamBuilder에서 Ingredient 가져와서 AAA에 add하면 됨
   static generateChipList() {
     makeDummyList();
-    
-    List<Widget> chipList = <Widget>[];
 
-    for(dummy_ingr ingr in AAA){
-      chipList.add(generateIngredientChip(ingr.ingCategory, ingr.ingName));
+    for (Ingredient ingr in AAA) {
+      BBB.add(generateIngredientChip(ingr.categoryCode, ingr.name));
     }
-    return chipList;
+    return BBB;
   }
-  
-  static generateIngredientChip(int categoryCode, String name) {
-    switch (categoryCode) {
-          case 1://육류
-            return new Chip(
-              avatar: CircleAvatar(
-                backgroundColor: Colors.red.shade800,
-              ),
-              label: Text(name),
-              onDeleted: () {
-                print(name);
-                //TODO : 칩 삭제 구현하려면 여길 참고. https://api.flutter.dev/flutter/material/Chip/onDeleted.html
-              },
-            );
-            break;
-          case 2://채소
-            return new Chip(
-              avatar: CircleAvatar(
-                backgroundColor: Colors.green.shade900,
-              ),
-              label: Text(name),
-              onDeleted: () {
-                print(name);
-              },
-            );
-            break;
-          case 3://밥,빵,면
-            return new Chip(
-              avatar: CircleAvatar(
-                backgroundColor: Colors.brown,
-              ),
-              label: Text(name),
-              onDeleted: () {
-                print(name);
-              },
-            );
-            break;
-          case 4://향신료
-            return new Chip(
-              avatar: CircleAvatar(
-                backgroundColor: Colors.deepOrangeAccent.shade100,
-              ),
-              label: Text(name),
-              onDeleted: () {
-                print(name);
-              },
-            );
-            break;
-          default: return new Chip(
-              avatar: CircleAvatar(
-                backgroundColor: Colors.blue,
-              ),
-              label: Text(name),
-            );
-            break;
-        }
-  }    
+
+  static generateIngredientChip(int category, String name) {
+    IngredientChip generated = IngredientChip(category, name);
+    return new Chip(
+      avatar: CircleAvatar(
+        backgroundColor: generated._setHeadColor(category),
+      ),
+      label: Text(name),
+      onDeleted: () {
+        print('$name 는 삭제되고싶다.');
+      },
+    );
+  }
 }
