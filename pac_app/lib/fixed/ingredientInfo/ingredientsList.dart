@@ -19,6 +19,7 @@ class _IngredientsListState extends State<IngredientsList> {
   bool but1 = true, but2 = true, but3 = true, but4 = true, but5 = true;
 
   @override
+  //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
     bool buttonEvent(Ingredient ingredient) {
       if ((but1 && ingredient.categoryCode == 1) ||
@@ -40,7 +41,7 @@ class _IngredientsListState extends State<IngredientsList> {
           new Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              //TODO : 공통되게 사용하는 색깔 fixed 따로 빼야하지 않을까?
+              //TODO : FloatingActionButton For문 하나로 묶어서 생성 예정
               new FloatingActionButton(
                   heroTag: "btn1",
                   backgroundColor: Colors.red.shade800,
@@ -99,6 +100,7 @@ class _IngredientsListState extends State<IngredientsList> {
               return IngredientItem(ingredient);
             }).toList(),
           )),
+          //TODO : 클릭시 결과 화면으로 넘어가야함.
           new RaisedButton(
             onPressed: () {
               Navigator.of(context).push(

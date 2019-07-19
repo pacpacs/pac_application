@@ -16,7 +16,7 @@ class IngredientItemState extends State<IngredientItem> {
   final Ingredient ingredient;
   IngredientItemState(this.ingredient);
 
-  //종류에 따른 색깔
+  //TODO : code와 Color설정 부분 새로 파일로 빼야함.
   Color _setColor(int code){
     switch(code){
       case 1://육류
@@ -50,7 +50,6 @@ class IngredientItemState extends State<IngredientItem> {
             new Checkbox(value: widget.ingredient.isCheck, onChanged: (bool value) {
               setState(() {
                 widget.ingredient.isCheck = value;
-                //TODO : check 변화를 ITEM List에 넘겨줘야 한다.
                 IngredientBloc().controller.add(widget.ingredient);
               });
             })
