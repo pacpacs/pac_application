@@ -55,7 +55,7 @@ class _IngredientsListState extends State<IngredientsList> {
                   backgroundColor: Colors.green.shade900,
                   onPressed: () {
                     setState(() {
-                      this.but1 = !but2;
+                      this.but2 = !but2;
                     });
                   },
                   child: new Text("채소")),
@@ -64,7 +64,7 @@ class _IngredientsListState extends State<IngredientsList> {
                   backgroundColor: Colors.brown,
                   onPressed: () {
                     setState(() {
-                      this.but1 = !but3;
+                      this.but3 = !but3;
                     });
                   },
                   child: new Text("곡물")),
@@ -73,7 +73,7 @@ class _IngredientsListState extends State<IngredientsList> {
                   backgroundColor: Colors.deepOrangeAccent[100],
                   onPressed: () {
                     setState(() {
-                      this.but1 = !but4;
+                      this.but4 = !but4;
                     });
                   },
                   child: new Text("양념")),
@@ -82,7 +82,7 @@ class _IngredientsListState extends State<IngredientsList> {
                   backgroundColor: Colors.black,
                   onPressed: () {
                     setState(() {
-                      this.but1 = !but5;
+                      this.but5 = !but5;
                     });
                   },
                   child: new Text("기타")),
