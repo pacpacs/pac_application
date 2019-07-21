@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../bloc/ingredient_bloc.dart';
 import '../ingredientInfo/ingredient.dart';
 
+//TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
 Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', 999, false)};
 List<Chip> BBB = [];
 
