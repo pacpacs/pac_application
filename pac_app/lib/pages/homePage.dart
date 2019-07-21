@@ -102,7 +102,6 @@ class _homePageState extends State<homePage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-//            enabled: false,
             onTap: () => {widget.stateChange(3)}, //TODO: Ingredient_popup창 뜨게 하기,
             controller: editingController,
             decoration: InputDecoration(

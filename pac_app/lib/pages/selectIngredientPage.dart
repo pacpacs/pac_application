@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../fixed/appBar.dart';
-import '../fixed/bottomNavigator.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
-import '../fixed/ingredientChips/ingredientChip.dart';
+import '../fixed/ingredientInfo/ingredientChip.dart';
+import '../fixed/ingredientInfo/ingredientSet.dart';
 
 class selectIngredientPage extends StatefulWidget {
   @override
@@ -23,7 +23,6 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: appBar.getAppBar(context, ''),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -52,21 +51,20 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
             Container(
               child: IngredientsList(
                 ingredient: [
-                  new Ingredient("새우", 1, false),
-                  new Ingredient("식빵", 3, false),
-                  new Ingredient("국수", 3, false),
-                  new Ingredient("대파", 2, false),
-                  new Ingredient("치즈", 5, false),
-                  new Ingredient("우유", 5, false),
-                  new Ingredient("돼지고기", 1, false),
-                  new Ingredient("간장", 4, false),
-                  new Ingredient("소금", 4, false),
-                  new Ingredient("양파", 2, false),
+                  new Ingredient("새우", categoryCode.meat, false),
+                  new Ingredient("식빵", categoryCode.grain, false),
+                  new Ingredient("국수", categoryCode.grain, false),
+                  new Ingredient("대파", categoryCode.vegitable, false),
+                  new Ingredient("치즈", categoryCode.etc, false),
+                  new Ingredient("우유", categoryCode.etc, false),
+                  new Ingredient("돼지고기", categoryCode.meat, false),
+                  new Ingredient("간장", categoryCode.seasoning, false),
+                  new Ingredient("소금", categoryCode.seasoning, false),
+                  new Ingredient("양파", categoryCode.vegitable, false),
                 ],
               ),
             ),
           ]),
-      bottomNavigationBar: BottomNavigator(),
     );
   }
 }

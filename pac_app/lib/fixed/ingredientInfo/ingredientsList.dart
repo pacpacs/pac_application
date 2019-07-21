@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'ingredientItem.dart';
 import 'ingredient.dart';
-import '../ingredientChips/ingredientChip.dart';
+import '../ingredientInfo/ingredientChip.dart';
 import '../../main.dart';
+import '../../pages/searchResultPage.dart';
+import 'ingredientSet.dart';
 
 class IngredientsList extends StatefulWidget {
   List<Ingredient> ingredient;
@@ -16,18 +18,15 @@ class IngredientsList extends StatefulWidget {
 class _IngredientsListState extends State<IngredientsList> {
   Map<String, int> checkedList;
   Map<String, int> uncheckedList;
-  bool but1 = true, but2 = true, but3 = true, but4 = true, but5 = true;
+  var but= [true, true, true, true, true];
 
   @override
   //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
     bool buttonEvent(Ingredient ingredient) {
-      if ((but1 && ingredient.categoryCode == 1) ||
-          (but2 && ingredient.categoryCode == 2) ||
-          (but3 && ingredient.categoryCode == 3) ||
-          (but4 && ingredient.categoryCode == 4) ||
-          (but5 && ingredient.categoryCode == 5)) {
-        return true;
+      for(var code in categoryCode.values){
+        if(but[code.index] && ingredient.categoryCodeName == code)
+          return true;
       }
       return false;
     }
@@ -42,51 +41,19 @@ class _IngredientsListState extends State<IngredientsList> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               //TODO : FloatingActionButton For문 하나로 묶어서 생성 예정
-              new FloatingActionButton(
-                  heroTag: "btn1",
-                  backgroundColor: Colors.red.shade800,
-                  onPressed: () {
+              for (var codeNumber in categoryCode.values)(
+                new FloatingActionButton(
+                  mini: true,
+                  heroTag: "btn"+codeNumber.index.toString(),
+                  backgroundColor: ingredientSet(codeNumber).setColor(),
+                  child: new Text(ingredientSet(codeNumber).setCategoryName()),
+                  onPressed:(){                    
                     setState(() {
-                      this.but1 = !but1;
+                      but[codeNumber.index] = !but[codeNumber.index];
                     });
                   },
-                  child: new Text("육류")),
-              new FloatingActionButton(
-                  heroTag: "btn2",
-                  backgroundColor: Colors.green.shade900,
-                  onPressed: () {
-                    setState(() {
-                      this.but2 = !but2;
-                    });
-                  },
-                  child: new Text("채소")),
-              new FloatingActionButton(
-                  heroTag: "btn3",
-                  backgroundColor: Colors.brown,
-                  onPressed: () {
-                    setState(() {
-                      this.but3 = !but3;
-                    });
-                  },
-                  child: new Text("곡물")),
-              new FloatingActionButton(
-                  heroTag: "btn4",
-                  backgroundColor: Colors.deepOrangeAccent[100],
-                  onPressed: () {
-                    setState(() {
-                      this.but4 = !but4;
-                    });
-                  },
-                  child: new Text("양념")),
-              new FloatingActionButton(
-                  heroTag: "btn5",
-                  backgroundColor: Colors.black,
-                  onPressed: () {
-                    setState(() {
-                      this.but5 = !but5;
-                    });
-                  },
-                  child: new Text("기타")),
+                )
+              )
             ],
           ),
           new Expanded(
@@ -105,10 +72,10 @@ class _IngredientsListState extends State<IngredientsList> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return MyHomePage();
+                return searchResultPage();
               }));
             },
-            child: new Text('Save'),
+            child: new Text('검색'),
           )
         ],
       ),
