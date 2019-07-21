@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/loginPage.dart';
 import 'package:pac_app/pages/registerPage.dart';
+import 'package:pac_app/pages/selectIngredientPage.dart';
 
 import 'fixed/appBar.dart';
 
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Text(
         'My RecipePage',
       ),
-      Text('Select Ingredient Page')
+      selectIngredientPage(),
       //or you can add more widget
     ];
 

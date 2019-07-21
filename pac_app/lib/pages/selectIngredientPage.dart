@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../fixed/appBar.dart';
-import '../fixed/bottomNavigator.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
 import '../fixed/ingredientChips/ingredientChip.dart';
@@ -23,7 +22,6 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: appBar.getAppBar(context, ''),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -66,7 +64,6 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
               ),
             ),
           ]),
-      bottomNavigationBar: BottomNavigator(),
     );
   }
 }
