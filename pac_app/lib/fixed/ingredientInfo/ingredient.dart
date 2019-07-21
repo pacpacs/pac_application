@@ -3,13 +3,13 @@ import 'ingredientSet.dart';
 
 class Ingredient {
   String name;
-  final int categoryCode;
+  categoryCode categoryCodeName;
   bool isCheck;
-  Ingredient(this.name, this.categoryCode, this.isCheck);
+  Ingredient(this.name, this.categoryCodeName, this.isCheck);
   Color getColor() {
-    return ingredientSet(this.categoryCode).setColor();
+    return ingredientSet(this.categoryCodeName).setColor();
   }
   String getCategoryName(){
-    return ingredientSet(this.categoryCode).setCategoryName();
+    return ingredientSet(this.categoryCodeName).setCategoryName();
   }
 }

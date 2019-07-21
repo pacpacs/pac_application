@@ -3,6 +3,7 @@ import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
 import '../fixed/ingredientInfo/ingredientChip.dart';
+import '../fixed/ingredientInfo/ingredientSet.dart';
 
 class selectIngredientPage extends StatefulWidget {
   @override
@@ -50,16 +51,16 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
             Container(
               child: IngredientsList(
                 ingredient: [
-                  new Ingredient("새우", 0, false),
-                  new Ingredient("식빵", 2, false),
-                  new Ingredient("국수", 2, false),
-                  new Ingredient("대파", 1, false),
-                  new Ingredient("치즈", 4, false),
-                  new Ingredient("우유", 4, false),
-                  new Ingredient("돼지고기", 0, false),
-                  new Ingredient("간장", 3, false),
-                  new Ingredient("소금", 3, false),
-                  new Ingredient("양파", 1, false),
+                  new Ingredient("새우", categoryCode.meat, false),
+                  new Ingredient("식빵", categoryCode.grain, false),
+                  new Ingredient("국수", categoryCode.grain, false),
+                  new Ingredient("대파", categoryCode.vegitable, false),
+                  new Ingredient("치즈", categoryCode.etc, false),
+                  new Ingredient("우유", categoryCode.etc, false),
+                  new Ingredient("돼지고기", categoryCode.meat, false),
+                  new Ingredient("간장", categoryCode.seasoning, false),
+                  new Ingredient("소금", categoryCode.seasoning, false),
+                  new Ingredient("양파", categoryCode.vegitable, false),
                 ],
               ),
             ),
