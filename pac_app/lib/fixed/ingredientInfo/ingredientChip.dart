@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../bloc/ingredient_bloc.dart';
 import '../ingredientInfo/ingredient.dart';
 
-Map<String, Chip> AAA = {};
+//TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
+Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', 999, false)};
 List<Chip> BBB = [];
 
 class IngredientChip {
@@ -29,22 +31,10 @@ class IngredientChip {
     }
   }
 
-  static void makeDummyList() {
-    for (int i = 0; i < 15; i++) {
-      String stringI = i.toString();
-      //AAA.map( (stringI)=>generateIngredientChip(i%4, string));
-      AAA.putIfAbsent(i.toString(), ()=>generateIngredientChip(i%4, stringI));
-
-    }
-  }
-
   static generateChipList() {
-//TODO:makeDummyList 대신 재료선택bloc에서 Ingredient 가져와서 AAA에 add하기
-    makeDummyList();
-    for(int i=0;i<AAA.length;i++){
-      //AAA내용을 BBB에 담아줘야함
-      AAA.forEach((key, value)=>( BBB.add(value) ));
-    }
+//TODO:makeDummyList 대신 재료선택bloc에서 Ingredient 가져와서 BBB에 add하기
+    checkedIngr.forEach((key, value) => BBB.add(generateIngredientChip(value.categoryCode, value.name)));
+    
     return BBB;
   }
 
@@ -61,6 +51,5 @@ class IngredientChip {
         print('$name 는 삭제되고싶다.');
       },
     );
-
   }
 }
