@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
+
 import '../ingredientInfo/ingredient.dart';
 
-//TODO:리스트 아니고 맵이어야함.  그래?
-
-//List<Ingredient> AAA = [];
 Map<String, Chip> AAA = {};
 List<Chip> BBB = [];
 
@@ -37,6 +35,7 @@ class IngredientChip {
       String stringI = i.toString();
       //AAA.map( (stringI)=>generateIngredientChip(i%4, string));
       AAA.putIfAbsent(i.toString(), ()=>generateIngredientChip(i%4, stringI));
+
     }
   }
 
@@ -63,5 +62,6 @@ class IngredientChip {
         print('$name 는 삭제되고싶다.');
       },
     );
+
   }
 }
