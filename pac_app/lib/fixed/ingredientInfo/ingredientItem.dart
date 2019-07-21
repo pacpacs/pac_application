@@ -21,7 +21,7 @@ class IngredientItemState extends State<IngredientItem> {
     return new ListTile(
         onTap:null,
         leading: new CircleAvatar(
-          backgroundColor: widget.ingredient.setColor(),
+          backgroundColor: widget.ingredient.getColor(),
           radius: 10.0,
         ),
         title: new Row(
