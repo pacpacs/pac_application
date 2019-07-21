@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'ingredientItem.dart';
 import 'ingredient.dart';
-import '../ingredientChips/ingredientChip.dart';
+import '../ingredientInfo/ingredientChip.dart';
 import '../../main.dart';
+import '../../pages/searchResultPage.dart';
 
 class IngredientsList extends StatefulWidget {
   List<Ingredient> ingredient;
@@ -105,10 +106,10 @@ class _IngredientsListState extends State<IngredientsList> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return MyHomePage();
+                return searchResultPage();
               }));
             },
-            child: new Text('Save'),
+            child: new Text('검색'),
           )
         ],
       ),

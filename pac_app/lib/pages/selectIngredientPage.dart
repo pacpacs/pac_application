@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
-import '../fixed/ingredientChips/ingredientChip.dart';
+import '../fixed/ingredientInfo/ingredientChip.dart';
 
 class selectIngredientPage extends StatefulWidget {
   @override

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
-import 'package:pac_app/fixed/ingredientChips/ingredientChip.dart';
+import 'package:pac_app/fixed/ingredientInfo/ingredientChip.dart';
 //import 'package:pac_app/pages/searchResultUpdateBloc.dart';
 
 class searchResultPage extends StatefulWidget {
