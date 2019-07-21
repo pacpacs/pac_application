@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../ingredientInfo/ingredient.dart';
 
 Map<String, Chip> AAA = {};
