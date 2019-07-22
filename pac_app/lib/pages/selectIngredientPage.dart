@@ -23,13 +23,17 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: appBar.getAppBar(context,true),
+      appBar: appBar.getAppBar(context, true),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            //ToDo : chip list수정하는 곳.. Chip 상태만 바꾸면 되네
+            Wrap(
+              spacing: 4.0,
+              runSpacing: 0.0,
+              children: IngredientChip.generateChipList(),
+            ),
             Container(
               child: IngredientsList(
                 ingredient: [
