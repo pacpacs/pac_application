@@ -60,13 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
       homePage(_changeView),
       Text(
         'My RecipePage',
-      ),
-      selectIngredientPage(),
+      )
       //or you can add more widget
     ];
 
     return Scaffold(
-        appBar: appBar.getAppBar(context, ''),
+        appBar: appBar.getAppBar(context, false),
 
         body: Center(child: _widgetOptions[_selectedViewIndex]),
         bottomNavigationBar: BottomNavigationBar(

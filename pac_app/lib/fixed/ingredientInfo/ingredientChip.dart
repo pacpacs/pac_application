@@ -5,11 +5,11 @@ import '../ingredientInfo/ingredient.dart';
 import 'ingredientSet.dart';
 
 //TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
-Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', categoryCode.etc, false)};
+Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', CategoryCode.ETC, false)};
 List<Chip> BBB = [];
 
 class IngredientChip {
-  categoryCode category;
+  CategoryCode category;
   String ingredientName;
   IngredientChip(this.category, this.ingredientName);
 
@@ -21,7 +21,7 @@ class IngredientChip {
     return BBB;
   }
 
-  static generateIngredientChip(categoryCode category, String name) {
+  static generateIngredientChip(CategoryCode category, String name) {
     IngredientChip generated = IngredientChip(category, name);
     return new Chip(
       avatar: CircleAvatar(

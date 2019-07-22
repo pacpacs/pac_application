@@ -9,9 +9,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-
+import '../pages/selectIngredientPage.dart';
 import '../style/textStyle.dart';
-
 
 final List<String> imgList = [
   //TODO: 서버사진리스트로 만들기
@@ -86,8 +85,6 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   TextEditingController editingController = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -102,7 +99,12 @@ class _homePageState extends State<homePage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            onTap: () => {widget.stateChange(3)}, //TODO: Ingredient_popup창 뜨게 하기,
+            onTap: () => {
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return selectIngredientPage();
+              }))
+            }, //TODO: Ingredient_popup창 뜨게 하기,
             controller: editingController,
             decoration: InputDecoration(
                 labelText: "  Ingredient Search",
@@ -129,4 +131,3 @@ class _homePageState extends State<homePage> {
     );
   }
 }
-
