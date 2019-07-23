@@ -24,7 +24,7 @@ class _IngredientsListState extends State<IngredientsList> {
   //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
     bool buttonEvent(Ingredient ingredient) {
-      for(var code in categoryCode.values){
+      for(var code in CategoryCode.values){
         if(but[code.index] && ingredient.categoryCodeName == code)
           return true;
       }
@@ -41,10 +41,11 @@ class _IngredientsListState extends State<IngredientsList> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               //TODO : FloatingActionButton For문 하나로 묶어서 생성 예정
-              for (var codeNumber in categoryCode.values)(
+              for (var codeNumber in CategoryCode.values)(
                 new FloatingActionButton(
                   mini: true,
                   heroTag: "btn"+codeNumber.index.toString(),
+                  //color: (isBackButtonActivated) ? Colors.green : Colors.red,
                   backgroundColor: ingredientSet(codeNumber).setColor(),
                   child: new Text(ingredientSet(codeNumber).setCategoryName()),
                   onPressed:(){                    

@@ -38,7 +38,7 @@ class _searchResultPageState extends State<searchResultPage> {
     ];
 
     return Scaffold(
-      appBar: appBar.getAppBar(context, ''),
+      appBar: appBar.getAppBar(context, true),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,

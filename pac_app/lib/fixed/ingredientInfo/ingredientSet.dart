@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-enum categoryCode { meat, vegitable, grain, seasoning, etc }
+enum CategoryCode { MEAT, VEGITABLE, GRAIN, SEASONING, ETC }
 //TODO : Enum이 constant 
 class ingredientSet {
-  categoryCode code; 
+  CategoryCode code; 
   ingredientSet(this.code);
   setColor() {
     switch (this.code) {
-      case categoryCode.meat: //육류
+      case CategoryCode.MEAT: //육류
         return Colors.red.shade800;
         break;
-      case categoryCode.vegitable: //채소
+      case CategoryCode.VEGITABLE: //채소
         return Colors.green.shade900;
         break;
-      case categoryCode.grain: //탄수화물
+      case CategoryCode.GRAIN: //탄수화물
         return Colors.brown;
         break;
-      case categoryCode.seasoning: //향신료
+      case CategoryCode.SEASONING: //향신료
         return Colors.deepOrangeAccent[100];
         break;
       default:
@@ -26,16 +26,16 @@ class ingredientSet {
 
   setCategoryName() {
     switch (this.code) {
-      case categoryCode.meat: //육류
+      case CategoryCode.MEAT: //육류
         return "육류";
         break;
-      case categoryCode.vegitable: //채소
+      case CategoryCode.VEGITABLE: //채소
         return "채소";
         break;
-      case categoryCode.grain: //탄수화물
+      case CategoryCode.GRAIN: //탄수화물
         return "곡물";
         break;
-      case categoryCode.seasoning: //향신료
+      case CategoryCode.SEASONING: //향신료
         return "양념";
         break;
       default:
