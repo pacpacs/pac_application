@@ -2,19 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:pac_app/fixed/card/CardElement.dart';
 
 class ShowCardElement extends CardElement {
+  String imageUrl;
+  String recipeDescription;
+  ShowCardElement({Key key, @required this.imageUrl, @required this.recipeDescription});
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ListView(children: <Widget>[
-        new Image.network(
-          'https://i.imgur.com/4AiXzf8.jpg',
-          fit: BoxFit.contain,
-          height: 120.0,
-          width: 180.0,
+        SizedBox(
+          width: 120,
+          height: 180,
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.contain,
+          ),
         ),
-        new Text(
-          'This will be the place for recipe description.\nThis will be the place for recipe description.\nThis will be the place for recipe description.\nThis will be the place for recipe description\nThis will be the place for recipe description.\nThis will be the place for recipe description.',
-          textAlign: TextAlign.center,
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            recipeDescription,
+            textAlign: TextAlign.center,
+          ),
         ),
       ]),
     );
