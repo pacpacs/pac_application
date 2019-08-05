@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/model/RecipeModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
 
-class ShowCardElement extends StatelessWidget{
+class ShowCardElement extends StatelessWidget {
   int _idx;
   String imageUrl;
   String recipeDescription;
@@ -49,7 +49,9 @@ class ShowCardElement extends StatelessWidget{
                             iconSize: 40,
                             icon: Icon(Icons.arrow_left),
                             onPressed: () {
-                              showCardBloc.dispatch(PageEvent.previous);
+                              if (_idx > 0) {
+                                showCardBloc.dispatch(PageEvent.previous);
+                              }
                             },
                           ),
                         )),
@@ -60,7 +62,9 @@ class ShowCardElement extends StatelessWidget{
                             iconSize: 40,
                             icon: Icon(Icons.arrow_right),
                             onPressed: () {
-                              showCardBloc.dispatch(PageEvent.next);
+                              if (_idx < recipe.length-1) {
+                                showCardBloc.dispatch(PageEvent.next);
+                              }
                             },
                           ),
                         )),

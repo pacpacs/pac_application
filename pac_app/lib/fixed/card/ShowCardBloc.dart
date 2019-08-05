@@ -19,16 +19,3 @@ class ShowCardBloc extends Bloc<PageEvent,int>{
     }
   }
 }
-
-class CardA extends Bloc<ShowCardBloc,int>{
-  @override
-  // TODO: implement initialState
-  int get initialState => null;
-
-  @override
-  Stream<int> mapEventToState(ShowCardBloc event) {
-    // TODO: implement mapEventToState
-    return null;
-  }
-  
-}
