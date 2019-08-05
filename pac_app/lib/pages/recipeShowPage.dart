@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:pac_app/fixed/card/ShowCardElement.dart';
 import 'package:pac_app/fixed/profile/User.dart';
+import 'package:pac_app/fixed/card/ShowCardBloc.dart';
 import 'package:pac_app/model/UserModel.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:pac_app/model/RecipeModel.dart';
 
 class RecipeShowPage extends StatefulWidget {
@@ -38,87 +40,87 @@ class RecipeShowPage extends StatefulWidget {
   RecipeModelList dummylist = new RecipeModelList(recipeModelList: dummy1);
 
   @override
-  _RecipeShowPageState createState() =>
-      _RecipeShowPageState(recipe: dummylist);
+  _RecipeShowPageState createState() => _RecipeShowPageState(recipe: dummylist);
 }
 
-class _RecipeShowPageState extends State<RecipeShowPage>{
+class _RecipeShowPageState extends State<RecipeShowPage> {
   final RecipeModelList recipe;
   _RecipeShowPageState({Key key, @required this.recipe});
 
   @override
   Widget build(BuildContext context) {
-
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(child: widget.user.getProfileImage(50)), //글쓴이 정보
-              Flexible(
-                flex: 1,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: AutoSizeText(
-                            recipe.recipeModelList[0].title,
-                            overflow: TextOverflow.fade,
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 28,
-                                fontStyle: FontStyle.italic)),
-                      ),
-                      Container(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
+    return BlocProvider<ShowCardBloc>(
+      builder: (context) => ShowCardBloc(),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(child: widget.user.getProfileImage(50)), //글쓴이 정보
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: AutoSizeText(recipe.recipeModelList[0].title,
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 28,
+                                  fontStyle: FontStyle.italic)),
+                        ),
+                        Container(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: AutoSizeText(
+                                    recipe.recipeModelList[0].author,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15,
+                                        fontStyle: FontStyle.italic)),
+                              ),
+                            ),
+                            Container(
                               child: AutoSizeText(
-                                  recipe.recipeModelList[0].author,
+                                  recipe.recipeModelList[0].createdDate
+                                      .toString(),
                                   maxLines: 1,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 15,
                                       fontStyle: FontStyle.italic)),
                             ),
-                          ),
-                          Container(
-                            child: AutoSizeText(
-                                recipe.recipeModelList[0].createdDate
-                                    .toString(),
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15,
-                                    fontStyle: FontStyle.italic)),
-                          ),
-                        ],
-                      ))
-                    ],
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-        Flexible(
-          flex: 2,
-          child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 25.0, horizontal: 20.0),
-              child: ShowCardElement(
-                recipe: recipe.recipeModelList,
-              )),
-        )
-      ],
+          Flexible(
+            flex: 2,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 25.0, horizontal: 20.0),
+                child: ShowCardElement(
+                  recipe: recipe.recipeModelList,
+                )),
+          )
+        ],
+      ),
     );
   }
 }
