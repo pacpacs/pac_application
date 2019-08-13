@@ -107,11 +107,29 @@ class LoginPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     side: BorderSide(color: Colors.black, width: 0.8)),
                 onPressed: () {
-                  if (snapshot.hasData) {
-                    if (bloc.submit()) {
-                      Navigator.pop(context);
-                    }
-                  }
+                  bloc
+                      .submit()
+                      .then((onValue) => {Navigator.pop(context)})
+                      .catchError((onError) => {
+                            showDialog(
+                                context: context,
+                                barrierDismissible:
+                                    false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Error occurs"),
+                                    content: Text(onError),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text('Regret'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                })
+                          });
                 },
                 child: new Text('Login')),
           );

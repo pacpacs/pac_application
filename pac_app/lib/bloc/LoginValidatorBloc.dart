@@ -22,7 +22,7 @@ class LoginValidatorBloc implements Bloc {
 
   Function(String) get setUserId => _userId.sink.add;
   Function(String) get setPassword => _password.sink.add;
-  Function(UserModel) get setCurrentUser =>_currentUser.sink.add;
+  Function(UserModel) get setCurrentUser => _currentUser.sink.add;
 
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
@@ -33,32 +33,35 @@ class LoginValidatorBloc implements Bloc {
     }
   });
 
-  Future<bool> fetchPost(String validUserId, String validPassword) async {
+  Future<UserModel> fetchPost(String validUserId, String validPassword) async {
     final userId = validUserId;
     final password = validPassword;
-
-    final response = await http.post('https://localhost:8080/users/login',
-        body: {'userId': userId, 'password': password});
+    //TODO: 서버주소로 옮기기
+    final response = await http.post('http://192.168.0.57:8080/users/login',
+        body: {"userId": userId, "password": password});
 
     if (response.statusCode == 200) {
-      this.setCurrentUser(UserModel.fromJson(json.decode(response.body)));
-      debugPrint(currentUser.toString());
-      return true;
+      debugPrint(response.body.toString()) ;
+      UserModel user = UserModel.fromJson(json.decode(response.body));
+      this.setCurrentUser(user);
+      
+      return user;
     } else {
       //error처리
-      return false;
-    
-  }}
+      return null;
+    }
+  }
 
-  submit() async {
+  Future<String> submit() async {
     final validUserId = _userId.value;
     final validPassword = _password.value;
     //백엔드 연결
     debugPrint(validUserId);
     debugPrint(validPassword);
-    if(await fetchPost(validUserId,validPassword)){
-
-    }else{
+    if (await fetchPost(validUserId, validPassword)!=null) {
+      return "true";
+    } else {
+      return "false";
       //ToDo: error처리
     }
   }
