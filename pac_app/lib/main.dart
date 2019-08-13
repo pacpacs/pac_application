@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/fixed/appBar.dart' as prefix0;
+import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
 
@@ -67,23 +69,23 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     final bloc = BlocProvider.of(context).authBloc;
-
-    AppBar appbar;
-    bloc.authentication.listen((auth) {
-      switch (auth) {
-        case AuthState.admin:
-          appbar = appBar.getAppBarWithAuthAdmin(context);
-          break;
-        case AuthState.user:
-          appbar = appBar.getAppBarWithAuthUser(context);
-          break;
-        case AuthState.noneUser:
-          appbar = appBar.getAppBar(context);
-      }
-    });
     return BlocProvider(
         child: Scaffold(
-            appBar: appBar.getAppBar(context),
+            appBar: PreferredSize(
+    preferredSize: const Size(double.infinity, kToolbarHeight),
+    child: StreamBuilder(
+      stream: bloc.authentication,
+      builder: (context,snapshot){
+        if(snapshot.data==AuthState.admin){
+          return appBar.getAppBarWithAuthAdmin(context, bloc);
+        }else if(snapshot.data==AuthState.user){
+          return appBar.getAppBarWithAuthUser(context, bloc,BlocProvider.of(context).loginValidatorBloc.currentUser as UserModel);
+        }else {
+          return appBar.getAppBarWithNoneUser(context);
+        }
+      },
+    )// StreamBuilder
+  ),
             body: Center(child: _widgetOptions[_selectedViewIndex]),
             bottomNavigationBar: BottomNavigationBar(
                 items: <BottomNavigationBarItem>[
