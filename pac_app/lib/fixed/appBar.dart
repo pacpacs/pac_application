@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/pages/LoginPage.dart';
 
 // ignore: camel_case_types
 class appBar {
-  
-  static checkStatus(BuildContext context){
-    if(context.widget.toString() != "MyHomePage"){
+  static checkStatus(BuildContext context) {
+    if (context.widget.toString() != "MyHomePage") {
       return new IconButton(
-          icon: new Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: (){Navigator.pop(context);},);
+        icon: new Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      );
     }
   }
-  
-  static getAppBar(BuildContext context, bool status) {
+
+  static getAppBar(BuildContext context) {
     // TODO: status 에 따라서 login 전/후 만들기
-    return new AppBar(
+  
+    return 
+      AppBar(
       leading: checkStatus(context),
       backgroundColor: Colors.white,
       actions: <Widget>[
+
         //login button
         FlatButton(
           textColor: Colors.black,
@@ -38,4 +44,8 @@ class appBar {
       ],
     );
   }
+
+  static AppBar getAppBarWithAuthAdmin(BuildContext context) {}
+
+  static AppBar getAppBarWithAuthUser(BuildContext context) {}
 }
