@@ -68,14 +68,15 @@ class IngredientBloc extends Bloc<IngredientEvent, IngredientState> {
       IngredientCheckEvent event) async* {
     if (currentState.runtimeType == IngredientLoaded) {
       final List<Ingredient> updatedIngredients =
-          List.from((currentState as IngredientLoaded)
+          (currentState as IngredientLoaded)
               .ingredients
-              .map((ingredient) => {
-                    ingredient.isChecked = ingredient.name == event.name
-                        ? event.value
-                        : ingredient.isChecked
-                  })
-              .toList());
+              .map((ingredient) => Ingredient(
+                  name: ingredient.name,
+                  category: ingredient.category,
+                  isChecked: (ingredient.name == event.name)
+                      ? event.value
+                      : ingredient.isChecked))
+              .toList();
       yield IngredientLoaded(updatedIngredients);
     }
   }
