@@ -11,6 +11,9 @@ class AuthBloc implements Bloc {
   Stream<AuthState> get authentication => _authentication.stream;
   Function(AuthState) get setAuthentication => _authentication.sink.add;
   
+  AuthBloc(){
+    setAuthentication(AuthState.noneUser);
+  }
 
   @override
   dispose() {
