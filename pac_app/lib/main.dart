@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
+import 'package:pac_app/pages/recipeShowPage.dart';
 
 import 'AuthState.dart';
 import 'fixed/appBar.dart';
@@ -58,9 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
         'CommunityPage',
       ),
       homePage(_changeView),
-      Text(
-        'My RecipePage',
-      )
+
+      RecipeShowPage(),
+      Text('Select Ingredient Page')
+
       //or you can add more widget
     ];
 
@@ -76,12 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
           appbar = appBar.getAppBarWithAuthUser(context);
           break;
         case AuthState.noneUser:
-          appbar = appBar.getAppBarWithNoneUser(context);
+          appbar = appBar.getAppBar(context);
       }
     });
     return BlocProvider(
         child: Scaffold(
-            appBar: appBar.getAppBar(context, false),
+            appBar: appBar.getAppBar(context),
             body: Center(child: _widgetOptions[_selectedViewIndex]),
             bottomNavigationBar: BottomNavigationBar(
                 items: <BottomNavigationBarItem>[

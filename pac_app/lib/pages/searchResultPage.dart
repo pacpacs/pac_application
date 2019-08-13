@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
+import 'package:pac_app/fixed/appBar.dart' as prefix0;
 import 'package:pac_app/fixed/ingredientInfo/ingredientChip.dart';
 //import 'package:pac_app/pages/searchResultUpdateBloc.dart';
 
@@ -38,7 +39,7 @@ class _searchResultPageState extends State<searchResultPage> {
     ];
 
     return Scaffold(
-      appBar: appBar.getAppBar(context, true),
+      appBar: appBar.getAppBar(context),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,

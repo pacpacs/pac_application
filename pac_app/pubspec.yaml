@@ -27,10 +27,15 @@ dependencies:
   cupertino_icons: ^0.1.2 
   bloc_provider: ^0.6.2+1
   http: any
+  auto_size_text: any
+  provider: any
+  tuple: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  bloc: any
+    
 
 
 # For information on the generic Dart part of this file, see the
