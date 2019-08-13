@@ -8,6 +8,8 @@ import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/model/RecipeModel.dart';
 
 class RecipeShowPage extends StatefulWidget {
+
+  //json parser!
   User user = new User(
       user: UserModel(
           id: "carys3115",
@@ -16,6 +18,7 @@ class RecipeShowPage extends StatefulWidget {
           profileImgPath:
               "https://pbs.twimg.com/profile_images/965791773522984960/QhuhU3pp_400x400.jpg"));
 
+//TODO:조리방법 리스트는 http통신 bloc 레시피 가져오는 bloc에서 http-post로 가져올 것
   static List<RecipeModel> dummy1 = [
     new RecipeModel(
         author: '남수',

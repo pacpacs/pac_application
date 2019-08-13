@@ -4,7 +4,6 @@ import 'package:pac_app/model/RecipeModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
 
 class ShowCardElement extends StatelessWidget {
-  int _idx;
   String imageUrl;
   String recipeDescription;
   List<RecipeModel> recipe;
@@ -23,26 +22,31 @@ class ShowCardElement extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)),
                     child: new Stack(
                       children: <Widget>[
-                        Container(
-                          child: ListView(children: <Widget>[
-                            SizedBox(
-                              width: 120,
-                              height: 180,
-                              child: Image.network(
-                                recipe[_idx].imgPath,
-                                fit: BoxFit.contain,
+                        Center(
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: <Widget>[
+                              Flexible(
+                                flex: 2,
+                                child: Image.network(
+                                  recipe[_idx].imgPath,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text(
-                                recipe[_idx].description,
-                                textAlign: TextAlign.center,
+                              Flexible(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    recipe[_idx].description,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ]),
+                            ],
+                          ),
                         ),
-                        new Container(
+                        Container(
                             child: Align(
                           alignment: Alignment(-1.1, 0),
                           child: IconButton(
@@ -55,14 +59,14 @@ class ShowCardElement extends StatelessWidget {
                             },
                           ),
                         )),
-                        new Container(
+                        Container(
                             child: Align(
                           alignment: Alignment(1.1, 0),
                           child: IconButton(
                             iconSize: 40,
                             icon: Icon(Icons.arrow_right),
                             onPressed: () {
-                              if (_idx < recipe.length-1) {
+                              if (_idx < recipe.length - 1) {
                                 showCardBloc.dispatch(PageEvent.next);
                               }
                             },
