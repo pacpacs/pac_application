@@ -14,17 +14,25 @@ class WriteCardElement extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(left: 40, right: 40),
-                  child: ListView(
+                  child: Flex(
+                    direction: Axis.vertical,
                     children: <Widget>[
-                      FlatButton(//TODO:버튼 크기 관리
-                        child: Image.asset('images/img1.jpg'),
-                        onPressed: ()=>{},
+                      Flexible(
+                        flex: 2,
+                        child: FlatButton(
+                          child: Image.asset('images/img1.jpg'),
+                          onPressed: () => {//TODO:버튼 이미지 변경하는 Bloc call
+                          },
+                        ),
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '요리 단계를 설명해주세요.'),
-                        cursorColor: Colors.amber,
+                      Flexible(
+                        flex: 1,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '요리 단계를 설명해주세요.'),
+                          cursorColor: Colors.amber,
+                        ),
                       )
                     ],
                   ),
