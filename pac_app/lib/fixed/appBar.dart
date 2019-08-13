@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/pages/loginPage.dart';
+import 'package:pac_app/pages/LoginPage.dart';
 
 // ignore: camel_case_types
 class appBar {
@@ -27,7 +27,7 @@ class appBar {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => loginPage()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
             );
           },
           child: Text(
