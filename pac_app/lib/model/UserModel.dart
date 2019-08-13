@@ -13,4 +13,12 @@ class UserModel {
       return;
     }
   }
+
+  factory UserModel.fromJson(Map<String,dynamic> json) {
+      return UserModel(
+        id: json['userId'],
+        nickName:json['nickName'],
+        profileImgPath: json['imgPath']
+      );
+  }
 }
