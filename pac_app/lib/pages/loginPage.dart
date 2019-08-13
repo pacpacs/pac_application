@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 
@@ -109,7 +110,12 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   bloc
                       .submit()
-                      .then((onValue) => {Navigator.pop(context)})
+                      .then((onValue) => {
+                            BlocProvider.of(context)
+                                .authBloc
+                                .setAuthentication(AuthState.user),
+                            Navigator.pop(context)
+                          })
                       .catchError((onError) => {
                             showDialog(
                                 context: context,
