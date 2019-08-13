@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/fixed/appBar.dart' as prefix0;
 import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
@@ -23,8 +24,9 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of(context).authBloc;
     return new Scaffold(
-      appBar: appBar.getAppBar(context),
+      appBar: appBar.getAppBar(context,bloc),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
