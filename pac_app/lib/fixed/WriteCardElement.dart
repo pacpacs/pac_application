@@ -16,18 +16,14 @@ class WriteCardElement extends StatelessWidget {
                   padding: EdgeInsets.only(left: 40, right: 40),
                   child: ListView(
                     children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.image),
-                        onPressed: () => {
-                          //TODO:이미지 선택하면 버튼 배경을 선택한 이미지로 update
-                          print('이미지 추가')
-                        },
-                        iconSize: 100,
+                      FlatButton(//TODO:버튼 크기 관리
+                        child: Image.asset('images/img1.jpg'),
+                        onPressed: ()=>{},
                       ),
                       TextField(
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: '요리 단계를 설명해주세요'),
+                            hintText: '요리 단계를 설명해주세요.'),
                         cursorColor: Colors.amber,
                       )
                     ],

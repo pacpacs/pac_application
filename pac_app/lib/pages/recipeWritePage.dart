@@ -13,7 +13,7 @@ class _WriteRecipePageState extends State<WriteRecipePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(children: <Widget>[
-      //내용 작성 시, 자연스럽게 키보드에 화면이 밀려올라가게 하기 위해서
+      //레시피 내용 작성 시, 자연스럽게 키보드에 화면이 밀려올라가게 하기 위해서 ListView사용
       Container(
           height: 50,
           child: Card(
@@ -39,7 +39,7 @@ class _WriteRecipePageState extends State<WriteRecipePage> {
                 child: Column(children: <Widget>[
                   Text('레시피 재료-재료선택화면 reuse'),
                   Wrap(children: <Widget>[
-                    //TODO:재료(와 재료칩) 추가/삭제 bloc적용
+                    //TODO:재료(와 재료칩) 추가/삭제 ingredient bloc적용해서 Wrap 관리
                     Chip(
                       avatar: CircleAvatar(backgroundColor: Colors.amberAccent),
                       label: Text('재료1ㅁㄴㅇㄻㄴㅇㄹ'),
