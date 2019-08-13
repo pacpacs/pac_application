@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
 import 'package:pac_app/pages/loginPage.dart';
 import 'package:pac_app/pages/registerPage.dart';
 import 'package:pac_app/pages/selectIngredientPage.dart';
+import 'bloc/IngredientBloc.dart';
 
 import 'fixed/appBar.dart';
 
@@ -12,13 +14,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage());
+    return BlocProvider(
+      builder: (context) => IngredientBloc(),
+      child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: MyHomePage()),
+    );
   }
 }
 
@@ -68,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
         appBar: appBar.getAppBar(context, false),
-
         body: Center(child: _widgetOptions[_selectedViewIndex]),
         bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[

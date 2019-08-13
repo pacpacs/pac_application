@@ -107,7 +107,7 @@ class _homePageState extends State<homePage> {
             onTap: () => {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return selectIngredientPage();
+                return SelectIngredientPage();
               }))
             }, //TODO: Ingredient_popup창 뜨게 하기,
 

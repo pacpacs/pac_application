@@ -1,41 +1,28 @@
 import 'package:flutter/material.dart';
-import 'ingredient.dart';
-import 'ingredientsList.dart';
-import '../../bloc/ingredient_bloc.dart';
-class IngredientItem extends StatefulWidget{
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pac_app/bloc/IngredientBloc.dart';
+import 'package:pac_app/model/Ingredient.dart';
+
+class IngredientItem extends StatelessWidget {
   final Ingredient ingredient;
-  IngredientItem(Ingredient ingredient):
-      ingredient = ingredient,
-        super(key: new ObjectKey(ingredient));
-  @override
-  IngredientItemState createState() {
-    return new IngredientItemState(ingredient);
-  }
-}
-class IngredientItemState extends State<IngredientItem> {
-  final Ingredient ingredient;
-  IngredientItemState(this.ingredient);
+  final Function(bool) action;
+  IngredientItem({@required this.ingredient, @required this.action})
+      : super(key: new ObjectKey(ingredient));
 
   @override
   Widget build(BuildContext context) {
-    return new ListTile(
-        onTap:null,
-        leading: new CircleAvatar(
-          backgroundColor: widget.ingredient.getColor(),
-          radius: 10.0,
-        ),
-        title: new Row(
-          children: <Widget>[
-            new Expanded(child: new Text(widget.ingredient.name)),
-            new Checkbox(value: widget.ingredient.isCheck, onChanged: (bool value) {
-              setState(() {
-                widget.ingredient.isCheck = value;
-                IngredientBloc().controller.add(widget.ingredient);
-              });
-            })
-          ],
-        )
+    return ListTile(
+      onTap: null,
+      leading: CircleAvatar(
+        backgroundColor: ingredient.category.color,
+        radius: 10.0,
+      ),
+      title: Row(
+        children: <Widget>[
+          Expanded(child: Text(ingredient.name)),
+          Checkbox(value: ingredient.isChecked, onChanged: action)
+        ],
+      ),
     );
   }
 }
-
