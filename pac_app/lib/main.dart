@@ -3,7 +3,7 @@ import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/loginPage.dart';
 import 'package:pac_app/pages/registerPage.dart';
 import 'package:pac_app/pages/selectIngredientPage.dart';
-
+import 'package:pac_app/pages/communityPage.dart';
 import 'fixed/appBar.dart';
 
 void main() => runApp(MyApp());
@@ -54,9 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     //TODO: 필요한 widget List 추가하기
     List<Widget> _widgetOptions = <Widget>[
-      Text(
-        'CommunityPage',
-      ),
+      communityPage(),
       homePage(_changeView),
       Text(
         'My RecipePage',
