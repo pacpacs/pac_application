@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pac_app/fixed/recipe/bestRecipe/bestRecipe.dart';
+
 /**
  * P&C의 메인을 구성하는 homePage
  *
@@ -99,12 +103,14 @@ class _homePageState extends State<homePage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+
             onTap: () => {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
                 return selectIngredientPage();
               }))
             }, //TODO: Ingredient_popup창 뜨게 하기,
+
             controller: editingController,
             decoration: InputDecoration(
                 labelText: "  Ingredient Search",
@@ -119,14 +125,7 @@ class _homePageState extends State<homePage> {
               'Today\'s Recommended Recipe',
               style: theme.textTheme.title,
             )),
-        CarouselSlider(
-          items: child,
-          enableInfiniteScroll: true,
-          autoPlay: true,
-          enlargeCenterPage: true,
-          viewportFraction: 0.9,
-          aspectRatio: 2.0,
-        )
+        BestRecipe()
       ],
     );
   }
