@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
+import 'package:pac_app/pages/loginPage.dart';
+import 'package:pac_app/pages/registerPage.dart';
+import 'package:pac_app/pages/selectIngredientPage.dart';
 
 import 'fixed/appBar.dart';
 
@@ -10,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -55,13 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
         'CommunityPage',
       ),
       homePage(_changeView),
+
       RecipeShowPage(),
       Text('Select Ingredient Page')
+
       //or you can add more widget
     ];
 
     return Scaffold(
-        appBar: appBar.getAppBar(context, ''),
+        appBar: appBar.getAppBar(context, false),
+
         body: Center(child: _widgetOptions[_selectedViewIndex]),
         bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
