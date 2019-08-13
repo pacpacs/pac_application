@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
-import 'package:pac_app/pages/loginPage.dart';
-import 'package:pac_app/pages/registerPage.dart';
-import 'package:pac_app/pages/selectIngredientPage.dart';
 
+import 'AuthState.dart';
 import 'fixed/appBar.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
 
@@ -13,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-          child: MaterialApp(
+      child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -66,21 +64,36 @@ class _MyHomePageState extends State<MyHomePage> {
       //or you can add more widget
     ];
 
-    return Scaffold(
-        appBar: appBar.getAppBar(context, false),
+    final bloc = BlocProvider.of(context).authBloc;
 
-        body: Center(child: _widgetOptions[_selectedViewIndex]),
-        bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.people), title: Text('Community')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text('Home')),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment), title: Text('My Recipe')),
-            ],
-            currentIndex: _selectedNavigatorIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _changeView));
+    AppBar appbar;
+    bloc.authentication.listen((auth) {
+      switch (auth) {
+        case AuthState.admin:
+          appbar = appBar.getAppBarWithAuthAdmin(context);
+          break;
+        case AuthState.user:
+          appbar = appBar.getAppBarWithAuthUser(context);
+          break;
+        case AuthState.noneUser:
+          appbar = appBar.getAppBarWithNoneUser(context);
+      }
+    });
+    return BlocProvider(
+        child: Scaffold(
+            appBar: appBar.getAppBar(context, false),
+            body: Center(child: _widgetOptions[_selectedViewIndex]),
+            bottomNavigationBar: BottomNavigationBar(
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.people), title: Text('Community')),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), title: Text('Home')),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.assignment), title: Text('My Recipe')),
+                ],
+                currentIndex: _selectedNavigatorIndex,
+                selectedItemColor: Colors.amber[800],
+                onTap: _changeView)));
   }
 }
