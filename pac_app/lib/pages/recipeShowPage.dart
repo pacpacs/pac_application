@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -8,15 +10,17 @@ import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/model/RecipeModel.dart';
 
 class RecipeShowPage extends StatefulWidget {
+  
+  static var jsonUserData =
+      '{"_id":"5d524dd34e1d1b238c19b13b","userId":"carys3115","nickName":"GagnEE","password":"administrator","imgPath":"https://pbs.twimg.com/profile_images/965791773522984960/QhuhU3pp_400x400.jpg"}';
+  static var parsedJson = jsonDecode(jsonUserData);
 
-  //json parser!
   User user = new User(
       user: UserModel(
-          id: "carys3115",
-          password: "pacpac",
-          nickName: "syk",
-          profileImgPath:
-              "https://pbs.twimg.com/profile_images/965791773522984960/QhuhU3pp_400x400.jpg"));
+          id: parsedJson['userId'],
+          password: parsedJson['password'],
+          nickName: parsedJson['nickName'],
+          profileImgPath: parsedJson['imgPath']));
 
 //TODO:조리방법 리스트는 http통신 bloc 레시피 가져오는 bloc에서 http-post로 가져올 것
   static List<RecipeModel> dummy1 = [
