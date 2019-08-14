@@ -4,7 +4,7 @@ import 'customListItem.dart';
 class CommunityListItem {
 
   List<CustomListItem> communityResult = [];
-  List<CustomListItem> recommandResult = [];
+  List<CustomListItem> recommendResult = [];
   CommunityListItem(){
     this.communityResult = [
       CustomListItem(
@@ -15,7 +15,7 @@ class CommunityListItem {
     for(int i=0; i<20; i++) {
       communityResult+=[CustomListItem('https://i.imgur.com/Z1LR83S.png',i.toString(), 'Not')];
     }
-    this.recommandResult =[
+    this.recommendResult =[
       CustomListItem('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY-g6Lf6DLGI-5VVvfpU_TqR_33e-6rmSoBg70g-YQ3UHKaMkC',
       '에그인헬', '계란이 지옥에 빠지다'),
       CustomListItem('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5EEElbsXRQ7gc1w1O2ObD47v7sRWdo9MN9yk8ySg7WoTOrOIw',

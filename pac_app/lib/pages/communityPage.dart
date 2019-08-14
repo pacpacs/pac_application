@@ -52,7 +52,7 @@ class _communityPageState extends State<communityPage>{
          ),
          Flexible(
              flex: 2,
-             child: recommandList(snapshot)
+             child: recommendList(snapshot)
          ),
          Flexible(
              flex: 3,
@@ -63,10 +63,10 @@ class _communityPageState extends State<communityPage>{
   }
 
 
-  Widget recommandList(AsyncSnapshot<CommunityListItem> snapshot) {
+  Widget recommendList(AsyncSnapshot<CommunityListItem> snapshot) {
 
     return CarouselSlider(
-      items: snapshot.data.recommandResult.map((f){
+      items: snapshot.data.recommendResult.map((f){
         return  Builder(
           builder: (BuildContext context){
             var item = f.itemTitle;
@@ -130,6 +130,7 @@ class _communityPageState extends State<communityPage>{
       itemCount: snapshot.data.communityResult.length,
       itemBuilder: (BuildContext context, int index) {
         var item = snapshot.data.communityResult[index];
+        //TODO: expanding ListTile
         return ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.itemPreview),
