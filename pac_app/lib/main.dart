@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
+import 'package:pac_app/pages/recipeShowPage.dart';
 import 'package:pac_app/pages/loginPage.dart';
 import 'package:pac_app/pages/recipeWritePage.dart';
 import 'package:pac_app/pages/registerPage.dart';
