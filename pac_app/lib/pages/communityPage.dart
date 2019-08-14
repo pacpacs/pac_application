@@ -4,6 +4,7 @@ import '../bloc/community_bloc.dart';
 import '../fixed/customListItem.dart';
 import '../fixed/communityListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../style/textStyle.dart';
 class communityPage extends StatefulWidget{
   _communityPageState createState() => new _communityPageState();
 }
@@ -37,6 +38,19 @@ class _communityPageState extends State<communityPage>{
      return Column(
        children: <Widget>[
          Flexible(
+           flex: 0,
+           child:Container(
+             margin:EdgeInsets.symmetric(vertical: 10.0),
+            child:
+              Text("Today's Recipe",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  shadows: [Shadow(color:Colors.black38,offset: Offset(1,2), blurRadius: 3)]
+              ),)
+           ),
+         ),
+         Flexible(
              flex: 2,
              child: recommandList(snapshot)
          ),
@@ -48,45 +62,60 @@ class _communityPageState extends State<communityPage>{
      );
   }
 
+
   Widget recommandList(AsyncSnapshot<CommunityListItem> snapshot) {
+
     return CarouselSlider(
       items: snapshot.data.recommandResult.map((f){
         return  Builder(
           builder: (BuildContext context){
+            var item = f.itemTitle;
           return Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.green,
-            ),
-            child: Image.network(f.itemPreview,
-            fit: BoxFit.fill),
+            //width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: ClipRRect( //모서리둥글게
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+              children: <Widget>[
+                Image.network(f.itemPreview, fit: BoxFit.fill),
+                Positioned(
+                  left: 0,
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(100, 0, 0, 0),
+                          Color.fromARGB(0, 0, 0, 0)
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                    child: Text(
+                      '$item',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),)
           );
         },);
     }).toList(),
-      autoPlayInterval: Duration(seconds: 1),
       autoPlay: true,
       enableInfiniteScroll: true,
       scrollDirection: Axis.horizontal,
+      enlargeCenterPage: true,
+      viewportFraction: 0.8,
     );
   }
-  /*
-  Widget recommandList(AsyncSnapshot<CommunityListItem> snapshot){
-    return PageView.builder(
-        controller: _pageController,
-        itemCount: snapshot.data.recommandResult.length,
-        itemBuilder: (context, position){
-          return AnimatedBuilder(
-              animation: _pageController,
-              builder: (context, widget){
-                return Center(
-                  child: Container(
-                    child: Image.network(snapshot.data.recommandResult[position].itemPreview, fit:BoxFit.cover),
-                  ),
-                );
-              });
-        });
-  }*/
 
   Widget communityList(AsyncSnapshot<CommunityListItem> snapshot){
 
