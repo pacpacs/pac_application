@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
-
 import 'AuthState.dart';
 import 'fixed/appBar.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
@@ -63,9 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     //TODO: 필요한 widget List 추가하기
     List<Widget> _widgetOptions = <Widget>[
-      Text(
-        'CommunityPage',
-      ),
+      communityPage(),
       homePage(_changeView),
 
       RecipeShowPage(),
