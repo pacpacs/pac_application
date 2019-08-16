@@ -42,7 +42,7 @@ class LoginValidatorBloc implements Bloc {
     }
   });
 
-  Future<UserModel> fetchPost(String validUserId, String validPassword) async {
+  Future<UserModel> fetchLoginPost(String validUserId, String validPassword) async {
     final userId = validUserId;
     final password = validPassword;
     //TODO: 서버주소로 옮기기
@@ -67,7 +67,7 @@ class LoginValidatorBloc implements Bloc {
     //백엔드 연결
     debugPrint(validUserId);
     debugPrint(validPassword);
-    if (await fetchPost(validUserId, validPassword)!=null) {
+    if (await fetchLoginPost(validUserId, validPassword)!=null) {
       return "true";
     } else {
       return "false";
