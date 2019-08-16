@@ -14,6 +14,15 @@ import 'registerPage.dart';
 
 import '../bloc/BlocProvider.dart';
 
+
+/**
+ * Login Page 
+ * 
+ * @author 서윤경
+ * @version 1.0
+ * @date 2019.08.16
+ */
+
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

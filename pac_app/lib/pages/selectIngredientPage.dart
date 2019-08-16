@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
-import 'package:pac_app/fixed/appBar.dart' as prefix0;
 import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';

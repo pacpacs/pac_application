@@ -7,6 +7,14 @@ import 'package:rxdart/rxdart.dart';
 
 import 'package:http/http.dart' as http;
 
+/**
+ * P&C의 Login 로직
+ *
+ * @author 서윤경
+ * @version 1.0, Login Bloc
+ * @date 2019.07.02
+ */
+
 class LoginValidatorBloc implements Bloc {
   final _userId = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();

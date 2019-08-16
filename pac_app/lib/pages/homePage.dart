@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:pac_app/fixed/recipe/bestRecipe/bestRecipe.dart';
 
 /**
@@ -10,9 +9,6 @@ import 'package:pac_app/fixed/recipe/bestRecipe/bestRecipe.dart';
  * @date 2019.07.02
  */
 
-import 'package:flutter/material.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import '../pages/selectIngredientPage.dart';
 import '../style/textStyle.dart';
 

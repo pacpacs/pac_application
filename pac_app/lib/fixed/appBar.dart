@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/AuthBloc.dart';
@@ -8,7 +6,13 @@ import 'package:pac_app/fixed/profile/User.dart';
 import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/pages/LoginPage.dart';
 import '../style/textStyle.dart';
-
+/**
+ * P&C의 구성하는 appBar
+ *
+ * @author 서윤경
+ * @version 1.0, P&C 의 appBar
+ * @date 2019.08.16
+ */
 // ignore: camel_case_types
 class appBar {
   // static checkStatus(BuildContext context) {

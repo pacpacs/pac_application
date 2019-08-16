@@ -4,7 +4,6 @@ import 'package:pac_app/bloc/BlocProvider.dart';
 
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
-import 'package:pac_app/fixed/appBar.dart' as prefix0;
 import 'package:pac_app/fixed/ingredientInfo/ingredientChip.dart';
 //import 'package:pac_app/pages/searchResultUpdateBloc.dart';
 

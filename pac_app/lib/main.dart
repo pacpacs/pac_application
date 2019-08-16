@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/fixed/appBar.dart' as prefix0;
-import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
 
 import 'AuthState.dart';
 import 'fixed/appBar.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
+
+/**
+ * P&C의 메인 총 구성
+ *
+ * @author 서윤경
+ * @version 1.0, P&C 의 총 구성 main
+ * @date 2019.08.16
+ */
 
 void main() => runApp(MyApp());
 
