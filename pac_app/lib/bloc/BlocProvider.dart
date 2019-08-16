@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 import 'AuthBloc.dart';
+import 'RegisterBloc.dart';
 
 
 /**
@@ -15,6 +16,7 @@ class BlocProvider extends InheritedWidget {
   final blocState = new _BlocState(
     loginValidatorBloc: LoginValidatorBloc(),
     authBloc:AuthBloc(),
+    registerBloc:RegisterBloc()
   );
 
   BlocProvider({Key key, Widget child}) : super(key: key, child: child);
@@ -30,10 +32,11 @@ class BlocProvider extends InheritedWidget {
 class _BlocState {
   final LoginValidatorBloc loginValidatorBloc;
   final AuthBloc authBloc;
+  final RegisterBloc registerBloc;  
 
   _BlocState({
     this.loginValidatorBloc,
-    this.authBloc
+    this.authBloc, this.registerBloc
   });
 
 }
