@@ -7,6 +7,7 @@ import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/fixed/profile/User.dart';
 import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/pages/LoginPage.dart';
+import '../style/textStyle.dart';
 
 // ignore: camel_case_types
 class appBar {
@@ -39,11 +40,9 @@ class appBar {
           return getAppBarWithNoneUser(context);
           break;
       }
-     
-    },  onError: (error) {
+    }, onError: (error) {
       print("Some Error");
     });
-    
   }
 
   static AppBar getAppBarWithAuthAdmin(BuildContext context, AuthBloc bloc) {
@@ -61,14 +60,21 @@ class appBar {
 
   static AppBar getAppBarWithAuthUser(
       BuildContext context, AuthBloc bloc, UserModel user) {
+    final theme = Theme.of(context);
     User currentUser = User(user: user);
-
     return AppBar(
       backgroundColor: Colors.white,
       actions: <Widget>[
         //login button
-        currentUser.getProfileImage(50),
-        Text(currentUser.user.nickName),
+        Column(children: <Widget>[
+          currentUser.getProfileImage(20),
+          Center(
+              child: Text(
+            "" + currentUser.user.nickName,
+            style: textStyle.contextText,
+            textAlign: TextAlign.center,
+          )),
+        ]),
         FlatButton(
           textColor: Colors.black,
           disabledColor: Colors.grey,

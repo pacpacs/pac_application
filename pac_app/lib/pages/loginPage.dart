@@ -4,8 +4,10 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:pac_app/AuthState.dart';
+import 'package:pac_app/bloc/AuthBloc.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
+import 'package:pac_app/main.dart';
 
 import '../style/textStyle.dart';
 import 'registerPage.dart';
@@ -15,7 +17,8 @@ import '../bloc/BlocProvider.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of(context).loginValidatorBloc;
+    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
+    final authBloc = BlocProvider.of(context).authBloc;
 
     return BlocProvider(
       child: Scaffold(
@@ -34,9 +37,9 @@ class LoginPage extends StatelessWidget {
                       Text('for Pick & Cook', style: textStyle.subHeadLineText),
                     ],
                   )),
-              userIdField(bloc),
-              passwordField(bloc),
-              submitButtonField(bloc),
+              userIdField(loginBloc),
+              passwordField(loginBloc),
+              submitButtonField(loginBloc,authBloc),
               signInButtonField(context)
             ],
           ),
@@ -80,6 +83,7 @@ class LoginPage extends StatelessWidget {
             child: TextField(
               onChanged: bloc.setPassword,
               style: new TextStyle(height: 0.5, color: Colors.black),
+              obscureText: true,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -93,7 +97,7 @@ class LoginPage extends StatelessWidget {
         });
   }
 
-  submitButtonField(LoginValidatorBloc bloc) {
+  submitButtonField(LoginValidatorBloc bloc, AuthBloc authBloc) {
     return StreamBuilder(
         stream: bloc.submitValid,
         builder: (context, snapshot) {
@@ -111,10 +115,9 @@ class LoginPage extends StatelessWidget {
                   bloc
                       .submit()
                       .then((onValue) => {
-                            BlocProvider.of(context)
-                                .authBloc
+                            authBloc
                                 .setAuthentication(AuthState.user),
-                            Navigator.pop(context)
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()))
                           })
                       .catchError((onError) => {
                             showDialog(

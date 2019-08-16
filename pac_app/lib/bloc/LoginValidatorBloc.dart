@@ -19,6 +19,7 @@ class LoginValidatorBloc implements Bloc {
       Observable.combineLatest2(userId, password, (i, p) => true);
 
   Stream<UserModel> get currentUser => _currentUser.stream;
+  UserModel get getCurrentUserData => _currentUser.value;
 
   Function(String) get setUserId => _userId.sink.add;
   Function(String) get setPassword => _password.sink.add;

@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
-  @override
+  @override 
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -68,18 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
       //or you can add more widget
     ];
 
-    final bloc = BlocProvider.of(context).authBloc;
+    final authBloc = BlocProvider.of(context).authBloc;
+    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
     return BlocProvider(
         child: Scaffold(
             appBar: PreferredSize(
     preferredSize: const Size(double.infinity, kToolbarHeight),
     child: StreamBuilder(
-      stream: bloc.authentication,
+      stream: authBloc.authentication,
       builder: (context,snapshot){
         if(snapshot.data==AuthState.admin){
-          return appBar.getAppBarWithAuthAdmin(context, bloc);
+          return appBar.getAppBarWithAuthAdmin(context, authBloc);
         }else if(snapshot.data==AuthState.user){
-          return appBar.getAppBarWithAuthUser(context, bloc,BlocProvider.of(context).loginValidatorBloc.currentUser as UserModel);
+          return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData);
         }else {
           return appBar.getAppBarWithNoneUser(context);
         }
