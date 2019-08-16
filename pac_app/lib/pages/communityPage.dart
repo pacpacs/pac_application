@@ -42,7 +42,7 @@ class _communityPageState extends State<communityPage>{
            child:Container(
              margin:EdgeInsets.symmetric(vertical: 10.0),
             child:
-              Text("Today's Recipe",
+              Text("오늘의 레시피",
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
