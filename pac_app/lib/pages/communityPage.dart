@@ -78,7 +78,7 @@ class _communityPageState extends State<communityPage>{
 
 
   Widget recommendList(List<PostListItem> communitys) {
-
+//TODO: Recommend List만 따로 빼네야함.
     return CarouselSlider(
       items: communitys.map((f){
         return  Builder(

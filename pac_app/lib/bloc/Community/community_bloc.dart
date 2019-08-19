@@ -54,7 +54,7 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
      }
     }
   }
-
+//TODO: 20개 씩만 받아오도록
   Future<List<PostListItem>>_fetchCommunitys() async{
 
     final response = await httpClient.get("https://jsonplaceholder.typicode.com/photos");
