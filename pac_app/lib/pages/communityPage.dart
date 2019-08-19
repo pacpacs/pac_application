@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../style/textStyle.dart';
 import '../bloc/Community/community_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'recipeShowPage.dart';
 class communityPage extends StatefulWidget{
   _communityPageState createState() => new _communityPageState();
 }
@@ -145,6 +146,12 @@ class _communityPageState extends State<communityPage>{
         var item = communitys[index];
         //TODO: expanding ListTile
         return ListTile(
+          onTap: (){
+            Navigator.push(context,
+               MaterialPageRoute<void>(builder: (BuildContext context){
+            return RecipeShowPage();
+            }));
+          },
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.itemPreview),
           ),
