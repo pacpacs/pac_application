@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+
 /**
  * user에 대한 정보가 담긴 Form
  *
@@ -11,30 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:pac_app/bloc/LoginValidatorBloc.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
-import 'package:pac_app/bloc/RegisterBloc.dart';
-import 'package:pac_app/main.dart';
-import 'package:pac_app/model/UserModel.dart';
-import 'package:image_picker/image_picker.dart';
 
-class UserInputForm {
-  final userIdController = new TextEditingController();
-  final passwordController = new TextEditingController();
-  final userNameController = new TextEditingController();
-  File _image;
-
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    _image = image;
-  }
-
-  getUserInputForm(BuildContext context, GlobalKey<FormState> _formKey) {
-    LoginValidatorBloc loginValidatorBloc =
-        BlocProvider.of(context).loginValidatorBloc;
-    RegisterBloc registerBloc = BlocProvider.of(context).registerBloc;
-=======
 import 'package:pac_app/bloc/RegisterBloc.dart';
 
 class UserInputForm extends StatefulWidget {
@@ -101,7 +78,6 @@ class _UserInputFormState extends State<UserInputForm> {
 
   @override
   Widget build(BuildContext context) {
->>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
     bool _autoValidate = false;
     String _name;
     String _password;
@@ -111,31 +87,8 @@ class _UserInputFormState extends State<UserInputForm> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
-<<<<<<< HEAD
-          child: TextFormField(
-            controller: userIdController,
-            decoration: InputDecoration(labelText: 'userID'),
-            validator: _validateUserId,
-            onSaved: (v) => userIdController.text = v,
-          ),
-        ),
-        TextFormField(
-          controller: passwordController,
-          decoration: const InputDecoration(labelText: 'password'),
-          validator: _validatePassword,
-          obscureText: true,
-        ),
-        TextFormField(
-          controller: userNameController,
-          decoration: const InputDecoration(labelText: 'userName'),
-          keyboardType: TextInputType.text,
-          validator: _validateUserName,
-          onSaved: (String val) {
-            _name = val;
-          },
-=======
           child: StreamBuilder<String>(
-              stream: registerBloc.userIdToRegister,
+              stream: registerBloc.userIdToRegister, 
               builder: (context, snapshot) {
                 return TextFormField(
                   onSaved: registerBloc.setUserIdToRegister,
@@ -143,7 +96,7 @@ class _UserInputFormState extends State<UserInputForm> {
                   validator: _validateUserId,
                 );
               }),
->>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
+
         ),
         StreamBuilder<String>(
             stream: registerBloc.userPasswordToRegister,
@@ -177,20 +130,11 @@ class _UserInputFormState extends State<UserInputForm> {
                 child: Text(" Choose Profile Image"),
               ),
               Expanded(
-<<<<<<< HEAD
-                child: FlatButton(
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: getImage,
-                  color: Colors.white,
-=======
+
                   child: FlatButton(
                 child: Icon(
                   Icons.camera_alt,
                   color: Colors.blueGrey,
->>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
                 ),
                 onPressed: chooseImage, //TODO: get Image from server
                 color: Colors.white,
@@ -201,44 +145,6 @@ class _UserInputFormState extends State<UserInputForm> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: RaisedButton(
-<<<<<<< HEAD
-            onPressed: () async {
-              if (_formKey.currentState.validate()) {
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('Processing Data')));
-
-                UserModel userToRegister = UserModel(
-                    id: userIdController.text,
-                    password: passwordController.text,
-                    nickName: userNameController.text,
-                    profileImgPath: _image.path);
-
-                await registerBloc
-                    .fetchRegisterPost(userToRegister)
-                    .then((onValue) =>
-                        {MaterialPageRoute(builder: (context) => MyHomePage())})
-                    .catchError((onError) => {
-                          showDialog(
-                              //TODO: LoginPage와 같은 것 따로 빼도록 하자.
-                              context: context,
-                              barrierDismissible:
-                                  false, // user must tap button!
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Error occurs"),
-                                  content: Text(onError),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text('Regret'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              })
-                        });
-=======
             onPressed: () {
               // Validate returns true if the form is valid, or false
               // otherwise.
@@ -247,7 +153,6 @@ class _UserInputFormState extends State<UserInputForm> {
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text('Processing Data')));
                 registerBloc.submit();
->>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
               }
             },
             child: Text('Submit'),
