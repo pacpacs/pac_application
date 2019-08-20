@@ -7,6 +7,8 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/BlocProvider.dart';
+
 import '../style/textStyle.dart';
 import '../fixed/userInputForm.dart';
 
@@ -21,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserInputForm userInputForm = new UserInputForm();
+    final registerBloc = BlocProvider.of(context).registerBloc;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: new Container(
@@ -35,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 Text("Reigster", style: textStyle.headLineText),
                 Text("for Pick & Cook", style: textStyle.subHeadLineText),
-                Form(key: _formKey, child: userInputForm.getUserInputForm(context,_formKey)),
+                Form(key: _formKey, child: UserInputForm(formKey: _formKey, registerBloc:registerBloc)),
               ],
             )),
       ),

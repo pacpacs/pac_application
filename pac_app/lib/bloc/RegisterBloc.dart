@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 import 'package:pac_app/model/UserModel.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,9 +18,13 @@ import 'package:http/http.dart' as http;
  * @date 2019.08.16
  */
 
-
 class RegisterBloc implements Bloc {
+  final _userIdToRegister = BehaviorSubject<String>();
+  final _userPasswordToRegister = BehaviorSubject<String>();
+  final _userNickNameToRegister = BehaviorSubject<String>();
+  final _userImageFileToRegister = BehaviorSubject<File>();
 
+<<<<<<< HEAD
   final _userToRegisterUserId = BehaviorSubject<String>();
   final _userToRegisterPassword = BehaviorSubject<String>();
   final _userToRegisterNickName = BehaviorSubject<String>();
@@ -49,6 +54,24 @@ class RegisterBloc implements Bloc {
       }else{
         return null;
       }    
+=======
+  Stream<String> get userIdToRegister => _userIdToRegister.stream;
+  Stream<String> get userPasswordToRegister => _userPasswordToRegister.stream;
+  Stream<String> get userNickNameToRegister => _userNickNameToRegister.stream;
+  Stream<File> get userImageFileToRegister => _userImageFileToRegister.stream;
+
+  Function(String) get setUserIdToRegister => _userIdToRegister.sink.add;
+  Function(String) get setUserPasswordToRegister => _userPasswordToRegister.sink.add;
+  Function(String) get setUserNickNameToRegister => _userNickNameToRegister.sink.add;
+  Function(File) get setUserImageFileToRegister => _userImageFileToRegister.sink.add;
+  Future<UserModel> fetchRegisterPost(UserModel user, String base64image) async {
+    
+    final response = await http
+        .post('http://192.168.0.57:8080/users/register', body: {"image":base64image,"user": user});
+    if (response.statusCode == 200) {
+      debugPrint(response.body.toString());
+      return user;
+>>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
     } else {
       //error처리
       return null;
@@ -56,15 +79,24 @@ class RegisterBloc implements Bloc {
   }
 
   Future<String> submit() async {
+<<<<<<< HEAD
     final _userId = _userToRegisterUserId.value;
     final _password = _userToRegisterPassword.value;
     final _nickName = _userToRegisterNickName.value;
     final _imgFile = _userToRegisterImgFile.value;
 
     UserModel validUser = UserModel(id: _userId,password: _password,nickName: _nickName,profileImgPath: imgFIle.toString());
+=======
+    File file = _userImageFileToRegister as File;
+     if (file == null) return "";
+   String base64Image = base64Encode(file.readAsBytesSync());
+   String fileName = file.path.split("/").last;
+ UserModel validUser = UserModel(id: _userIdToRegister.value,password: _userPasswordToRegister.value,nickName: _userNickNameToRegister.value,profileImgPath: fileName);
+   
+>>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
     //백엔드 연결
-    debugPrint(validUser.toString());
-    if (await fetchRegisterPost(validUser)!=null) {
+   
+    if (await fetchRegisterPost(validUser,base64Image) != null) {
       return "true";
     } else {
       return "false";
@@ -72,13 +104,25 @@ class RegisterBloc implements Bloc {
     }
   }
 
+ void getImage() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxWidth: 150.0, maxHeight: 150.0).then((value){
+          setUserImageFileToRegister(value);
+        });
+    
+  }
   @override
   void dispose() {
+<<<<<<< HEAD
     _userToRegisterUserId.close();
     _userToRegisterNickName.close();
     _userToRegisterPassword.close();
     _userToRegisterImgFile.close();
+=======
+    _userIdToRegister.close();
+    _userImageFileToRegister.close();
+    _userNickNameToRegister.close();
+    _userPasswordToRegister.close();
+>>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
   }
-  
-
 }
