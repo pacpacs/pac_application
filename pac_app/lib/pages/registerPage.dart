@@ -7,21 +7,21 @@
  */
 
 import 'package:flutter/material.dart';
-
 import '../style/textStyle.dart';
 import '../fixed/userInputForm.dart';
 
-class registerPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _registerPageState createState() => _registerPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _registerPageState extends State<registerPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
 
   @override
   Widget build(BuildContext context) {
+    UserInputForm userInputForm = new UserInputForm();
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: new Container(
@@ -40,7 +40,7 @@ class _registerPageState extends State<registerPage> {
             )),
       ),
     );
-  }
+  } 
 
 
 }
