@@ -12,15 +12,15 @@ class CommunityError extends CommunityState{
   String toString() => 'CommunityError';
 }
 class CommunityLoaded extends CommunityState{
-  final List<PostListItem> communitys;
+  final List<PostListItem> communities;
 
   CommunityLoaded({
-    this.communitys,}): super ([communitys]);
+    this.communities,}): super ([communities]);
 
   CommunityLoaded copyWith({
-    List<PostListItem> communitys,
-    })=> CommunityLoaded(communitys: communitys?? this.communitys);
+    List<PostListItem> communities,
+    })=> CommunityLoaded(communities: communities?? this.communities);
 
   @override
-  String toString() => 'Community Loads $communitys.itemTitle';
+  String toString() => 'Community Loads $communities.itemTitle';
 }

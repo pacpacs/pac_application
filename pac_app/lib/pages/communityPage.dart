@@ -28,7 +28,8 @@ class _communityPageState extends State<communityPage>{
         //print(state);
         if(state is CommunityUninitialized){
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.amber),),
           );
         }
         if(state is CommunityError){
@@ -37,18 +38,18 @@ class _communityPageState extends State<communityPage>{
           );
         }
         if(state is CommunityLoaded){
-          if(state.communitys.isEmpty){
+          if(state.communities.isEmpty){
             return Center(
               child: Text("No Posts"),
             );
           }
-          return RecipeList(state.communitys);
+          return RecipeList(state.communities);
         }
       }
     );
   }
 
-  Widget RecipeList(List<PostListItem> communitys){
+  Widget RecipeList(List<PostListItem> communities){
      return Column(
        children: <Widget>[
          Flexible(
@@ -66,24 +67,23 @@ class _communityPageState extends State<communityPage>{
          ),
          Flexible(
              flex: 2,
-             child: recommendList(communitys)
+             child: recommendList(communities)
          ),
          Flexible(
              flex: 3,
-             child: communityList(communitys)
+             child: communityList(communities)
          )
        ],
      );
   }
 
 
-  Widget recommendList(List<PostListItem> communitys) {
+  Widget recommendList(List<PostListItem> communities) {
 //TODO: Recommend List만 따로 빼네야함.
     return CarouselSlider(
-      items: communitys.map((f){
+      items: communities.map((item){
         return  Builder(
           builder: (BuildContext context){
-            var item = f;
           return Container(
             //width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -91,7 +91,7 @@ class _communityPageState extends State<communityPage>{
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
               children: <Widget>[
-                Image.network(f.itemPreview, fit: BoxFit.fill),
+                Image.network(item.itemPreview, fit: BoxFit.fill),
                 Positioned(
                   left: 0,
                   bottom: 0,
@@ -109,7 +109,7 @@ class _communityPageState extends State<communityPage>{
                     ),
                     padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
                     child: Text(
-                      '$f',
+                      '$item',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -131,7 +131,7 @@ class _communityPageState extends State<communityPage>{
     );
   }
 
-  Widget communityList(List<PostListItem> communitys){
+  Widget communityList(List<PostListItem> communities){
 
     return ListView.separated(
 
@@ -141,9 +141,9 @@ class _communityPageState extends State<communityPage>{
       separatorBuilder: (context, index) => Divider(
         color: Colors.black12,
       ),
-      itemCount: communitys.length,
+      itemCount: communities.length,
       itemBuilder: (BuildContext context, int index) {
-        var item = communitys[index];
+        var item = communities[index];
         //TODO: expanding ListTile
         return ListTile(
           onTap: (){

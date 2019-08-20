@@ -39,15 +39,15 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
      try{
        //print(currentState);
        if(currentState is CommunityUninitialized) {
-         final communitys = await _fetchCommunitys();
-         yield CommunityLoaded(communitys: communitys);
+         final communities = await _fetchCommunitys();
+         yield CommunityLoaded(communities: communities);
        }
        if(currentState is CommunityLoaded) {
-         final communitys = await _fetchCommunitys();
-         yield communitys.isEmpty
+         final communities = await _fetchCommunitys();
+         yield communities.isEmpty
              ? (currentState as CommunityLoaded).copyWith()
              : CommunityLoaded(
-              communitys: (currentState as CommunityLoaded).communitys + communitys);
+              communities: (currentState as CommunityLoaded).communities + communities);
        }
      }catch(_){
        yield CommunityError();
