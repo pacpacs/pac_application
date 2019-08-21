@@ -5,17 +5,21 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:pac_app/bloc/setWriteCardBloc.dart';
 import 'package:pac_app/model/RecipeModel.dart';
+import 'package:pac_app/model/RecipeProcessModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
 import 'package:pac_app/bloc/setWriteCardState.dart';
 
 class WriteCardElement extends StatelessWidget {
   List<RecipeModel> recipe = new List<RecipeModel>();
-  var _image;
+  var _image=Image.asset('images/recipeStepImagePicker.jpg');
+  List<RecipeProcessModel> recipeStep;
+
+  TextEditingController _txtController = new TextEditingController(text: '');
 
   Future getimage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 //stateful에서는 setState(_이미지=이미지) 였다.
-    _image = image;
+if(image != null) _image = Image.file(image);
     print('이미지:'+_image.toString());
   }
 
@@ -42,7 +46,7 @@ class WriteCardElement extends StatelessWidget {
                           Flexible(
                             flex: 2,
                             child: FlatButton(
-                              child: Image.asset('images/recipeStepImagePicker.jpg'),
+                              child: _image,
                               onPressed: () => {
                                 //TODO:버튼 이미지 변경하는 Bloc call
                                 // setWriteCardBloc.dispatch(WriteCardEvent.imageApply)
@@ -53,6 +57,7 @@ class WriteCardElement extends StatelessWidget {
                           Flexible(
                             flex: 1,
                             child: TextField(
+                              controller: _txtController,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: '요리 단계를 설명해주세요.',
@@ -94,9 +99,9 @@ class WriteCardElement extends StatelessWidget {
                             }
                           else
                             {
+                              showCardBloc.dispatch(PageEvent.next),
                               _idxMax++,
                               recipe.add(RecipeModel()),
-                              showCardBloc.dispatch(PageEvent.next),
                             }
                         },
                       ),
