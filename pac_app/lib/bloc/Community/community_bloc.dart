@@ -58,7 +58,7 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
   Future<List<PostListItem>>_fetchCommunitys() async{
 
     final response = await httpClient.get("https://jsonplaceholder.typicode.com/photos");
-
+//TODO : 실제 서버 연결 httpClient.get("https://pacpacs.com");
     if(response.statusCode == 200){
       final data = json.decode(response.body) as List;
       return data.map((rawPost){
@@ -66,6 +66,11 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
           itemPreview : rawPost['url'],
           itemTitle  : rawPost['id'].toString(),
           itemDescription:  rawPost['title'],
+          /* TODO: 실제 서버 연결시 사용할 Item List
+          itemPreview : rawPost['IMG_URL'],
+          itemTitle  : rawPost['RECIPE_NM_KO'].toString(),
+          itemDescription:  rawPost['SUMRY'],
+           */
         );
       }).toList();
     }else{
