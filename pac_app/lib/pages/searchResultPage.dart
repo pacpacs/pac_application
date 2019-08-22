@@ -5,7 +5,6 @@ import 'package:pac_app/bloc/BlocProvider.dart';
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
 import 'package:pac_app/fixed/ingredientInfo/ingredientChip.dart';
-//import 'package:pac_app/pages/searchResultUpdateBloc.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
