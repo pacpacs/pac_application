@@ -58,7 +58,8 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
   Future<List<PostListItem>>_fetchCommunitys() async{
 
     final response = await httpClient.get("https://jsonplaceholder.typicode.com/photos");
-//TODO : 실제 서버 연결 httpClient.get("https://pacpacs.com");
+    //final response = await httpClient.get("http://localhost:27071/recipe/list");
+//TODO : 실제 서버 연결
     if(response.statusCode == 200){
       final data = json.decode(response.body) as List;
       return data.map((rawPost){
