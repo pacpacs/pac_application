@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
@@ -23,7 +23,7 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of(context).authBloc;
+    final bloc = MultipleBlocProvider.of(context).authBloc;
     return new Scaffold(
       appBar: appBar.getAppBar(context,bloc),
       body: new Column(

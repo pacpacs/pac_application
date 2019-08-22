@@ -11,18 +11,18 @@ import 'AuthBloc.dart';
  * @date 2019.08.16
  */
 
-class BlocProvider extends InheritedWidget {
+class MultipleBlocProvider extends InheritedWidget {
   final blocState = new _BlocState(
     loginValidatorBloc: LoginValidatorBloc(),
     authBloc:AuthBloc(),
   );
 
-  BlocProvider({Key key, Widget child}) : super(key: key, child: child);
+  MultipleBlocProvider({Key key, Widget child}) : super(key: key, child: child);
 
   bool updateShouldNotify(_) => true;
 
   static _BlocState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(BlocProvider) as BlocProvider)
+    return (context.inheritFromWidgetOfExactType(MultipleBlocProvider) as MultipleBlocProvider)
         .blocState;
   }
 }

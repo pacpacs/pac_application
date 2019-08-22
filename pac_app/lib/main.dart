@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/Community/community_bloc.dart';
 import 'package:http/http.dart'as http;
 import 'bloc/Community/community_event.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
-
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
+import 'pages/communityPage.dart';
 /**
  * P&C의 메인 총 구성
  *
@@ -22,7 +22,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return MultipleBlocProvider(
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
@@ -76,9 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
       //or you can add more widget
     ];
 
-    final authBloc = BlocProvider.of(context).authBloc;
-    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
-    return BlocProvider(
+    final authBloc = MultipleBlocProvider.of(context).authBloc;
+    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+    return MultipleBlocProvider(
         child: Scaffold(
             appBar: PreferredSize(
     preferredSize: const Size(double.infinity, kToolbarHeight),
