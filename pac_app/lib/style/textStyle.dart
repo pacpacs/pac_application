@@ -13,4 +13,6 @@ abstract class textStyle {
       fontWeight: FontWeight.w800, fontSize: 30, fontStyle: FontStyle.italic);
   static const subHeadLineText = TextStyle(
       fontWeight: FontWeight.w800, fontSize: 20, fontStyle: FontStyle.italic);
+  static const contextText = TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 10, fontStyle: FontStyle.normal, color: Colors.black);
 }

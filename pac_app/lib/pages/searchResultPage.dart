@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/BlocProvider.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pac_app/fixed/appBar.dart';
@@ -29,6 +30,7 @@ class _searchResultPageState extends State<searchResultPage> {
   @override
   Widget build(BuildContext context) {
     //final AddListItemBloc _addItemBloc = BlocProvider.of(context);
+    final bloc = BlocProvider.of(context).authBloc;
     List<CustomListItem> searchResult = [
       CustomListItem(
           'https://i.imgur.com/Z1LR83S.png', 'big quoka', 'very lovable'),
@@ -37,7 +39,7 @@ class _searchResultPageState extends State<searchResultPage> {
     ];
 
     return Scaffold(
-      appBar: appBar.getAppBar(context, true),
+      appBar: appBar.getAppBar(context,bloc),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,

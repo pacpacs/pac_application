@@ -1,3 +1,12 @@
+
+/**
+ * 사용자 Data Model
+ * 
+ * @author 서윤경
+ * @version 1.0
+ * @date 2019.08.16
+ */
+
 class UserModel {
   String id;
   String nickName;
@@ -12,5 +21,13 @@ class UserModel {
     if (profileImgPath != null) {
       return;
     }
+  }
+
+  factory UserModel.fromJson(Map<String,dynamic> json) {
+      return UserModel(
+        id: json['userId'],
+        nickName:json['nickName'],
+        profileImgPath: json['imgPath']
+      );
   }
 }
