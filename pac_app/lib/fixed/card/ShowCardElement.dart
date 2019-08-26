@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pac_app/model/RecipeModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
+import 'package:pac_app/model/RecipeProcessModel.dart';
 
 class ShowCardElement extends StatelessWidget {
   String imageUrl;
   String recipeDescription;
-  List<RecipeModel> recipe;
+  List<RecipeProcessModel> recipe;
   ShowCardElement({Key key, this.recipe});
 
   @override
@@ -29,7 +29,7 @@ class ShowCardElement extends StatelessWidget {
                               Flexible(
                                 flex: 2,
                                 child: Image.network(
-                                  recipe[_idx].imgPath,
+                                  recipe[_idx].stre_step_image_url,
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -38,7 +38,7 @@ class ShowCardElement extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Text(
-                                    recipe[_idx].description,
+                                    recipe[_idx].cooking_dc,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
