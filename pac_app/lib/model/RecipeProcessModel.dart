@@ -1,7 +1,11 @@
-class RecipeProcessModel {
+import 'dart:io';
+
+import 'package:equatable/equatable.dart';
+
+class RecipeProcessModel extends Equatable {
   /*
   _id:몽고DB에서 자동생성되는 튜플 식별자
-  STRE_STEP_IMAGE_URL:조리방법 
+  STRE_STEP_IMAGE_URL:조리방법 이미지url
   STEP_TIP: 조리 시 tip
   RN:??
   RECIPE_ID:무슨 레시피의 조리방법이냐
@@ -25,6 +29,32 @@ class RecipeProcessModel {
     this.cooking_dc,
     this.cooking_no,
   );
+
+  RecipeProcessModel copyWith(
+      {var id,
+      var stre_step_image_url,
+      String step_tip,
+      int rn,
+      int recipe_id,
+      String cooking_dc,
+      int cooking_no}) {
+    return RecipeProcessModel(
+      id ?? this._id,
+      stre_step_image_url ?? this.stre_step_image_url,
+      step_tip ?? this.step_tip,
+      rn ?? this.rn,
+      recipe_id ?? this.recipe_id,
+      cooking_dc ?? this.cooking_dc,
+      cooking_no ?? this.cooking_no,
+    );
+  }
+}
+
+class WriteRecipeProcessModel extends RecipeProcessModel {
+  WriteRecipeProcessModel(id, var stre_step_image_url, String step_tip, int rn,
+      int recipe_id, String cooking_dc, int cooking_no)
+      : super(id, stre_step_image_url, step_tip, rn, recipe_id, cooking_dc,
+            cooking_no);
 }
 
 class RecipeProcessModelList {
@@ -32,8 +62,8 @@ class RecipeProcessModelList {
 
   RecipeProcessModelList(this.process_step);
 
-  checkRecipeModelList(){
-    this.process_step.sort((a,b){
+  checkRecipeModelList() {
+    this.process_step.sort((a, b) {
       return a.cooking_no.compareTo(b.cooking_no);
     });
   }
