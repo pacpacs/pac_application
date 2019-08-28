@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'ingredient.dart';
-import 'ingredientsList.dart';
-import '../../bloc/ingredient_bloc.dart';
+import 'Ingredient.dart';
+import 'IngredientsList.dart';
+import '../../bloc/IngredientBloc.dart';
 class IngredientItem extends StatefulWidget{
   final Ingredient ingredient;
   IngredientItem(Ingredient ingredient):

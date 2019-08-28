@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../bloc/ingredient_bloc.dart';
-import '../ingredientInfo/ingredient.dart';
-import 'ingredientSet.dart';
+import '../../bloc/IngredientBloc.dart';
+import 'Ingredient.dart';
+import 'IngredientSet.dart';
 
 //TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
 Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', CategoryCode.ETC, false)};

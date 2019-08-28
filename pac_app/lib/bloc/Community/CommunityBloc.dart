@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import '../../fixed/postListItem.dart';
+import '../../fixed/PostListItem.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
-import 'community_event.dart';
-import 'community_state.dart';
+import 'CommunityEvent.dart';
+import 'CommunityState.dart';
 import 'package:flutter/material.dart';
 
 class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
@@ -14,7 +14,7 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
   final http.Client httpClient;
   CommunityBloc({@required this.httpClient});
 
-  @override
+  /*@override
   Stream<CommunityState> transform(
       Stream<CommunityEvent> events,
       Stream<CommunityState> Function(CommunityEvent event) next,
@@ -25,7 +25,7 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
       ),
       next,
     );
-  }
+  }*/
   @override
   get initialState => CommunityUninitialized();
   @override
@@ -57,21 +57,18 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
 //TODO: 20개 씩만 받아오도록
   Future<List<PostListItem>>_fetchCommunitys() async{
 
-    final response = await httpClient.get("https://jsonplaceholder.typicode.com/photos");
+    print("Fetch STARTED");
+    final response = await httpClient.get("http://192.168.0.6:8080/recipes/");
     //final response = await httpClient.get("http://localhost:27071/recipe/list");
 //TODO : 실제 서버 연결
     if(response.statusCode == 200){
       final data = json.decode(response.body) as List;
       return data.map((rawPost){
         return PostListItem(
-          itemPreview : rawPost['url'],
-          itemTitle  : rawPost['id'].toString(),
-          itemDescription:  rawPost['title'],
-          /* TODO: 실제 서버 연결시 사용할 Item List
-          itemPreview : rawPost['IMG_URL'],
-          itemTitle  : rawPost['RECIPE_NM_KO'].toString(),
-          itemDescription:  rawPost['SUMRY'],
-           */
+          //TODO: 실제 서버 연결시 사용할 Item List
+          itemPreview : rawPost['imgUrl'],
+          itemTitle  : rawPost['recipeNmKo'],
+          itemDescription:  rawPost['sumry'],
         );
       }).toList();
     }else{

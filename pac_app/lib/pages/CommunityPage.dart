@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/bloc/Community/community_event.dart';
-import 'package:pac_app/fixed/appBar.dart';
-import 'package:pac_app/bloc/Community/community_bloc.dart';
-import '../fixed/postListItem.dart';
+import '../bloc/Community/CommunityEvent.dart';
+import '../fixed/appBar.dart';
+import '../bloc/Community/CommunityBloc.dart';
+import '../fixed/PostListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../style/textStyle.dart';
-import '../bloc/Community/community_state.dart';
+import '../bloc/Community/CommunityState.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'recipeShowPage.dart';
 class communityPage extends StatefulWidget{

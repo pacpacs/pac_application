@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:pac_app/pages/homePage.dart';
-import 'package:pac_app/pages/recipeShowPage.dart';
+import 'pages/homePage.dart';
+import 'pages/recipeShowPage.dart';
 import 'AuthState.dart';
 import 'fixed/appBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/Community/community_bloc.dart';
+import 'bloc/Community/CommunityBloc.dart';
 import 'package:http/http.dart'as http;
-import 'bloc/Community/community_event.dart';
-import 'package:pac_app/bloc/MultipleBlocProvider.dart';
-import 'pages/communityPage.dart';
+import 'bloc/Community/CommunityEvent.dart';
+import 'bloc/MultipleBlocProvider.dart';
+import 'pages/CommunityPage.dart';
 /**
  * P&C의 메인 총 구성
  *

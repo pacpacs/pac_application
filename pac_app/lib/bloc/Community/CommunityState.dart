@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../fixed/postListItem.dart';
+import '../../fixed/PostListItem.dart';
 abstract class CommunityState extends Equatable{
   CommunityState([List props = const []]) : super(props);
 }

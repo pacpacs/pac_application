@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import '../fixed/appBar.dart';
-import '../fixed/ingredientInfo/ingredientsList.dart';
-import '../fixed/ingredientInfo/ingredient.dart';
-import '../fixed/ingredientInfo/ingredientChip.dart';
-import '../fixed/ingredientInfo/ingredientSet.dart';
+import '../fixed/IngredientInfo/IngredientsList.dart';
+import '../fixed/IngredientInfo/Ingredient.dart';
+import '../fixed/IngredientInfo/IngredientChip.dart';
+import '../fixed/IngredientInfo/IngredientSet.dart';
 
-class selectIngredientPage extends StatefulWidget {
+class SelectIngredientPage extends StatefulWidget {
   @override
-  _selectIngredientPageState createState() => new _selectIngredientPageState();
+  _SelectIngredientPageState createState() => new _SelectIngredientPageState();
 }
 
-class _selectIngredientPageState extends State<selectIngredientPage> {
+class _SelectIngredientPageState extends State<SelectIngredientPage> {
   List<Ingredient> _ingredient;
 
   MakeChipList(List<Ingredient> ingredient) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'ingredientItem.dart';
-import 'ingredient.dart';
-import '../ingredientInfo/ingredientChip.dart';
+import 'IngredientItem.dart';
+import 'Ingredient.dart';
+import '../ingredientInfo/IngredientChip.dart';
 import '../../main.dart';
 import '../../pages/searchResultPage.dart';
-import 'ingredientSet.dart';
+import 'IngredientSet.dart';
 
 class IngredientsList extends StatefulWidget {
   List<Ingredient> ingredient;

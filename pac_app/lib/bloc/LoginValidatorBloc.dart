@@ -46,7 +46,7 @@ class LoginValidatorBloc implements Bloc {
     final userId = validUserId;
     final password = validPassword;
     //TODO: 서버주소로 옮기기
-    final response = await http.post('http://192.168.0.57:8080/users/login',
+    final response = await http.post('http://192.168.0.6:8080/users/login',
         body: {"userId": userId, "password": password});
 
     if (response.statusCode == 200) {
