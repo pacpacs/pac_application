@@ -11,17 +11,26 @@ import 'dart:io';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/AuthBloc.dart';
+import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 
 import 'package:pac_app/bloc/RegisterBloc.dart';
+import 'package:pac_app/main.dart';
+
+import '../AuthState.dart';
 
 class UserInputForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final RegisterBloc registerBloc;
+  final LoginValidatorBloc loginBloc;
+  final AuthBloc authBloc;
 
-  UserInputForm({Key key, this.formKey, this.registerBloc}) : super(key: key);
+  UserInputForm(
+      {Key key, this.formKey, this.registerBloc, this.loginBloc, this.authBloc})
+      : super(key: key);
 
-  _UserInputFormState createState() =>
-      _UserInputFormState(this.formKey, this.registerBloc);
+  _UserInputFormState createState() => _UserInputFormState(
+      this.formKey, this.registerBloc, this.loginBloc, this.authBloc);
 }
 
 class _UserInputFormState extends State<UserInputForm> {
@@ -29,7 +38,10 @@ class _UserInputFormState extends State<UserInputForm> {
 
   final GlobalKey<FormState> formKey;
   RegisterBloc registerBloc;
-  _UserInputFormState(this.formKey, this.registerBloc);
+  LoginValidatorBloc loginBloc;
+  AuthBloc authBloc;
+  _UserInputFormState(
+      this.formKey, this.registerBloc, this.loginBloc, this.authBloc);
 
   String _validateUserId(String value) {
     if (value.length < 5 || value.length > 15)
@@ -88,7 +100,7 @@ class _UserInputFormState extends State<UserInputForm> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: StreamBuilder<String>(
-              stream: registerBloc.userIdToRegister, 
+              stream: registerBloc.userIdToRegister,
               builder: (context, snapshot) {
                 return TextFormField(
                   onSaved: registerBloc.setUserIdToRegister,
@@ -96,7 +108,6 @@ class _UserInputFormState extends State<UserInputForm> {
                   validator: _validateUserId,
                 );
               }),
-
         ),
         StreamBuilder<String>(
             stream: registerBloc.userPasswordToRegister,
@@ -130,7 +141,6 @@ class _UserInputFormState extends State<UserInputForm> {
                 child: Text(" Choose Profile Image"),
               ),
               Expanded(
-
                   child: FlatButton(
                 child: Icon(
                   Icons.camera_alt,
@@ -152,7 +162,39 @@ class _UserInputFormState extends State<UserInputForm> {
                 // If the form is valid, display a Snackbar.
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                registerBloc.submit();
+                registerBloc.submit().then((user) {
+                  if (user != null) {
+                    loginBloc
+                        .fetchLoginPost(user.id, user.password)
+                        .then((onValue) => {
+                              authBloc.setAuthentication(AuthState.user),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()))
+                            })
+                        .catchError((onError) => {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Error occurs"),
+                                      content: Text(onError),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text('Regret'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  })
+                            });
+                  }
+                });
               }
             },
             child: Text('Submit'),

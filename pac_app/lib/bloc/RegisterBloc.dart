@@ -1,13 +1,16 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pac_app/bloc/ImageUploader.dart';
 import 'package:pac_app/model/UserModel.dart';
+import 'package:pac_app/model/ImageModel.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:http/http.dart' as http;
+
+import 'ImageConverter.dart';
 
 /**
  * 회원가입 Register AuthBloc
@@ -35,45 +38,64 @@ class RegisterBloc implements Bloc {
       _userNickNameToRegister.sink.add;
   Function(File) get setUserImageFileToRegister =>
       _userImageFileToRegister.sink.add;
+
   Future<UserModel> fetchRegisterPost(
-      UserModel user, String base64image) async {
-    final response = await http.post('http://192.168.0.57:8080/users/register',
-        body: {"image": base64image, "user": user});
-    if (response.statusCode == 200) {
-      debugPrint(response.body.toString());
-      return user;
-    } else {
-      //error처리
-      return null;
-    }
+      UserModel user, ImageModel imageModel) async {
+    print("register post start");
+    await ImageUploader.upload(imageModel).then((tmpImageModel) => {
+          print(tmpImageModel.toString()),
+          if (tmpImageModel != null)
+            { 
+              user.profileImgPath = tmpImageModel.fileName,
+            }
+        });
+    await http.post('http://192.168.0.57:8080/users/register', body: user.toJson()).then((res) => {
+              if (res.statusCode == 200)
+                {
+                  print("register post end"),
+                  debugPrint(res.body.toString()),
+                }
+            });
+    return user;
   }
 
-  Future<String> submit() async {
-    File file = _userImageFileToRegister as File;
-    if (file == null) return "";
-    String base64Image = base64Encode(file.readAsBytesSync());
-    String fileName = file.path.split("/").last;
+  Future<UserModel> submit() async {
+    File file = _userImageFileToRegister.value;
+    if (file == null) return null;
+
+    String filename = ImageConverter.getImageFileName(file);
+
     UserModel validUser = UserModel(
         id: _userIdToRegister.value,
         password: _userPasswordToRegister.value,
         nickName: _userNickNameToRegister.value,
-        profileImgPath: fileName);
+        profileImgPath: filename); //서버이미지저장주소 + fileName
 
+    print("validUser : " + validUser.profileImgPath);
+
+    ImageModel imageModel = ImageModel(
+        fileName: filename,
+        base64Image: ImageConverter.getEncodeImageFile(file),
+        tag: "REGISTER");
     //백엔드 연결
-
-    if (await fetchRegisterPost(validUser, base64Image) != null) {
-      return "true";
-    } else {
-      return "false";
-      //ToDo: error처리
-    }
+    UserModel registeredUser;
+    await fetchRegisterPost(validUser, imageModel).then((user) => {
+          if (user != null)
+            {print("done"), registeredUser = user}
+          else
+            {
+              //ToDo: error처리
+            }
+        });
+    return registeredUser;
   }
 
   void getImage() async {
-    File image = await ImagePicker.pickImage(
+    await ImagePicker.pickImage(
             source: ImageSource.gallery, maxWidth: 150.0, maxHeight: 150.0)
         .then((value) {
       setUserImageFileToRegister(value);
+      return;
     });
   }
 

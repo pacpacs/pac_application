@@ -30,11 +30,7 @@ dependencies:
   auto_size_text: any
   provider: any
   tuple: ^1.0.2
-<<<<<<< HEAD
-  image_picker: '0.6.1'  
-=======
-  image_picker: ^0.6.0 
->>>>>>> 6b5d1631b262f12f49622ccd4d685be13d1f2e9a
+  image_picker: ^0.6.1
 
 dev_dependencies:
   flutter_test:

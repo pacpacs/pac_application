@@ -1,4 +1,6 @@
 
+import 'dart:collection';
+
 /**
  * 사용자 Data Model
  * 
@@ -15,7 +17,7 @@ class UserModel {
 
   UserModel({this.id, this.nickName, this.password, this.profileImgPath});
 
-  Future getImageUrl() async {
+  Future get getImageUrl async {
     // Null check so our app isn't doing extra work.
     // If there's already an image, we don't need to get one.
     if (profileImgPath != null) {
@@ -23,6 +25,17 @@ class UserModel {
     }
   }
 
+  Map<String,String> toJson(){
+    Map<String,String> userMap = new HashMap<String,String>();
+    
+    userMap.addAll({
+      "userId":this.id,
+      "password":this.password,
+      "imgPath":this.profileImgPath,
+      "nickName":this.nickName
+    });
+    return userMap;
+  }
   factory UserModel.fromJson(Map<String,dynamic> json) {
       return UserModel(
         id: json['userId'],
