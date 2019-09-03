@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 /**
@@ -14,20 +13,19 @@ import 'package:http/http.dart' as http;
 
 import 'package:pac_app/model/ImageModel.dart';
 
-class ImageUploader{
+class ImageUploader {
   ImageUploader();
 
-
-  
   static Future<ImageModel> upload(ImageModel imageModel) async {
-   ImageModel tmpImageModel;
+    ImageModel tmpImageModel;
 
-      await http.post('http://192.168.0.57:8080/image/upload',
-       body:imageModel.toJson()).then((res)=>{
-        if(res.statusCode==200){
-        tmpImageModel = ImageModel.fromJson(json.decode(res.body))
-      }
-    });
+    var res = await http.post('http://192.168.0.57:8080/image/upload',
+        body: imageModel.toJson());
+
+    if (res.statusCode == 200) {
+      tmpImageModel = ImageModel.fromJson(json.decode(res.body));
+    }
+
     return tmpImageModel;
   }
 }
