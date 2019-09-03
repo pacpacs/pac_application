@@ -44,24 +44,30 @@ class _UserInputFormState extends State<UserInputForm> {
       this.formKey, this.registerBloc, this.loginBloc, this.authBloc);
 
   String _validateUserId(String value) {
-    if (value.length < 5 || value.length > 15)
+    if (value.length < 5)
       return '5글자이상 15글자이하여야합니다.';
-    else
+    else {
+      registerBloc.setUserIdToRegister(value);
       return null;
+    }
   }
 
   String _validatePassword(String value) {
     if (value.length < 9)
       return '8글자 이상이어야합니다.';
-    else
+    else {
+      registerBloc.setUserPasswordToRegister(value);
       return null;
+    }
   }
 
   String _validateUserName(String value) {
     if (value.length < 3)
       return '2글자 이상이어야합니다.';
-    else
+    else {
+      registerBloc.setUserNickNameToRegister(value);
       return null;
+    }
   }
 
   void chooseImage() {
@@ -103,31 +109,34 @@ class _UserInputFormState extends State<UserInputForm> {
               stream: registerBloc.userIdToRegister,
               builder: (context, snapshot) {
                 return TextFormField(
-                  onSaved: registerBloc.setUserIdToRegister,
-                  decoration: const InputDecoration(labelText: 'userID'),
-                  validator: _validateUserId,
-                );
+                    decoration: const InputDecoration(labelText: 'userID'),
+                    validator: _validateUserId,
+                    onSaved: (val) {
+                      registerBloc.setUserIdToRegister(val);
+                    });
               }),
         ),
         StreamBuilder<String>(
             stream: registerBloc.userPasswordToRegister,
             builder: (context, snapshot) {
               return TextFormField(
-                onSaved: registerBloc.setUserPasswordToRegister,
-                decoration: const InputDecoration(labelText: 'password'),
-                validator: _validatePassword,
-                obscureText: true,
-              );
+                  decoration: const InputDecoration(labelText: 'password'),
+                  validator: _validatePassword,
+                  obscureText: true,
+                  onSaved: (val) {
+                    registerBloc.setUserPasswordToRegister(val);
+                  });
             }),
         StreamBuilder<String>(
             stream: registerBloc.userNickNameToRegister,
             builder: (context, snapshot) {
               return TextFormField(
-                decoration: const InputDecoration(labelText: 'userName'),
-                keyboardType: TextInputType.text,
-                validator: _validateUserName,
-                onSaved: registerBloc.setUserNickNameToRegister,
-              );
+                  decoration: const InputDecoration(labelText: 'userName'),
+                  keyboardType: TextInputType.text,
+                  validator: _validateUserName,
+                  onSaved: (val) {
+                    registerBloc.setUserNickNameToRegister(val);
+                  });
             }),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
@@ -155,46 +164,33 @@ class _UserInputFormState extends State<UserInputForm> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: RaisedButton(
-            onPressed: () {
+            onPressed: () async {
               // Validate returns true if the form is valid, or false
               // otherwise.
               if (formKey.currentState.validate()) {
                 // If the form is valid, display a Snackbar.
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('Processing Data')));
-                registerBloc.submit().then((user) {
-                  if (user != null) {
-                    loginBloc
-                        .fetchLoginPost(user.id, user.password)
-                        .then((onValue) => {
-                              authBloc.setAuthentication(AuthState.user),
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyHomePage()))
-                            })
-                        .catchError((onError) => {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible:
-                                      false, // user must tap button!
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("Error occurs"),
-                                      content: Text(onError),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text('Regret'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  })
-                            });
-                  }
-                });
+                // Scaffold.of(context)
+                //     .showSnackBar(SnackBar(content: Text('Processing Data')));
+                var user = await registerBloc.submit();
+                if (user != null) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Text("회원가입을 축하드립니다!! \n 다시 로그인을 해주세요."),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                }
               }
             },
             child: Text('Submit'),

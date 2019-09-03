@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc_provider/bloc_provider.dart';
@@ -39,28 +40,29 @@ class RegisterBloc implements Bloc {
   Function(File) get setUserImageFileToRegister =>
       _userImageFileToRegister.sink.add;
 
-  Future<UserModel> fetchRegisterPost(
-      UserModel user, ImageModel imageModel) async {
+  Future<UserModel> fetchRegisterPost(UserModel validUser,ImageModel imageModel) async {
+  
+
     print("register post start");
-    await ImageUploader.upload(imageModel).then((tmpImageModel) => {
-          print(tmpImageModel.toString()),
-          if (tmpImageModel != null)
-            { 
-              user.profileImgPath = tmpImageModel.fileName,
-            }
-        });
-    await http.post('http://192.168.0.57:8080/users/register', body: user.toJson()).then((res) => {
-              if (res.statusCode == 200)
-                {
-                  print("register post end"),
-                  debugPrint(res.body.toString()),
-                }
-            });
-    return user;
+    var tmpImageModel = await ImageUploader.upload(imageModel);
+    print(tmpImageModel.toString());
+    if (tmpImageModel != null) {
+      validUser.profileImgPath = tmpImageModel.fileName;
+
+      var res = await http.post('http://192.168.0.57:8080/users/register',
+          body: validUser.toJson());
+
+      if (res.statusCode == 200) {
+        print("register post end");
+        debugPrint(res.body.toString());
+      }
+    }
+
+    return validUser;
   }
 
   Future<UserModel> submit() async {
-    File file = _userImageFileToRegister.value;
+      File file = _userImageFileToRegister.value;
     if (file == null) return null;
 
     String filename = ImageConverter.getImageFileName(file);
@@ -71,32 +73,26 @@ class RegisterBloc implements Bloc {
         nickName: _userNickNameToRegister.value,
         profileImgPath: filename); //서버이미지저장주소 + fileName
 
-    print("validUser : " + validUser.profileImgPath);
+    print("validUser : " + validUser.id);
 
     ImageModel imageModel = ImageModel(
         fileName: filename,
         base64Image: ImageConverter.getEncodeImageFile(file),
         tag: "REGISTER");
     //백엔드 연결
-    UserModel registeredUser;
-    await fetchRegisterPost(validUser, imageModel).then((user) => {
-          if (user != null)
-            {print("done"), registeredUser = user}
-          else
-            {
-              //ToDo: error처리
-            }
-        });
-    return registeredUser;
+    var registeredUser = await fetchRegisterPost(validUser,imageModel);
+    if (registeredUser != null)
+      return registeredUser;
+    else {
+      return null; //ToDo: error처리
+    }
   }
 
   void getImage() async {
-    await ImagePicker.pickImage(
-            source: ImageSource.gallery, maxWidth: 150.0, maxHeight: 150.0)
-        .then((value) {
-      setUserImageFileToRegister(value);
-      return;
-    });
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxWidth: 150.0, maxHeight: 150.0);
+
+    setUserImageFileToRegister(image);
   }
 
   @override

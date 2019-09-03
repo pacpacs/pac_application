@@ -43,4 +43,5 @@ class UserModel {
         profileImgPath: json['imgPath']
       );
   }
+
 }
