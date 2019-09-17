@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 
 class RecipeProcessModel extends Equatable {
@@ -7,7 +5,7 @@ class RecipeProcessModel extends Equatable {
   _id:몽고DB에서 자동생성되는 튜플 식별자
   STRE_STEP_IMAGE_URL:조리방법 이미지url
   STEP_TIP: 조리 시 tip
-  RN:??
+  RN:레시피넘버. 레시피 식별자
   RECIPE_ID:무슨 레시피의 조리방법이냐
   COOKING_DC:조리방법 설명
   COOKING_NO:조리단계
