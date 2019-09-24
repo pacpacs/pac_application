@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/AuthBloc.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import 'package:pac_app/fixed/profile/User.dart';
 import 'package:pac_app/model/UserModel.dart';
 import 'package:pac_app/pages/LoginPage.dart';
@@ -34,7 +34,7 @@ class appBar {
           return getAppBarWithAuthAdmin(context, bloc);
           break;
         case AuthState.user:
-          UserModel user = BlocProvider.of(context)
+          UserModel user = MultipleBlocProvider.of(context)
               .loginValidatorBloc
               .currentUser as UserModel;
           return getAppBarWithAuthUser(context, bloc, user);

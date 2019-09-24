@@ -5,14 +5,14 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/AuthBloc.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 import 'package:pac_app/main.dart';
 
 import '../style/textStyle.dart';
 import 'registerPage.dart';
 
-import '../bloc/BlocProvider.dart';
+import '../bloc/MultipleBlocProvider.dart';
 
 
 /**
@@ -26,10 +26,10 @@ import '../bloc/BlocProvider.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
-    final authBloc = BlocProvider.of(context).authBloc;
+    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+    final authBloc = MultipleBlocProvider.of(context).authBloc;
 
-    return BlocProvider(
+    return MultipleBlocProvider(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Center(

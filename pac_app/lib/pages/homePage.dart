@@ -9,7 +9,7 @@ import 'package:pac_app/fixed/recipe/bestRecipe/bestRecipe.dart';
  * @date 2019.07.02
  */
 
-import '../pages/selectIngredientPage.dart';
+import '../pages/SelectIngredientPage.dart';
 import '../style/textStyle.dart';
 
 final List<String> imgList = [
@@ -103,7 +103,7 @@ class _homePageState extends State<homePage> {
             onTap: () => {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return selectIngredientPage();
+                return SelectIngredientPage();
               }))
             }, //TODO: Ingredient_popup창 뜨게 하기,
 

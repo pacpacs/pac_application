@@ -7,6 +7,9 @@ class PostListItem extends Equatable{
 
   PostListItem({this.itemPreview, this.itemTitle, this.itemDescription}):
         super([itemPreview,itemTitle,itemDescription]);
+  Future getImageUrl() async{
+    if(itemPreview != null) return;
+  }
   @override
-  String toString() => 'Name: $itemTitle';
+  String toString() => '$itemTitle';
 }

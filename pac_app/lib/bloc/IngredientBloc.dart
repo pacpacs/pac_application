@@ -1,6 +1,6 @@
 import 'dart:async';
-import '../fixed/ingredientInfo/ingredient.dart';
-import '../fixed/ingredientInfo/ingredientChip.dart';
+import '../fixed/IngredientInfo/Ingredient.dart';
+import '../fixed/IngredientInfo/IngredientChip.dart';
 
 class IngredientBloc{
   final StreamController<Ingredient>controller = StreamController<Ingredient>();

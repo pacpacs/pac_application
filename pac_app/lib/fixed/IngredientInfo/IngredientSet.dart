@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 enum CategoryCode { MEAT, VEGITABLE, GRAIN, SEASONING, ETC }
 //TODO : Enum이 constant 
 class ingredientSet {
-  CategoryCode code; 
+  CategoryCode code;
+
   ingredientSet(this.code);
+
   setColor() {
     switch (this.code) {
       case CategoryCode.MEAT: //육류

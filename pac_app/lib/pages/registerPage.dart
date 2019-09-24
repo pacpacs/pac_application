@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:pac_app/bloc/BlocProvider.dart';
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 
 import '../style/textStyle.dart';
 import '../fixed/userInputForm.dart';
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final registerBloc = BlocProvider.of(context).registerBloc;
+    final registerBloc = MultipleBlocProvider.of(context).registerBloc;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: new Container(
