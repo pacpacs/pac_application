@@ -42,12 +42,14 @@ class LoginValidatorBloc implements Bloc {
     }
   });
 
-  Future<UserModel> fetchPost(String validUserId, String validPassword) async {
+  Future<UserModel> fetchLoginPost(String validUserId, String validPassword) async {
     final userId = validUserId;
     final password = validPassword;
     //TODO: 서버주소로 옮기기
-    final response = await http.post('http://192.168.0.57:8080/users/login',
-        body: {"userId": userId, "password": password});
+    // final response = await http.post('http://192.168.0.57:8080/users/login',
+    //     body: {"userId": userId, "password": password});//랩실
+            final response = await http.post('http://211.221.212.72:8080/users/login',
+        body: {"userId": userId, "password": password});//집
 
     if (response.statusCode == 200) {
       debugPrint(response.body.toString()) ;
@@ -67,7 +69,7 @@ class LoginValidatorBloc implements Bloc {
     //백엔드 연결
     debugPrint(validUserId);
     debugPrint(validPassword);
-    if (await fetchPost(validUserId, validPassword)!=null) {
+    if (await fetchLoginPost(validUserId, validPassword)!=null) {
       return "true";
     } else {
       return "false";

@@ -26,12 +26,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2 
   bloc_provider: ^0.6.2+1
-  http: any
   auto_size_text: any
   provider: any
   tuple: ^1.0.2
+  image_picker: ^0.6.1
   http: ^0.12.0
   equatable: ^0.2.0
+
 
 
 dev_dependencies:

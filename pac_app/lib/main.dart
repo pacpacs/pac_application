@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/pages/communityPage.dart';
 import 'package:pac_app/pages/homePage.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
 import 'AuthState.dart';
@@ -40,7 +41,7 @@ class MyHomePage extends StatefulWidget {
   @override 
   _MyHomePageState createState() => _MyHomePageState();
 }
-
+  
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedViewIndex = 1;
   int _selectedNavigatorIndex = 1;
