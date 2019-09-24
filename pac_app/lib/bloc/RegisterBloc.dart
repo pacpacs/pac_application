@@ -49,7 +49,9 @@ class RegisterBloc implements Bloc {
     if (tmpImageModel != null) {
       validUser.profileImgPath = tmpImageModel.fileName;
 
-      var res = await http.post('http://192.168.0.57:8080/users/register',
+      // var res = await http.post('http://192.168.0.57:8080/users/register',
+      //     body: validUser.toJson());
+                var res = await http.post('http://211.221.212.72:8080/users/register',
           body: validUser.toJson());
 
       if (res.statusCode == 200) {

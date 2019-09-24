@@ -19,9 +19,10 @@ class ImageUploader {
   static Future<ImageModel> upload(ImageModel imageModel) async {
     ImageModel tmpImageModel;
 
-    var res = await http.post('http://192.168.0.57:8080/image/upload',
+    // var res = await http.post('http://192.168.0.57:8080/image/upload',
+    //     body: imageModel.toJson());
+var res = await http.post('http://211.221.212.72:8080/image/upload',
         body: imageModel.toJson());
-
     if (res.statusCode == 200) {
       tmpImageModel = ImageModel.fromJson(json.decode(res.body));
     }
