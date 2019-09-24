@@ -6,6 +6,7 @@ class Ingredient {
   CategoryCode categoryCodeName;
   bool isCheck;
   Ingredient(this.name, this.categoryCodeName, this.isCheck);
+
   Color getColor() {
     return ingredientSet(this.categoryCodeName).setColor();
   }

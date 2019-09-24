@@ -6,6 +6,7 @@ class ingredientSet {
   CategoryCode code;
 
   ingredientSet(this.code);
+
   setColor() {
     switch (this.code) {
       case CategoryCode.MEAT: //육류
