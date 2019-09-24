@@ -26,10 +26,10 @@ import '../bloc/BlocProvider.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
-    final authBloc = BlocProvider.of(context).authBloc;
+    final loginBloc = BLOCProvider.of(context).loginValidatorBloc;
+    final authBloc = BLOCProvider.of(context).authBloc;
 
-    return BlocProvider(
+    return BLOCProvider(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Center(

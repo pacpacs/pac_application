@@ -6,6 +6,8 @@ import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
 import 'package:pac_app/fixed/ingredientInfo/ingredientChip.dart';
 
+import '../AuthState.dart';
+
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
   final String title;
@@ -30,7 +32,8 @@ class _searchResultPageState extends State<searchResultPage> {
   @override
   Widget build(BuildContext context) {
     //final AddListItemBloc _addItemBloc = BlocProvider.of(context);
-    final bloc = BlocProvider.of(context).authBloc;
+    final authBloc = BLOCProvider.of(context).authBloc;
+    final loginBloc = BLOCProvider.of(context).loginValidatorBloc;
     List<CustomListItem> searchResult = [
       CustomListItem(
           'https://i.imgur.com/Z1LR83S.png', 'big quoka', 'very lovable'),
@@ -38,8 +41,24 @@ class _searchResultPageState extends State<searchResultPage> {
           'big and aggressive')
     ];
 
-    return Scaffold(
-      appBar: appBar.getAppBar(context,bloc),
+    return BLOCProvider(
+        child: Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: StreamBuilder(
+            stream: authBloc.authentication,
+            builder: (context, snapshot) {
+              if (snapshot.data == AuthState.admin) {
+                return appBar.getAppBarWithAuthAdmin(context, authBloc);
+              } else if (snapshot.data == AuthState.user) {
+                return appBar.getAppBarWithAuthUser(
+                    context, authBloc, loginBloc.getCurrentUserData);
+              } else {
+                return appBar.getAppBarWithNoneUser(context);
+              }
+            },
+          ) // StreamBuilder
+          ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -93,6 +112,7 @@ class _searchResultPageState extends State<searchResultPage> {
               ),
             )
           ]),
-    );
+    ));
   }
+  
 }

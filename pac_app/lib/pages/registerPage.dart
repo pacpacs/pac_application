@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final registerBloc = BlocProvider.of(context).registerBloc;
+    final registerBloc = BLOCProvider.of(context).registerBloc;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: new Container(

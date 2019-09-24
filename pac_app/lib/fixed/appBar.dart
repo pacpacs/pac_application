@@ -34,7 +34,7 @@ class appBar {
           return getAppBarWithAuthAdmin(context, bloc);
           break;
         case AuthState.user:
-          UserModel user = BlocProvider.of(context)
+          UserModel user = BLOCProvider.of(context)
               .loginValidatorBloc
               .currentUser as UserModel;
           return getAppBarWithAuthUser(context, bloc, user);

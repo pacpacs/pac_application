@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
+import 'package:pac_app/bloc/IngredientBloc.dart';
 import 'AuthBloc.dart';
+import 'IngredientBloc.dart';
 import 'RegisterBloc.dart';
 
 
@@ -12,19 +14,20 @@ import 'RegisterBloc.dart';
  * @date 2019.08.16
  */
 
-class BlocProvider extends InheritedWidget {
+class BLOCProvider extends InheritedWidget {
   final blocState = new _BlocState(
     loginValidatorBloc: LoginValidatorBloc(),
     authBloc:AuthBloc(),
-    registerBloc:RegisterBloc()
+    registerBloc:RegisterBloc(),
+    ingredientBloc:IngredientBloc()
   );
 
-  BlocProvider({Key key, Widget child}) : super(key: key, child: child);
+  BLOCProvider({Key key, Widget child}) : super(key: key, child: child);
 
   bool updateShouldNotify(_) => true;
 
   static _BlocState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(BlocProvider) as BlocProvider)
+    return (context.inheritFromWidgetOfExactType(BLOCProvider) as BLOCProvider)
         .blocState;
   }
 }
@@ -32,11 +35,12 @@ class BlocProvider extends InheritedWidget {
 class _BlocState {
   final LoginValidatorBloc loginValidatorBloc;
   final AuthBloc authBloc;
-  final RegisterBloc registerBloc;  
+  final RegisterBloc registerBloc;
+  final IngredientBloc ingredientBloc;  
 
   _BlocState({
     this.loginValidatorBloc,
-    this.authBloc, this.registerBloc
+    this.authBloc, this.registerBloc, this.ingredientBloc
   });
 
 }

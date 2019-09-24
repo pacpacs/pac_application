@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'ingredient.dart';
-import 'ingredientsList.dart';
-import '../../bloc/ingredient_bloc.dart';
+
+import '../../bloc/IngredientBloc.dart';
 class IngredientItem extends StatefulWidget{
   final Ingredient ingredient;
   IngredientItem(Ingredient ingredient):
@@ -21,16 +22,20 @@ class IngredientItemState extends State<IngredientItem> {
     return new ListTile(
         onTap:null,
         leading: new CircleAvatar(
-          backgroundColor: widget.ingredient.getColor(),
+          backgroundColor: ingredient.getColor(),
           radius: 10.0,
         ),
         title: new Row(
           children: <Widget>[
-            new Expanded(child: new Text(widget.ingredient.name)),
-            new Checkbox(value: widget.ingredient.isCheck, onChanged: (bool value) {
+            new Expanded(child: new Text(ingredient.name)),
+            Checkbox(value: ingredient.isCheck, onChanged: (bool value) {
               setState(() {
                 widget.ingredient.isCheck = value;
-                IngredientBloc().controller.add(widget.ingredient);
+                if(value){
+                  IngredientBloc().addIngredient(widget.ingredient);  
+                }else{
+                  IngredientBloc().removeIngredient(widget.ingredient);
+                }              
               });
             })
           ],

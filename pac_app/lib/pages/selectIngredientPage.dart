@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/BlocProvider.dart';
+import '../AuthState.dart';
 import '../fixed/appBar.dart';
 import '../fixed/ingredientInfo/ingredientsList.dart';
 import '../fixed/ingredientInfo/ingredient.dart';
@@ -23,9 +24,26 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of(context).authBloc;
-    return new Scaffold(
-      appBar: appBar.getAppBar(context,bloc),
+    final authBloc = BLOCProvider.of(context).authBloc;
+    final loginBloc = BLOCProvider.of(context).loginValidatorBloc;
+    return BLOCProvider(
+        child: Scaffold(
+      appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: StreamBuilder(
+            stream: authBloc.authentication,
+            builder: (context, snapshot) {
+              if (snapshot.data == AuthState.admin) {
+                return appBar.getAppBarWithAuthAdmin(context, authBloc);
+              } else if (snapshot.data == AuthState.user) {
+                return appBar.getAppBarWithAuthUser(
+                    context, authBloc, loginBloc.getCurrentUserData);
+              } else {
+                return appBar.getAppBarWithNoneUser(context);
+              }
+            },
+          ) // StreamBuilder
+          ),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -53,6 +71,6 @@ class _selectIngredientPageState extends State<selectIngredientPage> {
               ),
             ),
           ]),
-    );
+    ));
   }
 }

@@ -23,7 +23,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BLOCProvider(
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
@@ -77,9 +77,9 @@ class _MyHomePageState extends State<MyHomePage> {
       //or you can add more widget
     ];
 
-    final authBloc = BlocProvider.of(context).authBloc;
-    final loginBloc = BlocProvider.of(context).loginValidatorBloc;
-    return BlocProvider(
+    final authBloc = BLOCProvider.of(context).authBloc;
+    final loginBloc = BLOCProvider.of(context).loginValidatorBloc;
+    return BLOCProvider(
         child: Scaffold(
             appBar: PreferredSize(
     preferredSize: const Size(double.infinity, kToolbarHeight),
