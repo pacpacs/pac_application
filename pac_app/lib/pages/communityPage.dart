@@ -1,40 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/Community/community_event.dart';
 import 'package:pac_app/fixed/appBar.dart';
-import '../bloc/community_bloc.dart';
-import '../fixed/customListItem.dart';
-import '../fixed/communityListItem.dart';
+import 'package:pac_app/bloc/Community/community_bloc.dart';
+import '../fixed/postListItem.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../style/textStyle.dart';
+import '../bloc/Community/community_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'recipeShowPage.dart';
 class communityPage extends StatefulWidget{
   _communityPageState createState() => new _communityPageState();
 }
 
 class _communityPageState extends State<communityPage>{
 
-  //ScrollController _scrollController
-  PageController _pageController;
-
+  CommunityBloc _communityBloc;
   @override
   void initState(){
     super.initState();
-    _pageController = new PageController(initialPage: 1, viewportFraction: 0.8);
+    _communityBloc = BlocProvider.of<CommunityBloc>(context);
   }
   Widget build(BuildContext context) {
     // TODO: implement build
-    return StreamBuilder(
-      stream: CommunityBloc().listItem,
-      builder: (context, AsyncSnapshot<CommunityListItem> snapshot){
-        if(snapshot.hasData) {
-          return RecipeList(snapshot);
-        }else if(snapshot.hasError){
-          return Text(snapshot.error.toString());
+    return BlocBuilder<CommunityBloc, CommunityState>(
+      builder:(context, state){
+        _communityBloc.dispatch(Fetch());
+        //print(state);
+        if(state is CommunityUninitialized){
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.amber),),
+          );
         }
-        return Center(child: CircularProgressIndicator());
-      },
+        if(state is CommunityError){
+          return Center(
+            child: Text("faild to fatch posts"),
+          );
+        }
+        if(state is CommunityLoaded){
+          if(state.communities.isEmpty){
+            return Center(
+              child: Text("No Posts"),
+            );
+          }
+          return RecipeList(state.communities);
+        }
+      }
     );
   }
 
-  Widget RecipeList(AsyncSnapshot<CommunityListItem> snapshot){
+  Widget RecipeList(List<PostListItem> communities){
      return Column(
        children: <Widget>[
          Flexible(
@@ -52,24 +67,23 @@ class _communityPageState extends State<communityPage>{
          ),
          Flexible(
              flex: 2,
-             child: recommendList(snapshot)
+             child: recommendList(communities)
          ),
          Flexible(
              flex: 3,
-             child: communityList(snapshot)
+             child: communityList(communities)
          )
        ],
      );
   }
 
 
-  Widget recommendList(AsyncSnapshot<CommunityListItem> snapshot) {
-
+  Widget recommendList(List<PostListItem> communities) {
+//TODO: Recommend List만 따로 빼네야함.
     return CarouselSlider(
-      items: snapshot.data.recommendResult.map((f){
+      items: communities.map((item){
         return  Builder(
           builder: (BuildContext context){
-            var item = f.itemTitle;
           return Container(
             //width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -77,7 +91,7 @@ class _communityPageState extends State<communityPage>{
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               child: Stack(
               children: <Widget>[
-                Image.network(f.itemPreview, fit: BoxFit.fill),
+                Image.network(item.itemPreview, fit: BoxFit.fill),
                 Positioned(
                   left: 0,
                   bottom: 0,
@@ -117,7 +131,7 @@ class _communityPageState extends State<communityPage>{
     );
   }
 
-  Widget communityList(AsyncSnapshot<CommunityListItem> snapshot){
+  Widget communityList(List<PostListItem> communities){
 
     return ListView.separated(
 
@@ -127,11 +141,17 @@ class _communityPageState extends State<communityPage>{
       separatorBuilder: (context, index) => Divider(
         color: Colors.black12,
       ),
-      itemCount: snapshot.data.communityResult.length,
+      itemCount: communities.length,
       itemBuilder: (BuildContext context, int index) {
-        var item = snapshot.data.communityResult[index];
+        var item = communities[index];
         //TODO: expanding ListTile
         return ListTile(
+          onTap: (){
+            Navigator.push(context,
+               MaterialPageRoute<void>(builder: (BuildContext context){
+            return RecipeShowPage();
+            }));
+          },
           leading: CircleAvatar(
             backgroundImage: NetworkImage(item.itemPreview),
           ),
