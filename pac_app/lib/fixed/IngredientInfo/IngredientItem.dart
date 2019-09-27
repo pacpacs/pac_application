@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart' as prefix0;
 import 'Ingredient.dart';
+import '../../bloc/MultipleBlocProvider.dart';
 import '../../bloc/IngredientBloc.dart';
+import 'IngredientChip.dart';
 class IngredientItem extends StatefulWidget{
   final Ingredient ingredient;
   IngredientItem(Ingredient ingredient):
@@ -29,7 +32,7 @@ class IngredientItemState extends State<IngredientItem> {
             new Checkbox(value: widget.ingredient.isCheck, onChanged: (bool value) {
               setState(() {
                 widget.ingredient.isCheck = value;
-                // IngredientBloc().controller.add(widget.ingredient);
+                MultipleBlocProvider.of(context).ingredientBloc.setIngredient(widget.ingredient);
               });
             })
           ],

@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
 import 'Ingredient.dart';
 import 'IngredientSet.dart';
+import '../../bloc/MultipleBlocProvider.dart';
+import '../../bloc/IngredientBloc.dart';
+import 'package:collection/collection.dart';
 
 //TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
-Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', CategoryCode.ETC, false)};
-List<Chip> BBB = [];
+List<Chip> chipList = [];
+List<String> chipName = [];
+class IngredientChip extends StatefulWidget{
 
-class IngredientChip {
-  CategoryCode category;
-  String ingredientName;
-  IngredientChip(this.category, this.ingredientName);
+  @override
+  _IngredientChipState createState() => new _IngredientChipState();
+}
 
+class _IngredientChipState extends State<IngredientChip>{
+  @override
 
-  static generateChipList() {
-//TODO:makeDummyList 대신 재료선택bloc에서 Ingredient 가져와서 BBB에 add하기
-    checkedIngr.forEach((key, value) => BBB.add(generateIngredientChip(value.categoryCodeName, value.name)));
-    
-    return BBB;
+  Widget build(BuildContext context) {
+
+    return StreamBuilder<Ingredient>(
+      stream: MultipleBlocProvider.of(context).ingredientBloc.getIngredient,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && !chipName.contains(snapshot.data.name)) {
+          chipList.add(makeChip(snapshot.data));
+          chipName.add(snapshot.data.name);
+        }
+
+        return Wrap(
+          spacing: 4.0,
+          runSpacing: 0.0,
+          children: chipList,
+        );
+      }
+    );
   }
 
-  static generateIngredientChip(CategoryCode category, String name) {
-    IngredientChip generated = IngredientChip(category, name);
+  makeChip(var data){
     return new Chip(
       avatar: CircleAvatar(
-        backgroundColor: ingredientSet(generated.category).setColor(),
+        backgroundColor: ingredientSet(data.categoryCodeName).setColor(),
       ),
-      label: Text(name),
-      onDeleted: () {
-        //TODO:List<Chip>BBB에서 해당 Chip을 삭제하고,
-        //Map<String,Ingredient>checkedIngr에서도 해당 재료 찾아서 삭제해서 서버에다가 검색결과 달라고 또 하기
-        print('$name 는 삭제되고싶다.');
-      },
+      label: Text(data.name),
     );
   }
 }
+
+

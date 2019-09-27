@@ -1,25 +1,21 @@
 import 'dart:async';
 import '../fixed/IngredientInfo/Ingredient.dart';
+import 'package:bloc_provider/bloc_provider.dart';
 import '../fixed/IngredientInfo/IngredientChip.dart';
-
-class IngredientBloc{
-  final StreamController<Ingredient>controller = StreamController<Ingredient>();
+class IngredientBloc extends Object{
+  final controller = StreamController<Ingredient>.broadcast();
+  Stream<dynamic> get getIngredient => controller.stream;
+  Function(Ingredient) get setIngredient => controller.sink.add;
 
   IngredientBloc(){
-    controller.stream.listen(isData);
+    init();
+    //controller.stream.listen((data){IngredientChip();});
   }
 
+  init(){
+
+  }
   void dispose(){
     controller.close();
   }
-  void isData(Ingredient data){
-    print(data.name);
-    checkedIngr.putIfAbsent(data.name, ()=>generateIngr(data));
-    print(checkedIngr.keys);
-  }
-
-  generateIngr(Ingredient a) {
-    return a;
-  }
-
 }

@@ -67,11 +67,6 @@ class _searchResultPageState extends State<searchResultPage> {
             ),
 
             //TODO:wrap을 열고닫을 수 있게.. "더보기"버튼.
-            Wrap(
-              spacing: 4.0,
-              runSpacing: 0.0,
-              children: IngredientChip.generateChipList(),
-            ),
 
             Divider(),
 

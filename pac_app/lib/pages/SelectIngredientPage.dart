@@ -1,62 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import '../AuthState.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import '../fixed/appBar.dart';
 import '../fixed/IngredientInfo/IngredientsList.dart';
 import '../fixed/IngredientInfo/Ingredient.dart';
 import '../fixed/IngredientInfo/IngredientChip.dart';
 import '../fixed/IngredientInfo/IngredientSet.dart';
-import 'package:flutter/services.dart' show ByteData, rootBundle;
-import 'dart:async'show Future;
-import 'dart:convert';
+import 'package:csv/csv.dart';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+import 'searchResultPage.dart';
 class SelectIngredientPage extends StatefulWidget {
   @override
   _SelectIngredientPageState createState() => new _SelectIngredientPageState();
 }
 
 class _SelectIngredientPageState extends State<SelectIngredientPage> {
-  List<Ingredient> _ingredient;
+
+  List<List<dynamic>> datas = [];
+  List<Ingredient> _ingredient = List<Ingredient>();
+
+  loadAsset() async {
+    final myData = await rootBundle.loadString("datas/IngredientData.csv");
+    List<List<dynamic>> csvTable = CsvToListConverter().convert(myData);
+
+    datas = csvTable;
+    return datas;
+
+  }
 
 
-  MakeChipList(List<Ingredient> ingredient) {
-    setState(() {
-      _ingredient = ingredient;
-      //_chips= ingredients.getIngredientChip(_productList)
+  @protected
+  @mustCallSuper
+  void initState() {
+    super.initState();
+    loadAsset().then((datas) {
+        for(var data in datas){
+          _ingredient.add(new Ingredient(data[0].toString(),CategoryCode.values[int.parse(data[1].toString())-1],false));
+        };
+        setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final bloc = MultipleBlocProvider.of(context).authBloc;
+    final authBloc = MultipleBlocProvider.of(context).authBloc;
+    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+
     return new Scaffold(
-      appBar: appBar.getAppBar(context,bloc),
+      appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: StreamBuilder(
+            stream: authBloc.authentication,
+            builder: (context,snapshot){
+              if(snapshot.data==AuthState.admin){
+                return appBar.getAppBarWithAuthAdmin(context, authBloc);
+              }else if(snapshot.data==AuthState.user){
+                return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData);
+              }else {
+                return appBar.getAppBarWithNoneUser(context);
+              }
+            },
+          )// StreamBuilder
+      ),
       body: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Wrap(
-              spacing: 4.0,
-              runSpacing: 0.0,
-              children: IngredientChip.generateChipList(),
-            ),
+            IngredientChip(),
             Container(
               child: IngredientsList(
-                ingredient: [
-                  new Ingredient("새우", CategoryCode.MEAT, false),
-                  new Ingredient("식빵", CategoryCode.GRAIN, false),
-                  new Ingredient("국수", CategoryCode.GRAIN, false),
-                  new Ingredient("대파", CategoryCode.VEGITABLE, false),
-                  new Ingredient("치즈", CategoryCode.ETC, false),
-                  new Ingredient("우유", CategoryCode.ETC, false),
-                  new Ingredient("돼지고기", CategoryCode.MEAT, false),
-                  new Ingredient("간장", CategoryCode.SEASONING, false),
-                  new Ingredient("소금", CategoryCode.SEASONING, false),
-                  new Ingredient("양파", CategoryCode.VEGITABLE, false),
-                ],
+                _ingredient,
               ),
             ),
+            //TODO : 클릭시 결과 화면으로 넘어가야함.
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                      return searchResultPage();
+                    }));
+              },
+              child: new Text('검색'),
+            )
           ]),
     );
   }
