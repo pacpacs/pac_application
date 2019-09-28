@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:pac_app/model/RecipeModel.dart';
 import 'package:pac_app/model/RecipeProcessModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
 
@@ -15,12 +14,16 @@ class WriteCardElement extends StatefulWidget {
 }
 
 class _WriteCardElementState extends State<WriteCardElement> {
-
-  RecipeModel recipe = new RecipeModel();
+  //TODO:_idxMax를 바깥쪽의 recipe에 set시켜주기
   List<WriteRecipeProcessModel> recipeStep =
       new List<WriteRecipeProcessModel>();
   List<File> recipeStepImage = new List<File>();
+
   var _image = Image.asset('images/recipeStepImagePicker.jpg');
+  int _idxMax = 1;
+  getOrderNum() {
+    return _idxMax;
+  }
 
   TextEditingController _txtController = new TextEditingController(text: '');
 
@@ -34,6 +37,12 @@ class _WriteCardElementState extends State<WriteCardElement> {
       });
     }
   }
+
+setButtonImage(int idx){
+  setState(() {
+    _image = Image.file(recipeStepImage[idx]);
+  });
+}
 
   setImageList(int index, String imagePath) {
     //recipeStepImage Setting
@@ -51,13 +60,31 @@ class _WriteCardElementState extends State<WriteCardElement> {
     }
   }
 
+  setRecipeSteps(int index) {
+    setState(() {
+      if (recipeStep[index] != null) {
+        _txtController.text = recipeStep[index].cooking_dc;
+        _image = Image.file(recipeStepImage[index]);
+      } else {
+        _txtController.text = null;
+        _image = Image.asset('images/recipeStepImagePicker.jpg');
+      }
+    });
+  }
+
+  increaseIdxMax() {
+    setState(() {
+      _idxMax++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final ShowCardBloc showCardBloc = BlocProvider.of<ShowCardBloc>(context);
-
+    recipeStep
+        .add(WriteRecipeProcessModel(null, null, null, null, null, null, null));
     return BlocBuilder<ShowCardBloc, int>(
       builder: (context, _idx) {
-        int _idxMax = 1;
         return Container(
             height: 300,
             child: Card(
@@ -91,11 +118,12 @@ class _WriteCardElementState extends State<WriteCardElement> {
                               cursorColor: Colors.amber,
                               onSubmitted: (value) {
                                 setState(() {
-                                  if(recipeStep[_idx].cooking_dc != null){
-                                    _txtController.text=recipeStep[_idx].cooking_dc;
+                                  if (recipeStep[_idx].cooking_dc != null) {
+                                    _txtController.text =
+                                        recipeStep[_idx].cooking_dc;
                                   }
-                                recipeStep[_idx].cooking_dc = value;
-                                _txtController.text = value;
+                                  recipeStep[_idx].cooking_dc = value;
+                                  _txtController.text = value;
                                 });
                               },
                             ),
@@ -116,7 +144,9 @@ class _WriteCardElementState extends State<WriteCardElement> {
                             {
                               showCardBloc.dispatch(PageEvent.previous),
                               //List<레시피>[_idx]의 이전단계 데이터를 출력
-                            }
+                            },
+                            setButtonImage(_idx),
+                            setRecipeSteps(_idx),
                         },
                       ),
                     )),
@@ -130,7 +160,7 @@ class _WriteCardElementState extends State<WriteCardElement> {
                           //TOOD:_idxMax 갱신-아니면 다른 방법으로 recipeStep추가
                           if (_idx >= _idxMax - 1)
                             {
-                              _idxMax++,
+                              increaseIdxMax(),
                               recipeStep.add(WriteRecipeProcessModel(
                                   null, null, null, null, 1234, null, _idx)),
                               showCardBloc.dispatch(PageEvent.next),
@@ -138,6 +168,8 @@ class _WriteCardElementState extends State<WriteCardElement> {
                             },
                           //List<레시피>[_idx]의 다음단계 데이터 출력
                           showCardBloc.dispatch(PageEvent.next),
+                          setButtonImage(_idx),
+                          setRecipeSteps(_idx),
                         },
                       ),
                     )),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/fixed/card/WriteCardElement.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
+import 'package:pac_app/model/RecipeModel.dart';
 
 class RecipeWritePage extends StatefulWidget {
   RecipeWritePage({Key key, this.title}) : super(key: key);
@@ -11,12 +12,15 @@ class RecipeWritePage extends StatefulWidget {
 }
 
 class _RecipeWritePageState extends State<RecipeWritePage> {
+  RecipeModel _recipe = new RecipeModel();
+  TextEditingController _txtController = new TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ShowCardBloc>(
         builder: (context) => ShowCardBloc(),
         child: ListView(children: <Widget>[
-          //레시피 내용 작성 시, 자연스럽게 키보드에 화면이 밀려올라가게 하기 위해서 ListView사용
+          //TODO:레시피process리스트랑 레시피개요(recipeModel) 전송할 FAB 추가
           Container(
               height: 50,
               child: Card(
@@ -26,9 +30,11 @@ class _RecipeWritePageState extends State<RecipeWritePage> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: TextField(
+                      controller: _txtController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: '레시피 제목'),
                       cursorColor: Colors.amber,
+                      onChanged: _recipe.setTitle(_txtController.text),
                     ),
                   ))),
           Container(
