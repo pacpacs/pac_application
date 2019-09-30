@@ -37,11 +37,10 @@ class _BlocState {
   final AuthBloc authBloc;
   final RegisterBloc registerBloc;
   final IngredientBloc ingredientBloc;
-
   _BlocState({
     this.loginValidatorBloc,
     this.authBloc, this.registerBloc,
-    this.ingredientBloc
+    this.ingredientBloc,
   });
 
 }

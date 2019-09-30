@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../AuthState.dart';
+import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
-import '../fixed/appBar.dart';
-import '../fixed/IngredientInfo/IngredientsList.dart';
-import '../fixed/IngredientInfo/Ingredient.dart';
-import '../fixed/IngredientInfo/IngredientChip.dart';
-import '../fixed/IngredientInfo/IngredientSet.dart';
+import 'package:pac_app/fixed/appBar.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientsList.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientSet.dart';
 import 'package:csv/csv.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
-import 'searchResultPage.dart';
+import 'package:pac_app/pages/searchResultPage.dart';
 class SelectIngredientPage extends StatefulWidget {
   @override
   _SelectIngredientPageState createState() => new _SelectIngredientPageState();

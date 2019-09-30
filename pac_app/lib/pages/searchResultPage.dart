@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
 import 'package:pac_app/fixed/ingredientInfo/IngredientChip.dart';
@@ -67,7 +66,7 @@ class _searchResultPageState extends State<searchResultPage> {
             ),
 
             //TODO:wrap을 열고닫을 수 있게.. "더보기"버튼.
-
+            IngredientChip(),
             Divider(),
 
             //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는 FAB

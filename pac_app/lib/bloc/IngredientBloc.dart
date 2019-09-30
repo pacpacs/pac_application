@@ -1,11 +1,17 @@
 import 'dart:async';
-import '../fixed/IngredientInfo/Ingredient.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
 import 'package:bloc_provider/bloc_provider.dart';
-import '../fixed/IngredientInfo/IngredientChip.dart';
-class IngredientBloc extends Object{
-  final controller = StreamController<Ingredient>.broadcast();
-  Stream<dynamic> get getIngredient => controller.stream;
-  Function(Ingredient) get setIngredient => controller.sink.add;
+//class tagWithIngredient{
+//  bool tag;
+//  Ingredient ingredient;
+//  tagWithIngredient(this.tag, this.ingredient);
+//}
+class IngredientBloc extends Bloc{
+  final _active = StreamController<dynamic>.broadcast();
+
+  Stream<dynamic> get getActive => _active.stream;
+
+  Function(Ingredient) get setActive => _active.sink.add;
 
   IngredientBloc(){
     init();
@@ -16,6 +22,6 @@ class IngredientBloc extends Object{
 
   }
   void dispose(){
-    controller.close();
+    _active.close();
   }
 }

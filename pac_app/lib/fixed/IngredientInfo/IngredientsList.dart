@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'IngredientItem.dart';
-import 'Ingredient.dart';
-import '../ingredientInfo/IngredientChip.dart';
-import '../../main.dart';
-import '../../pages/searchResultPage.dart';
-import 'IngredientSet.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientItem.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientSet.dart';
 
 class IngredientsList extends StatefulWidget {
   List<Ingredient> ingredient;
@@ -23,6 +20,7 @@ class _IngredientsListState extends State<IngredientsList> {
   @override
   //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
+    print("\n");
     bool buttonEvent(Ingredient ingredient) {
       for(var code in CategoryCode.values){
         if(but[code.index] && ingredient.categoryCodeName == code)
