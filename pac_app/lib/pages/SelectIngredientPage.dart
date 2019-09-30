@@ -48,7 +48,6 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
 
     final authBloc = MultipleBlocProvider.of(context).authBloc;
     final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
-
     return new Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight),

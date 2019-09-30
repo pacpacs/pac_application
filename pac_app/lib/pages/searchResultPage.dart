@@ -1,9 +1,10 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
-import 'package:pac_app/fixed/ingredientInfo/IngredientChip.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
@@ -20,16 +21,11 @@ class _searchResultPageState extends State<searchResultPage> {
   void initState() {
     super.initState();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     //final AddListItemBloc _addItemBloc = BlocProvider.of(context);
     final bloc = MultipleBlocProvider.of(context).authBloc;
+    MultipleBlocProvider.of(context).ingredientBloc.setActive(null);
     List<CustomListItem> searchResult = [
       CustomListItem(
           'https://i.imgur.com/Z1LR83S.png', 'big quoka', 'very lovable'),
@@ -69,7 +65,7 @@ class _searchResultPageState extends State<searchResultPage> {
             IngredientChip(),
             Divider(),
 
-            //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는 FAB
+            //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는s FAB
             Expanded(
               child: new ListView.builder(
                 itemCount: searchResult.length,

@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:rxdart/rxdart.dart';
 //class tagWithIngredient{
 //  bool tag;
 //  Ingredient ingredient;
 //  tagWithIngredient(this.tag, this.ingredient);
 //}
 class IngredientBloc extends Bloc{
-  final _active = StreamController<dynamic>.broadcast();
+  final _active = BehaviorSubject<Ingredient>();
 
-  Stream<dynamic> get getActive => _active.stream;
+  Stream<Ingredient> get getActive => _active.stream;
 
   Function(Ingredient) get setActive => _active.sink.add;
 
@@ -19,7 +20,6 @@ class IngredientBloc extends Bloc{
   }
 
   init(){
-
   }
   void dispose(){
     _active.close();
