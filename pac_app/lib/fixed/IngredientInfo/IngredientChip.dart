@@ -58,3 +58,27 @@ class _IngredientChipState extends State<IngredientChip>{
 }
 
 
+class ChipListView extends StatelessWidget{
+
+  List<Chip> selectChip = [];
+  selectedChip(){
+    for (String chip in chipName){
+      selectChip.add(
+        new Chip(
+          label: Text(chip),
+        )
+      );
+    }
+    return selectChip;
+  }
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Wrap(
+      spacing: 4.0,
+      runSpacing: 0.0,
+      children: selectedChip(),
+    );
+  }
+
+}

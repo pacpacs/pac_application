@@ -62,7 +62,7 @@ class _searchResultPageState extends State<searchResultPage> {
             ),
 
             //TODO:wrap을 열고닫을 수 있게.. "더보기"버튼.
-            IngredientChip(),
+            ChipListView(),
             Divider(),
 
             //to-do:무한스크롤 커스텀아이템 리스트 +맨위로 가는s FAB
