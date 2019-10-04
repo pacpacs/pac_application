@@ -26,6 +26,6 @@ class AuthBloc implements Bloc {
 
   @override
   dispose() {
-    _authentication.close();
+    
   }
 }

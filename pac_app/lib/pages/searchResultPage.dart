@@ -7,6 +7,7 @@ import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
+import 'package:pac_app/fixed/profile/User.dart';
 import 'package:pac_app/pages/recipeShowPage.dart';
 
 class searchResultPage extends StatefulWidget {
@@ -48,6 +49,7 @@ class _searchResultPageState extends State<searchResultPage> {
 
     final authBloc = MultipleBlocProvider.of(context).authBloc;
     final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+    User user;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -58,7 +60,7 @@ class _searchResultPageState extends State<searchResultPage> {
                 return appBar.getAppBarWithAuthAdmin(context, authBloc);
               } else if (snapshot.data == AuthState.user) {
                 return appBar.getAppBarWithAuthUser(
-                    context, authBloc, loginBloc.getCurrentUserData);
+                    context, authBloc, loginBloc.getCurrentUserData,loginBloc);
               } else {
                 return appBar.getAppBarWithNoneUser(context);
               }
@@ -115,7 +117,7 @@ class _searchResultPageState extends State<searchResultPage> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute<Null>(
                             builder: (BuildContext context) {
-                          return RecipeShowPage();
+                          return RecipeShowPage(user);
                         }));
                       },
                     );

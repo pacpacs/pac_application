@@ -60,7 +60,7 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
               if(snapshot.data==AuthState.admin){
                 return appBar.getAppBarWithAuthAdmin(context, authBloc);
               }else if(snapshot.data==AuthState.user){
-                return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData);
+                return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData,loginBloc);
               }else {
                 return appBar.getAppBarWithNoneUser(context);
               }

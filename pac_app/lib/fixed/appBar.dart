@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/AuthBloc.dart';
+import 'package:pac_app/bloc/LoginValidatorBloc.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import 'package:pac_app/fixed/profile/User.dart';
 import 'package:pac_app/model/UserModel.dart';
@@ -26,7 +27,7 @@ class appBar {
   //   }
   // }
 
-  static AppBar getAppBar(BuildContext context, AuthBloc bloc) {
+  static AppBar getAppBar(BuildContext context, AuthBloc bloc, LoginValidatorBloc loginBloc) {
     AuthState authState;
     bloc.authentication.listen((value) {
       switch (value) {
@@ -37,7 +38,7 @@ class appBar {
           UserModel user = MultipleBlocProvider.of(context)
               .loginValidatorBloc
               .currentUser as UserModel;
-          return getAppBarWithAuthUser(context, bloc, user);
+          return getAppBarWithAuthUser(context, bloc, user,loginBloc);
 
           break;
         case AuthState.noneUser:
@@ -63,7 +64,7 @@ class appBar {
   }
 
   static AppBar getAppBarWithAuthUser(
-      BuildContext context, AuthBloc bloc, UserModel user) {
+      BuildContext context, AuthBloc bloc, UserModel user, LoginValidatorBloc loginBloc) {
     final theme = Theme.of(context);
     User currentUser = User(user: user);
     return AppBar(
@@ -86,6 +87,7 @@ class appBar {
           splashColor: Colors.blueAccent,
           onPressed: () {
             bloc.setAuthentication(AuthState.noneUser);
+            loginBloc.setCurrentUser(null);
           },
           child: Text(
             "Logout",

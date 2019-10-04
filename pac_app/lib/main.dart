@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/fixed/profile/User.dart';
+import 'package:pac_app/model/UserModel.dart';
 import 'AuthState.dart';
 import 'fixed/appBar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,20 +66,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = MultipleBlocProvider.of(context).authBloc;
+    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+    User user = new User(user:loginBloc.getCurrentUserData );
     //TODO: 필요한 widget List 추가하기
     List<Widget> _widgetOptions = <Widget>[
       BlocProvider( builder: (context) => CommunityBloc(httpClient: http.Client())..dispatch(Fetch()),
-      child : communityPage()),
+      child : communityPage(user)),
       homePage(_changeView),
-
-      RecipeShowPage(),
+      RecipeShowPage(user),
       Text('Select Ingredient Page')
 
       //or you can add more widget
     ];
 
-    final authBloc = MultipleBlocProvider.of(context).authBloc;
-    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
+    
     return MultipleBlocProvider(
         child: Scaffold(
             appBar: PreferredSize(
@@ -88,8 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
         if(snapshot.data==AuthState.admin){
           return appBar.getAppBarWithAuthAdmin(context, authBloc);
         }else if(snapshot.data==AuthState.user){
-          return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData);
+          return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData,loginBloc);
         }else {
+          user=null;
           return appBar.getAppBarWithNoneUser(context);
         }
       },
