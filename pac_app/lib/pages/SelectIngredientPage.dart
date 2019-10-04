@@ -34,7 +34,9 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
   @protected
   @mustCallSuper
   void initState() {
+    print("init2");
     super.initState();
+    IngredientChip().setInitChip();
     loadAsset().then((datas) {
         for(var data in datas){
           _ingredient.add(new Ingredient(data[0].toString(),CategoryCode.values[int.parse(data[1].toString())-1],false));

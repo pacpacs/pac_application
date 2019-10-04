@@ -15,7 +15,7 @@ class RecipeFunction {
       List<String> selectedChipList) async {
     //TODO: 서버주소로 옮기기
     var parameters = makeParam(selectedChipList);
-    var url = 'http://211.221.212.72:8080/recipes/getResult?' + parameters;
+    var url = 'http://192.168.1.6:8080/recipes/getResult?' + parameters;
     await http.get(url).then((response) => {
           if (response.statusCode == 200)
             {

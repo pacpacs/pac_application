@@ -22,6 +22,6 @@ class IngredientBloc extends Bloc{
   init(){
   }
   void dispose(){
-    // _active.close();
+     _active.close();
   }
 }

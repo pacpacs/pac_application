@@ -58,7 +58,7 @@ class CommunityBloc extends Bloc<CommunityEvent,CommunityState>{
   Future<List<PostListItem>>_fetchCommunitys() async{
 
     print("Fetch STARTED");
-    final response = await httpClient.get("http://192.168.0.6:8080/recipes/");
+    final response = await httpClient.get("http://192.168.1.6:8080/recipes/");
     //final response = await httpClient.get("http://localhost:27071/recipe/list");
 //TODO : 실제 서버 연결
     if(response.statusCode == 200){
