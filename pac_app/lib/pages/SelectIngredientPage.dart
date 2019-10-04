@@ -41,6 +41,7 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
         }
         setState(() {});
     });
+  
   }
 
   @override

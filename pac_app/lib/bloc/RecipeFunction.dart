@@ -16,7 +16,6 @@ class RecipeFunction {
     //TODO: 서버주소로 옮기기
     var parameters = makeParam(selectedChipList);
     var url = 'http://211.221.212.72:8080/recipes/getResult?' + parameters;
-    print(url);
     await http.get(url).then((response) => {
           if (response.statusCode == 200)
             {

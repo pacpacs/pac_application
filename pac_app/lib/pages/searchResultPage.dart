@@ -38,7 +38,6 @@ class _searchResultPageState extends State<searchResultPage> {
       if (data != null) {
         searchResult = data;
       }
-
       setState(() {});
     });
   }
@@ -102,7 +101,7 @@ class _searchResultPageState extends State<searchResultPage> {
                 itemCount: searchResult.length,
                 itemBuilder: (BuildContext cnxt, int index) {
                   final item = searchResult[index];
-                  print(searchResult.length);
+    
                   if (searchResult.length == 0) {
                     return  ListTile(title:Text("검색 결과가 없습니다"));
                   } else {
