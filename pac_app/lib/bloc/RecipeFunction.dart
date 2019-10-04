@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:pac_app/fixed/CustomListItem.dart';
+import 'package:pac_app/model/RecipeModel.dart';
 import 'package:query_params/query_params.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,11 +12,22 @@ class RecipeFunction {
     return recipeModelList;
   }
 
+  Future<List<RecipeModel>> getRecipModelList(int recipeId)async{
+    var url = 'http://211.221.212.72:8080/recipes/specificRecipe?recipeNo'+recipeId.toString();
+    List<RecipeModel> recipeModelListWithProcess;
+    await http.get(url).then((response)=>{
+      if(response.statusCode==200){
+        makeRecipeModelByProcess(response.body);
+      }
+    });
+    return recipeModelListWithProcess;
+  }
+
   Future<List<CustomListItem>> getRecipeModelListBySelectedChipList(
       List<String> selectedChipList) async {
     //TODO: 서버주소로 옮기기
     var parameters = makeParam(selectedChipList);
-    var url = 'http://192.168.1.6:8080/recipes/getResult?' + parameters;
+    var url = 'http://211.221.212.72:8080/recipes/getResult?' + parameters;
     await http.get(url).then((response) => {
           if (response.statusCode == 200)
             {
