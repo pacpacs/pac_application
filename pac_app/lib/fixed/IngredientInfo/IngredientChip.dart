@@ -1,36 +1,84 @@
 import 'package:flutter/material.dart';
-import 'Ingredient.dart';
-import 'IngredientSet.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientSet.dart';
+import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 
 //TODO:checkedIngr의 초기 쓰레기값 없이도 업데이트 할 수 있도록
-Map<String, Ingredient> checkedIngr = {'999':Ingredient('default', CategoryCode.ETC, false)};
-List<Chip> BBB = [];
+List<Chip> chipList = [];
+List<String> chipName = [];
+class IngredientChip extends StatefulWidget{
 
-class IngredientChip {
-  CategoryCode category;
-  String ingredientName;
-  IngredientChip(this.category, this.ingredientName);
+  @override
+  _IngredientChipState createState() => new _IngredientChipState();
 
+}
 
-  static generateChipList() {
-//TODO:makeDummyList 대신 재료선택bloc에서 Ingredient 가져와서 BBB에 add하기
-    checkedIngr.forEach((key, value) => BBB.add(generateIngredientChip(value.categoryCodeName, value.name)));
-    
-    return BBB;
-  }
+class _IngredientChipState extends State<IngredientChip>{
+  @override
+  bool check = false;
 
-  static generateIngredientChip(CategoryCode category, String name) {
-    IngredientChip generated = IngredientChip(category, name);
-    return new Chip(
-      avatar: CircleAvatar(
-        backgroundColor: ingredientSet(generated.category).setColor(),
-      ),
-      label: Text(name),
-      onDeleted: () {
-        //TODO:List<Chip>BBB에서 해당 Chip을 삭제하고,
-        //Map<String,Ingredient>checkedIngr에서도 해당 재료 찾아서 삭제해서 서버에다가 검색결과 달라고 또 하기
-        print('$name 는 삭제되고싶다.');
+  Widget build(BuildContext context) {
+    return StreamBuilder<dynamic>(
+      stream: MultipleBlocProvider.of(context).ingredientBloc.getActive,
+      builder: (context,snapshot){
+        if(snapshot.hasData){
+          if(!chipName.contains(snapshot.data.name)) {
+            chipList.add(makeChip(snapshot.data));
+            chipName.add(snapshot.data.name);
+          }else{
+            chipName.remove(snapshot.data.name);
+            chipList.removeWhere((item) => item.label.toString() == Text(snapshot.data.name).toString());
+          }
+        }
+        print(chipList.length);
+        return Wrap(
+          spacing: 4.0,
+          runSpacing: 0.0,
+          children: chipList,
+        );
+
       },
     );
   }
+
+  makeChip (Ingredient data){
+    return new Chip(
+      avatar: CircleAvatar(
+        backgroundColor: ingredientSet(data.categoryCodeName).setColor(),
+      ),
+      label: Text(data.name),
+      onDeleted: (){
+        setState(() {
+          MultipleBlocProvider.of(context).ingredientBloc.setActive(data);
+        });
+      },
+
+    );
+  }
+}
+
+
+class ChipListView extends StatelessWidget{
+
+  List<Chip> selectChip = [];
+  selectedChip(){
+    for (String chip in chipName){
+      selectChip.add(
+        new Chip(
+          label: Text(chip),
+        )
+      );
+    }
+    return selectChip;
+  }
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Wrap(
+      spacing: 4.0,
+      runSpacing: 0.0,
+      children: selectedChip(),
+    );
+  }
+
 }

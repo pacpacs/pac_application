@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pac_app/bloc/IngredientBloc.dart';
 import 'package:pac_app/bloc/LoginValidatorBloc.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
 import 'AuthBloc.dart';
 import 'RegisterBloc.dart';
 
@@ -16,7 +18,8 @@ class MultipleBlocProvider extends InheritedWidget {
   final blocState = new _BlocState(
     loginValidatorBloc: LoginValidatorBloc(),
     authBloc:AuthBloc(),
-    registerBloc:RegisterBloc()
+    registerBloc:RegisterBloc(),
+    ingredientBloc: IngredientBloc(),
   );
 
   MultipleBlocProvider({Key key, Widget child}) : super(key: key, child: child);
@@ -32,11 +35,12 @@ class MultipleBlocProvider extends InheritedWidget {
 class _BlocState {
   final LoginValidatorBloc loginValidatorBloc;
   final AuthBloc authBloc;
-  final RegisterBloc registerBloc;  
-
+  final RegisterBloc registerBloc;
+  final IngredientBloc ingredientBloc;
   _BlocState({
     this.loginValidatorBloc,
-    this.authBloc, this.registerBloc
+    this.authBloc, this.registerBloc,
+    this.ingredientBloc,
   });
 
 }

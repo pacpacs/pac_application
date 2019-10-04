@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'IngredientSet.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientSet.dart';
 
 class Ingredient {
   String name;

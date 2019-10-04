@@ -1,25 +1,27 @@
 import 'dart:async';
-import '../fixed/IngredientInfo/Ingredient.dart';
-import '../fixed/IngredientInfo/IngredientChip.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
+import 'package:bloc_provider/bloc_provider.dart';
+import 'package:rxdart/rxdart.dart';
+//class tagWithIngredient{
+//  bool tag;
+//  Ingredient ingredient;
+//  tagWithIngredient(this.tag, this.ingredient);
+//}
+class IngredientBloc extends Bloc{
+  final _active = BehaviorSubject<Ingredient>();
 
-class IngredientBloc{
-  final StreamController<Ingredient>controller = StreamController<Ingredient>();
+  Stream<Ingredient> get getActive => _active.stream;
+
+  Function(Ingredient) get setActive => _active.sink.add;
 
   IngredientBloc(){
-    controller.stream.listen(isData);
+    init();
+    //controller.stream.listen((data){IngredientChip();});
   }
 
+  init(){
+  }
   void dispose(){
-    controller.close();
+    _active.close();
   }
-  void isData(Ingredient data){
-    print(data.name);
-    checkedIngr.putIfAbsent(data.name, ()=>generateIngr(data));
-    print(checkedIngr.keys);
-  }
-
-  generateIngr(Ingredient a) {
-    return a;
-  }
-
 }

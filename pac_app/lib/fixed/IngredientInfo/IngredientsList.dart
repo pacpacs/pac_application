@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'IngredientItem.dart';
-import 'Ingredient.dart';
-import '../ingredientInfo/IngredientChip.dart';
-import '../../main.dart';
-import '../../pages/searchResultPage.dart';
-import 'IngredientSet.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientItem.dart';
+import 'package:pac_app/fixed/IngredientInfo/Ingredient.dart';
+import 'package:pac_app/fixed/IngredientInfo/IngredientSet.dart';
 
 class IngredientsList extends StatefulWidget {
   List<Ingredient> ingredient;
-  IngredientsList({this.ingredient});
+  IngredientsList(this.ingredient);
   @override
   _IngredientsListState createState() {
     return new _IngredientsListState();
@@ -18,11 +15,12 @@ class IngredientsList extends StatefulWidget {
 class _IngredientsListState extends State<IngredientsList> {
   Map<String, int> checkedList;
   Map<String, int> uncheckedList;
-  var but= [true, true, true, true, true];
+  var but= [true, true, true, true, true, true, true];
 
   @override
   //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
+    print("\n");
     bool buttonEvent(Ingredient ingredient) {
       for(var code in CategoryCode.values){
         if(but[code.index] && ingredient.categoryCodeName == code)
@@ -68,16 +66,6 @@ class _IngredientsListState extends State<IngredientsList> {
               return IngredientItem(ingredient);
             }).toList(),
           )),
-          //TODO : 클릭시 결과 화면으로 넘어가야함.
-          new RaisedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return searchResultPage();
-              }));
-            },
-            child: new Text('검색'),
-          )
         ],
       ),
     ));
