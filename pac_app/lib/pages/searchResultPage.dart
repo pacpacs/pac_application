@@ -5,6 +5,7 @@ import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pac_app/fixed/appBar.dart';
 import 'package:pac_app/fixed/CustomListItem.dart';
+import 'package:pac_app/pages/SelectIngredientPage.dart';
 
 class searchResultPage extends StatefulWidget {
   searchResultPage({Key key, this.title}) : super(key: key);
@@ -57,6 +58,12 @@ class _searchResultPageState extends State<searchResultPage> {
                     hintText: 'gone'),
                 onChanged: (String a) {
                   print('changed to ' + a);
+                },
+                onTap: (){
+                  Navigator.of(context).push(
+                      MaterialPageRoute<Null>(builder: (BuildContext context) {
+                        return SelectIngredientPage();
+                      }));
                 },
               ),
             ),
