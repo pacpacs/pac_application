@@ -14,7 +14,9 @@ class IngredientChip extends StatefulWidget{
   List<String> getSelectedChipName(){
     return chipName;
   }
-  setInitChip(){
+
+ 
+  void setInitChip(){
     chipList = [];
     chipName =[];
   }
