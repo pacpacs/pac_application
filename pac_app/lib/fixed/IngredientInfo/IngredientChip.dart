@@ -30,7 +30,6 @@ class _IngredientChipState extends State<IngredientChip>{
             chipList.removeWhere((item) => item.label.toString() == Text(snapshot.data.name).toString());
           }
         }
-        print(chipList.length);
         return Wrap(
           spacing: 4.0,
           runSpacing: 0.0,

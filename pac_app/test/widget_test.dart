@@ -47,7 +47,6 @@ class _TableLayoutState extends State<TableLayout> {
           child: Icon(Icons.refresh),
           onPressed: () async {
             await loadAsset();
-            print(data[1][0]);
           }),
       appBar: AppBar(
         title: Text("Table Layout and CSV"),

@@ -20,7 +20,6 @@ class _IngredientsListState extends State<IngredientsList> {
   @override
   //TODO : CatecoryCode에 배정할 숫자 Enum으로 바꿀 예정
   Widget build(BuildContext context) {
-    print("\n");
     bool buttonEvent(Ingredient ingredient) {
       for(var code in CategoryCode.values){
         if(but[code.index] && ingredient.categoryCodeName == code)

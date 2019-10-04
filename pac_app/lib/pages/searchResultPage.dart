@@ -1,5 +1,6 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:pac_app/AuthState.dart';
 import 'package:pac_app/bloc/MultipleBlocProvider.dart';
 import 'package:pac_app/fixed/IngredientInfo/IngredientChip.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +25,7 @@ class _searchResultPageState extends State<searchResultPage> {
   }
   @override
   Widget build(BuildContext context) {
-    //final AddListItemBloc _addItemBloc = BlocProvider.of(context);
-    final bloc = MultipleBlocProvider.of(context).authBloc;
+  
     MultipleBlocProvider.of(context).ingredientBloc.setActive(null);
     List<CustomListItem> searchResult = [
       CustomListItem(
@@ -33,9 +33,24 @@ class _searchResultPageState extends State<searchResultPage> {
       CustomListItem('https://i.imgur.com/Kv9nlEP.jpg', 'Terrifying Koala',
           'big and aggressive')
     ];
-
+    final authBloc = MultipleBlocProvider.of(context).authBloc;
+    final loginBloc = MultipleBlocProvider.of(context).loginValidatorBloc;
     return Scaffold(
-      appBar: appBar.getAppBar(context,bloc),
+      appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: StreamBuilder(
+            stream: authBloc.authentication,
+            builder: (context,snapshot){
+              if(snapshot.data==AuthState.admin){
+                return appBar.getAppBarWithAuthAdmin(context, authBloc);
+              }else if(snapshot.data==AuthState.user){
+                return appBar.getAppBarWithAuthUser(context, authBloc,loginBloc.getCurrentUserData);
+              }else {
+                return appBar.getAppBarWithNoneUser(context);
+              }
+            },
+          )// StreamBuilder
+      ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -55,15 +70,9 @@ class _searchResultPageState extends State<searchResultPage> {
                     border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                             const Radius.circular(50.0))),
-                    hintText: 'gone'),
-                onChanged: (String a) {
-                  print('changed to ' + a);
-                },
+                    hintText: 'search'),
                 onTap: (){
-                  Navigator.of(context).push(
-                      MaterialPageRoute<Null>(builder: (BuildContext context) {
-                        return SelectIngredientPage();
-                      }));
+                  Navigator.pop(context);
                 },
               ),
             ),
