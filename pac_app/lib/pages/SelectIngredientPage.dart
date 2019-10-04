@@ -38,9 +38,10 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
     loadAsset().then((datas) {
         for(var data in datas){
           _ingredient.add(new Ingredient(data[0].toString(),CategoryCode.values[int.parse(data[1].toString())-1],false));
-        };
+        }
         setState(() {});
     });
+  
   }
 
   @override
@@ -80,7 +81,7 @@ class _SelectIngredientPageState extends State<SelectIngredientPage> {
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      return searchResultPage();
+                      return searchResultPage( IngredientChip().getSelectedChipName());
                     }));
               },
               child: new Text('검색'),

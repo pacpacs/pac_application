@@ -11,12 +11,16 @@ class IngredientChip extends StatefulWidget{
   @override
   _IngredientChipState createState() => new _IngredientChipState();
 
+  List<String> getSelectedChipName(){
+    return chipName;
+  }
 }
 
 class _IngredientChipState extends State<IngredientChip>{
   @override
   bool check = false;
 
+ 
   Widget build(BuildContext context) {
     return StreamBuilder<dynamic>(
       stream: MultipleBlocProvider.of(context).ingredientBloc.getActive,
@@ -55,7 +59,6 @@ class _IngredientChipState extends State<IngredientChip>{
     );
   }
 }
-
 
 class ChipListView extends StatelessWidget{
 
