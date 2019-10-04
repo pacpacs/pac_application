@@ -14,12 +14,15 @@ class IngredientChip extends StatefulWidget{
   List<String> getSelectedChipName(){
     return chipName;
   }
+  setInitChip(){
+    chipList = [];
+    chipName =[];
+  }
 }
 
 class _IngredientChipState extends State<IngredientChip>{
   @override
   bool check = false;
-
  
   Widget build(BuildContext context) {
     return StreamBuilder<dynamic>(
