@@ -9,8 +9,6 @@ class RecipeWritePage extends StatefulWidget {
   final String title;
   @override
   _RecipeWritePageState createState() => _RecipeWritePageState();
-  //DATA:Recipe
-  //     _basic(=RecipeModel)/process(RecipeProcessModel)/ingredient(RecipeModel중 IngredientList?)
 }
 
 class _RecipeWritePageState extends State<RecipeWritePage> {
@@ -22,7 +20,7 @@ class _RecipeWritePageState extends State<RecipeWritePage> {
     return BlocProvider<ShowCardBloc>(
         builder: (context) => ShowCardBloc(),
         child: ListView(children: <Widget>[
-          //TODO:레시피process리스트랑 레시피개요(recipeModel) 전송할 FAB 추가+
+          //TODO:레시피process리스트랑 레시피개요(recipeModel) 전송할 FAB 추가
           Container(
               height: 50,
               child: Card(
