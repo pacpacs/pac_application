@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'package:pac_app/model/RecipeProcessModel.dart';
 import 'package:pac_app/fixed/card/ShowCardBloc.dart';
@@ -28,47 +29,55 @@ class _WriteCardElementState extends State<WriteCardElement> {
   TextEditingController _txtController = new TextEditingController(text: '');
 
   Future getImageFromGallery(int index) async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    //이미지 골라와서 리스트 두 개의 해당 idx에 저장,
+    var image = await FilePicker.getFilePath(type: FileType.IMAGE);
     if (image != null) {
       setImageList(index, image.toString());
       setState(() {
-        _image = Image.file(image);
-        print(image.toString());
+        _image = Image.file(File(image));
+        print(image);
       });
     }
   }
 
-setButtonImage(int idx){
-  setState(() {
-    _image = Image.file(recipeStepImage[idx]);
-  });
-}
+  setButtonImage(int idx) {
+    //버튼위에 이미지 올리기
+    setState(() {
+      if (recipeStepImage[idx] != null) {
+        print("셋버튼이미지>다음페이지 이미지 있을 때");
+        _image = Image.file(recipeStepImage[idx]);
+        print(recipeStepImage[idx]);
+      } else {
+        print("셋버튼이미지>다음페이지 이미지 없을 때");
+        _image = Image.asset('images/recipeStepImagePicker.jpg');
+      }
+    });
+  }
 
   setImageList(int index, String imagePath) {
-    //recipeStepImage Setting
-    if (index >= recipeStepImage.length) {
-      recipeStepImage.add(File(imagePath));
-    } else {
+    //TODO:절대경로로 저장하기 file picker 로 하기... 이미지피커말고...
+    setState(() {
+      //recipeStepImage에 이미지 저장
       recipeStepImage[index] = File(imagePath);
-    }
-    //recipeStep Setting
-    if (index >= recipeStep.length) {
-      recipeStep.add(new WriteRecipeProcessModel(
-          null, imagePath, null, null, null, null, null));
-    } else {
+
+      //recipeStep에 이미지 path 저장
+      print("디버그:레시피스텝.이미지url=" + imagePath);
       recipeStep[index].stre_step_image_url = imagePath;
-    }
+    });
   }
 
   setRecipeSteps(int index) {
+    //index번째 단계 출력
     setState(() {
-      if (recipeStep[index] != null) {
+      if (recipeStep[index].cooking_dc != null) {
         _txtController.text = recipeStep[index].cooking_dc;
+      } else if (recipeStep[index].stre_step_image_url != null) {
         _image = Image.file(recipeStepImage[index]);
       } else {
-        _txtController.text = null;
+        _txtController.clear();
         _image = Image.asset('images/recipeStepImagePicker.jpg');
       }
+      print("SET RECIPE STEPS OF PAGE " + (index).toString());
     });
   }
 
@@ -83,6 +92,7 @@ setButtonImage(int idx){
     final ShowCardBloc showCardBloc = BlocProvider.of<ShowCardBloc>(context);
     recipeStep
         .add(WriteRecipeProcessModel(null, null, null, null, null, null, null));
+    recipeStepImage.add(null);
     return BlocBuilder<ShowCardBloc, int>(
       builder: (context, _idx) {
         return Container(
@@ -118,12 +128,13 @@ setButtonImage(int idx){
                               cursorColor: Colors.amber,
                               onSubmitted: (value) {
                                 setState(() {
+                                  recipeStep[_idx].cooking_dc = value;
                                   if (recipeStep[_idx].cooking_dc != null) {
                                     _txtController.text =
                                         recipeStep[_idx].cooking_dc;
+                                  } else {
+                                    _txtController.text = value;
                                   }
-                                  recipeStep[_idx].cooking_dc = value;
-                                  _txtController.text = value;
                                 });
                               },
                             ),
@@ -144,9 +155,9 @@ setButtonImage(int idx){
                             {
                               showCardBloc.dispatch(PageEvent.previous),
                               //List<레시피>[_idx]의 이전단계 데이터를 출력
+                              setRecipeSteps(_idx-1),
+                              setButtonImage(_idx-1)
                             },
-                            setButtonImage(_idx),
-                            setRecipeSteps(_idx),
                         },
                       ),
                     )),
@@ -157,19 +168,18 @@ setButtonImage(int idx){
                         icon: Icon(Icons.arrow_right),
                         iconSize: 40,
                         onPressed: () => {
-                          //TOOD:_idxMax 갱신-아니면 다른 방법으로 recipeStep추가
+                          //List<레시피>[_idx]의 다음단계 데이터 출력
+                          showCardBloc.dispatch(PageEvent.next),
                           if (_idx >= _idxMax - 1)
                             {
                               increaseIdxMax(),
                               recipeStep.add(WriteRecipeProcessModel(
                                   null, null, null, null, 1234, null, _idx)),
-                              showCardBloc.dispatch(PageEvent.next),
+                              recipeStepImage.add(null),
                               print('레시피 스텝 갯수 : $_idxMax')
                             },
-                          //List<레시피>[_idx]의 다음단계 데이터 출력
-                          showCardBloc.dispatch(PageEvent.next),
-                          setButtonImage(_idx),
-                          setRecipeSteps(_idx),
+                          setButtonImage(_idx+1),
+                          setRecipeSteps(_idx+1),
                         },
                       ),
                     )),
